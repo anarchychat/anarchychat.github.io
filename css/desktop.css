@@ -21,6 +21,10 @@
   flex-direction: column-reverse;
 }
 
+#secondChatServer {
+ height: 100%;
+}
+
 #messages {
  scrollbar-color: transparent rgba(255, 255, 255, 0.05);
  scrollbar-width: none;
@@ -45,7 +49,6 @@
  height: calc(100% - 50px);
  position: absolute;
  top: 50px;
- :;-
  color: transparent rgba(255, 255, 255, 0.05);
  scrollbar-width: none;
 }
@@ -54,7 +57,6 @@
  height: calc(100% - 50px);
  position: absolute;
  top: 50px;
- :;-
  color: transparent rgba(255, 255, 255, 0.05);
  scrollbar-width: none;
  right: 0px;
@@ -62,6 +64,14 @@
  width: 400px;
   /* semi-transparent */
  z-index: 100;
+}
+.chatalt3 {
+ backdrop-filter: blur(9px);
+ height: 100%;
+ position: absolute;
+ top: 50px;
+ color: transparent rgba(255, 255, 255, 0.05);
+ scrollbar-width: none;
 }
 .container {
   display: flex;
