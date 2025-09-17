@@ -31,7 +31,7 @@ github_username:  jekyll
 permalink: /:title
 
 # Build settings
-theme: iogames-fancy
+remote_theme: script26/iogames-fancy
 #theme: minima
 plugins:
   - jekyll-feed
