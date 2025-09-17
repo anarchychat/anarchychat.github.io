@@ -36,6 +36,7 @@ remote_theme: script26/iogames-fancy
 plugins:
   - jekyll-feed
   - jekyll-paginate
+  - jekyll-sitemap
 
 collections:
   games:
