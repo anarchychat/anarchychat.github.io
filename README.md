@@ -9,6 +9,12 @@ did you guys know anarchy chat let's you block any person!!!!!1!! 🔥💯💯�
 
 https://anarchychats.com
 
+https://anarchychat.github.io
+
+https://anarchychat.nekoweb.org
+
+https://anarchychat.neocities.org
+
 ### jekyll theme
 https://github.com/script26/iogames-fancy
 
