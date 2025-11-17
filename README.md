@@ -18,8 +18,8 @@ https://anarchychat.neocities.org
 ### jekyll theme
 https://github.com/script26/iogames-fancy
 
-### backend code of chat server:
-https://github.com/tkrclient/iogames-chat
+### backend code of chat server (python, picows):
+https://github.com/tkrclient/pygames-chat
 
 ### backend code of drawing/whiteboard server:
 https://github.com/tkrclient/iogames-draw
