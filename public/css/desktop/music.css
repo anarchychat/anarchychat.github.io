@@ -1,0 +1,41 @@
+.music-page {
+  position: fixed;
+  right: -100%;
+  width: calc(100% - 50px);
+  height: calc(100% - 50px);
+  /* background-color: rgba(26, 27, 30, 0.6); */
+  /* backdrop-filter: blur(9px); */
+  opacity: 0;
+  transition: right 0.75s ease, opacity 0.2s ease;
+  position: absolute;
+}
+
+.music-page.active {
+  right: 0px;
+  opacity: 1;
+  transition: right 0.3s ease, opacity 0.5s ease 0.1s;
+}
+
+#playPauseBtn {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.innerMusicPage {
+  padding: 1.5rem 1rem 0.5rem 1rem;
+}
+
+.music-ib {
+  backdrop-filter: blur(3px);
+  background-color: #1d1d1dcc;
+  width: 200px;
+  box-sizing: border-box;
+  border: 1px solid #ffffff0d;
+  border-radius: .5rem;
+  color: #ffffffe6;
+  font: inherit;
+  line-height: inherit;
+  padding: .5rem;
+  line-height: 1em;
+  height: 40px;
+}

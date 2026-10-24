@@ -1,0 +1,43 @@
+{
+  "name": "anarchychat",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"next dev\" \"tsx chat.ts\" \"tsx draw.ts\" \"tsx dm.ts\" \"tsx vc.ts\" \"tsx dvc.ts\"",
+    "build": "next build",
+    "start": "concurrently \"tsx chat.ts\" \"tsx draw.ts\" \"tsx dm.ts\" \"tsx vc.ts\" \"tsx dvc.ts\"",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "next": "^16.4.0",
+    "peerjs": "^1.5.5",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3",
+    "ws": "^8.21.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/ws": "^8.18.1",
+    "concurrently": "^10.0.5",
+    "eslint-config-next": "^16.4.2",
+    "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.23.13",
+    "typescript": "^5"
+  },
+  "allowScripts": {
+    "sqlite@5.1.1": true,
+    "better-sqlite3@13.0.3": true,
+    "esbuild@0.28.2": true,
+    "unrs-resolver@1.12.2": true,
+    "better-sqlite3@12.11.1": true,
+    "prisma@7.10.0": true,
+    "@prisma/engines@7.10.0": true
+  }
+}

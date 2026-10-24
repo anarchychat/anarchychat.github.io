@@ -1,0 +1,92 @@
+#navbar {
+  width: 100%;
+  grid-area: nav;
+  display: grid;
+  grid-template-areas:
+    "logo image button";
+  grid-template-columns: 225px auto 225px;
+  grid-template-rows: 80px;
+  align-items: center;
+  height: 80px;
+  z-index: 100;
+}
+
+#gridLayer {
+  display: grid;
+  grid-template-areas:
+    "nav nav"
+    "sidebar mid"
+    "sidebar mid"
+    "sidebar mid";
+  grid-template-columns: 50px auto;
+  grid-template-rows: auto auto 1fr auto;
+  height: 100%;
+  width: 100%;
+}
+
+.titleName {
+  font-size: 20px;
+  font-weight: bold;
+}
+.subTitleName {
+  font-size: 15px;
+  color: grey;
+}
+
+.logo {
+  font-size:1.5rem;
+  font-weight:bold
+}
+
+.logo a .anarchychats,
+.logo a:visited .anarchychats {
+  color: white;
+}
+
+.logo a .com,
+.logo a:visited .com {
+  color: #ff9999;
+}
+
+#logo-image {
+  grid-area: image;
+  font-weight: 500;
+  display: grid;
+  height: 80px;
+}
+
+#logo-style {
+  grid-area: logo;
+  font-weight: 500;
+  display: grid;
+  grid-template-areas:
+  "logo-top"
+  "logo-bottom";
+  grid-template-rows: 40px 40px;
+  margin: 0;
+}
+
+.logotkr {
+  width: auto;
+  vertical-align: middle;
+  display: inline-block;
+  z-index: -10;
+  justify-self: center;
+  height: 80px;
+  margin-top: 0px;
+  opacity: 100%;
+}
+
+.logo-top {
+  grid-area: logo-top;
+  display: flex;
+  align-items: flex-end;
+  padding-left: 0.50rem;
+}
+
+.logo-below {
+  grid-area: logo-bottom;
+  display: flex;
+  align-items: flex-start;
+  padding-left: 0.50rem
+}

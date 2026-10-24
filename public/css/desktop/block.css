@@ -1,0 +1,130 @@
+.blocksidebar {
+  white-space: nowrap;
+  /* position: absolute; */
+  left: 322px;
+  height: 100%;
+  bottom: 43px;
+  width: 100%;
+  overflow-y: hidden;
+}
+
+.blockedUsersListClass {
+  /* position: absolute; */
+  left: 325px;
+  top: 72%;
+  /* transform: translateY(-50%); */
+  color: rgb(255, 255, 255);
+  padding: 5px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 5px;
+  font-weight: 200;
+  font-size: 12px;
+  overflow-wrap: break-word;
+  /* opacity: 0.9; */
+  overflow-x: scroll;
+  max-width: 126px;
+  backdrop-filter: blur(3px);
+  background-color: rgba(29, 29, 29, 0.8);
+  scrollbar-color: transparent rgba(255, 255, 255, 0);
+  scrollbar-width: none;
+}
+
+.blockInputClass {
+  /* position: absolute; */
+  /* left: 325px; */
+  /* top: 79%; */
+  /* transform: translateY(-50%); */
+  color: rgb(255, 255, 255);
+  padding: 5px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 5px;
+  width: 10px;
+  backdrop-filter: blur(3px);
+  background-color: rgba(29, 29, 29, 0.8);
+  width: 200px;
+}
+
+.unblockInputClass {
+  /* position: absolute; */
+  /* left: 325px; */
+  /* top: 87%; */
+  /* transform: translateY(-50%); */
+  color: rgb(255, 255, 255);
+  padding: 5px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 5px;
+  width: 10px;
+  backdrop-filter: blur(3px);
+  background-color: rgba(29, 29, 29, 0.8);
+  width: 200px;
+}
+
+.unblockAllButtonClass {
+  /* position: absolute; */
+  left: 325px;
+  top: 95%;
+  /* transform: translateY(-50%); */
+  color: rgb(255, 255, 255);
+  padding: 5px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 5px;
+  cursor: pointer;
+  backdrop-filter: blur(3px);
+  background-color: rgba(29, 29, 29, 0.8);
+}
+
+.block {
+  margin:1rem
+}
+
+.block-page {
+  position: fixed;
+  right: -100%;
+  width: calc(100% - 50px);
+  height: calc(100% - 50px);
+  /* background-color: rgba(26, 27, 30, 0.6); */
+  /* backdrop-filter: blur(9px); */
+  opacity: 0;
+  transition: right 0.75s ease, opacity 0.2s ease;
+  position: absolute;
+}
+
+.block-page.active {
+  right: 0px;
+  opacity: 1;
+  transition: right 0.3s ease, opacity 0.5s ease 0.1s;
+}
+
+.colorPickerClass {
+	/* position: absolute; */
+	/* left: 325px; */
+	z-index: 1;
+	padding: 5px;
+	border: 1px solid rgba(255,255,255,0.15);
+	border-radius: 5px;
+	color: rgb(255, 255, 255);
+	backdrop-filter: blur(3px);
+	top: 64%;
+	background-color: rgba(29, 29, 29, 0.8);
+}
+
+.innerBlockPage {
+  padding: 1.5rem 1rem 0.5rem 1rem;
+}
+
+.sidebars {
+  white-space:nowrap;
+  height: 100%;
+}
+
+.sidebars .header {
+  /* color: #fc0; */
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 1.5rem 1rem 0.5rem 1rem;
+  /* -webkit-background-clip: text; */
+  /* display: none; */
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
+  font-weight: bold;
+}

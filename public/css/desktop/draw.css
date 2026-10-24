@@ -1,0 +1,349 @@
+.drawClass {
+  width: 100%;
+  padding: 10px;
+  right: -100%;
+  transition: right 0.75s ease, opacity 0.2s ease;
+  position: absolute;
+  opacity: 0;
+  flex-direction: column;
+  display: flex;
+  height: calc(100% - 30px);
+  gap: 10px;
+}
+
+.drawClass.active {
+  right: 0px;
+  opacity: 1;
+  transition: right 0.3s ease, opacity 0.5s ease 0.1s;
+}
+
+.draw-page {
+  position: fixed;
+  right: -100%;
+  width: calc(100% - 50px);
+  height: calc(100% - 50px);
+  /* background-color: rgba(26, 27, 30, 0.6); */
+  /* backdrop-filter: blur(9px); */
+  opacity: 0;
+  transition: right 0.75s ease, opacity 0.2s ease;
+}
+
+.draw-page.active {
+  right: 0px;
+  opacity: 1;
+  transition: right 0.3s ease, opacity 0.5s ease 0.1s;
+}
+
+/*
+ * Canvas
+ */
+
+.colorpicker-draw { 
+  border-radius: 10px; 
+  width: 48px;
+  height: 48px;
+  background-color: black;
+  background-color: rgb(151, 190, 136);
+  border-color: rgba(0, 0, 0, 0.17);
+  border-width: thick;
+  z-index: 2;
+  border-style: solid;
+}
+
+.whiteboard {
+  place-items: center;
+  place-content: center;
+  place-self: center;
+  /* position: fixed;
+  left: 0;
+  top: 0; */
+  z-index: 1;
+  /* margin: 10px; */
+  /* border: thick solid #d7d7d799; */
+  border-radius: 10px;
+  background-color: #00000051;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  image-rendering: pixelated;
+}
+
+.colors {
+	left: 0px;
+	top: 0px;
+  z-index: 2;
+}
+
+.eraser {
+  color: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  z-index: 2; 
+  border-radius: 10px; 
+  width: 48px;
+  height: 48px;
+  font-size: 30px;
+}
+
+.wipe {
+  width: 48px;
+  height: 48px;
+  color: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  z-index: 2;
+  font-size: 30px;
+}
+
+.neon {
+  width: 96px;
+  height: 48px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  z-index: 2;
+}
+
+.checkmark {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  z-index: 2;
+  font-size: 30px;
+}
+
+.cancel {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  z-index: 2;
+  font-size: 30px;
+}
+
+.backarrow {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  z-index: 2;
+  font-size: 30px;
+}
+
+.on {
+  background-color: #d7d7d799;
+  color: black;
+}
+
+#hoverButton {
+  border-radius: 5px;
+  vertical-align: middle;
+  display: inline-block;
+  user-select: none;
+  width: fit-content;
+  border-width: 1px;
+}
+
+#hoverButton:hover {
+  background-color: rgba(255,255,255,0.5) !important;
+}
+
+.hoverButton {
+  border-radius: 5px;
+  vertical-align: middle;
+  display: inline-block;
+  user-select: none;
+  width: fit-content;
+  background-color: transparent;
+  color: white;
+  border-color: transparent;
+  border-width: 1px;
+}
+
+.hoverButton:hover {
+  background-color: rgba(255,255,255,0.5) !important;
+}
+
+.top-row {
+  display: flex;
+  align-items: center;
+}
+
+.bottom-row {
+  display: flex;
+  align-items: center;
+  place-content: end;
+}
+
+.left-side {
+  display: flex;
+  align-items: center;
+}
+
+.right-side {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.slide-container {
+  border-radius: 5px;
+}
+
+.sliderbox {
+  width: 204px;
+  height: 48px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  z-index: 2;
+  font-size: 30px;
+  padding: 0px 20px 0px 20px;
+  place-content: center;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;  
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  background: #04AA6D;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #04AA6D;
+  cursor: pointer;
+}
+
+#draw-name-home {
+  margin: 0;
+  top: 1em;
+  left: 0px;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+  display: grid;
+  grid-template-areas: input button;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 48px;
+  height: 48px;
+}
+
+#draw-colorpicker-home {
+  /* color: rgb(53, 84, 192); */
+  width: 50px;
+  /* height: 21px; */
+  /* background-color: rgb(53, 84, 192); */
+  display: inline-block;
+  /* vertical-align: bottom; */
+  color: rgb(151, 190, 136);
+  width: 53.33px;
+  font-Weight: 600;
+  padding: 0.5rem; 
+  font-size: 28px; 
+  font-style: normal; 
+  display: block;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.middle {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 20px 0px 20px 0px;
+}
+
+.middle-whiteboard {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  padding: 20px 0px 20px 0px;
+  height: calc(100% - 174px);
+}
+
+.viewdrawings {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 30px);
+  right: -100%;
+  width: 100%;
+  transition: right 0.75s ease, opacity 0.2s ease;
+  position: absolute;
+  opacity: 0;
+}
+
+.viewdrawings.active {
+  right: 0px;
+  opacity: 1;
+  transition: right 0.3s ease, opacity 0.5s ease 0.1s;
+}
+
+.add {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  z-index: 2;
+  font-size: 30px;
+  place-content: center;
+}
+
+.spacing-margin {
+  margin: 10px;
+}
+
+.drawing-landscape {
+  /* border: thick solid #ffffff26; */
+  border-radius: 10px;
+  background-color: #00000051;
+  box-shadow: 30px;
+  padding: 40px 0px 40px 0px;
+  list-style: none;
+  place-content: center;
+  place-items: center;
+  place-self: center;
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+  width: 40%;
+}
+
+.drawing-border {
+  /* border: thick solid #d7d7d799; */
+  border-radius: 10px;
+  background-color: #00000051;
+}
+
+.hold-list {
+  place-items: center;
+  place-content: center;
+  place-self: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

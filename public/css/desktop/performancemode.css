@@ -1,0 +1,21 @@
+.performance-mode {
+  position: absolute;
+  right: 40px;
+  z-index: 100;
+  width: 248px;
+  background-color: green;
+  padding: 17px;
+  border-radius: 100px;
+  width: 275px;
+  box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.4);
+  transition: bottom 0.35s ease;
+  bottom: -100%;
+  text-align: center;
+}
+
+.performance-mode.active {
+  bottom: 40px;
+  transition: bottom 0.35s ease;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}

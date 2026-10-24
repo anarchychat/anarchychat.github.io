@@ -1,0 +1,162 @@
+.cover,
+.sidebars .item a .icon,
+.sidebars .item a:visited .icon,
+.featured .container .item,
+.tiles li a .image,
+.admin .thumb {
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:cover
+}
+
+article {
+  display:flex;
+  flex-direction:column
+}
+
+article header,
+article section {
+  box-sizing:border-box;
+  /* margin-bottom:1rem; */
+}
+
+article header {
+  text-align:center
+}
+
+article section+header {
+  margin-top:1rem
+}
+
+.paginator {
+  display:flex;
+  justify-content:center;
+  margin:2rem 0
+}
+
+.paginator .item {
+  margin-right:1rem
+}
+
+.paginator .item:last-child {
+  margin-right:0
+}
+
+.paginator .page,
+.paginator .current {
+  border-radius:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.5rem;
+  width:3.25rem;
+  height:3.25rem
+}
+
+.paginator .page {
+  background-color:rgba(255,255,255,0.1)
+}
+
+.paginator .page:hover {
+  background-color: #ffffff78;
+}
+
+.paginator .current {
+  background-color:rgba(255,255,255,0.9);
+  color:#000
+}
+
+.tiles {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap:1rem;
+  list-style-type:none;
+  margin:0;
+  padding:0
+}
+
+.tiles li {
+  margin:0;
+  padding:0
+}
+
+.tiles li a {
+  background-color:rgba(255,255,255,0.1);
+  border-radius:0.5rem;
+  box-shadow:0 0 0.5rem rgba(0,0,0,0.25);
+  display:flex;
+  flex-direction:column;
+  padding:0.5rem
+}
+
+.tiles li a .item {
+  margin-bottom:0.5rem
+}
+
+.tiles li a .item:last-child {
+  margin-bottom:0
+}
+
+.tiles li a .image {
+  border-radius:0.5rem;
+  height:150px
+}
+
+.gamePageClass {
+  bottom: -100%;
+  grid-area: mid;
+  z-index: 2;
+  overflow-y: scroll;
+  position: relative;
+  transition: bottom 0.35s ease;
+  max-height: 100%;
+  height: 100%;
+}
+
+.gamePageClass.active {
+  bottom: 0;
+  transition: bottom 0.35s ease;
+  /* display: none; */
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.titleName {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.subTitleName {
+  font-size: 15px;
+}
+
+.game-page {
+  position: fixed;
+  right: -100%;
+  width: calc(100% - 50px);
+  height: calc(100% - 50px);
+  /* background-color: rgba(26, 27, 30, 0.6); */
+  /* backdrop-filter: blur(9px); */
+  opacity: 0;
+  transition: right 0.75s ease, opacity 0.2s ease;
+  position: absolute;
+}
+
+.game-page.active {
+  right: 0px;
+  opacity: 1;
+  transition: right 0.3s ease, opacity 0.5s ease 0.1s;
+}
+
+.gameURL {
+  backdrop-filter: blur(3px);
+  background-color: rgba(29, 29, 29, 0.8);
+  height: 100%;
+  width: 100%;
+}
+
+#gameFrame {
+  padding: 15px;
+  height: calc(100% - 65px);
+}
