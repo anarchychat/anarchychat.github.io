@@ -34,7 +34,7 @@ RUN npm list --depth=0
 
 # Build application
 #RUN npx next build --experimental-build-mode compile
-RUN next build
+RUN npm run build
 
 # Remove development dependencies
 RUN npm prune --omit=dev
