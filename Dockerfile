@@ -27,6 +27,9 @@ RUN npm ci --include=dev
 # Copy application code
 COPY . .
 
+# (Custom) npm install
+RUN npm install
+
 # Build application
 #RUN npx next build --experimental-build-mode compile
 RUN next build
