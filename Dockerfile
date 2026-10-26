@@ -28,6 +28,7 @@ RUN npm ci --include=dev
 COPY . .
 
 # (Custom) npm install
+RUN ls
 RUN npm install
 
 # Build application
