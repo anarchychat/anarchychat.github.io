@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev\" \"tsx chat.ts\" \"tsx draw.ts\" \"tsx dm.ts\" \"tsx vc.ts\" \"tsx dvc.ts\"",
+    "dev": "concurrently \"next dev\" \"tsx chat.ts\" \"tsx draw.ts\" \"tsx dm.ts\" \"tsx vc.ts\"",
     "build": "next build",
-    "start": "concurrently \"npm run build && next start\" \"tsx chat.ts\" \"tsx draw.ts\" \"tsx dm.ts\" \"tsx vc.ts\" \"tsx dvc.ts\"",
+    "start": "concurrently \"next start -H 0.0.0.0\" \"tsx chat.ts\" \"tsx draw.ts\" \"tsx dm.ts\" \"tsx vc.ts\"",
     "lint": "eslint"
   },
   "dependencies": {

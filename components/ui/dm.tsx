@@ -25,7 +25,7 @@ export default function Dm({
   var j = 0;
   var k = 0;
 
-  console.log("test");
+  //console.log("test");
 
   useEffect(() =>  {
     if (!cancelled) {
