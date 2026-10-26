@@ -118,18 +118,18 @@ export default function Vc({
 
     if (mic) {
       stream.then((stream: any) => {
-        addVideoStream(myVideo, stream)
+        //addVideoStream(myVideo, stream)
 
         myPeer.on('call', (call: any) => {
           call.answer(stream)
           const video = document.createElement('video')
           call.on('stream', (userVideoStream: any) => {
-            addVideoStream(video, userVideoStream)
+            //addVideoStream(video, userVideoStream)
           })
         })
 
         socketio_vc.on('user-connected', userId => {
-          connectToNewUser(userId, stream)
+          //connectToNewUser(userId, stream)
         })
       })
     } else {
