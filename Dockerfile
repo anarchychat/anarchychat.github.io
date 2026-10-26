@@ -30,6 +30,7 @@ COPY . .
 # (Custom) npm install
 RUN ls
 RUN npm install
+RUN npm list --depth=0
 
 # Build application
 #RUN npx next build --experimental-build-mode compile
