@@ -29,7 +29,7 @@ COPY . .
 
 # Build application
 #RUN npx next build --experimental-build-mode compile
-RUN npm run build
+RUN next build
 
 # Remove development dependencies
 RUN npm prune --omit=dev
