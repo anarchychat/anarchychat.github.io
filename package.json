@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently \"next dev\" \"tsx chat.ts\" \"tsx draw.ts\" \"tsx dm.ts\" \"tsx vc.ts\"",
     "build": "next build",
-    "start": "next start -H 0.0.0.0",
+    "start": "concurrently \"next start -H 0.0.0.0 -p 3000\" \"tsx chat.ts\" \"tsx draw.ts\" \"tsx dm.ts\" \"tsx vc.ts\"",
     "lint": "eslint"
   },
   "dependencies": {
