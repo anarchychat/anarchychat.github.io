@@ -18,10 +18,44 @@ swap_size_mb = 256
   processes = ['app']
 
 [[services]]
-[[services.ports]]
-  end_port = 5005
-  handlers = ["http"]
-  start_port = 5001
+  internal_port = 5000
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["tls"]
+    port = "443"
+
+[[services]]
+  internal_port = 5001
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["tls"]
+    port = "443"
+
+[[services]]
+  internal_port = 5002
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["tls"]
+    port = "443"
+
+[[services]]
+  internal_port = 5003
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["tls"]
+    port = "443"
+
+[[services]]
+  internal_port = 5004
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["tls"]
+    port = "443"
 
 [[vm]]
   cpu_kind = 'shared'

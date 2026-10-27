@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { socketio } from "../logic/socket";
+import { socketio_chat } from "../logic/socket";
 import { getRandomColor, getRandomDigit } from "../logic/userInfo";
 
 var cancelled = false;
@@ -32,46 +32,46 @@ export default function Chat({
       addChatrooms();
     }
 
-    socketio.on("connect", () => {
-      console.log("Client connected:", socketio.id);
+    socketio_chat.on("connect", () => {
+      console.log("Client connected:", socketio_chat.id);
       console.log("Client room: " + roomname);
-      socketio.emit("join room", roomname);
+      socketio_chat.emit("join room", roomname);
     });
 
-    socketio.on("connect_error", (error) => {
+    socketio_chat.on("connect_error", (error) => {
       console.log("Socket connection error:", error.message);
     });
 
-    socketio.on("new message", (username, message) => {
+    socketio_chat.on("new message", (username, message) => {
       console.log("Receiving message1: " + username + ": " + message)
       addChatMessage(username, message);
     });
 
-    socketio.on('log', (data) => {
+    socketio_chat.on('log', (data) => {
       setMessages([]);
       console.log("Receiving logs: " + data);
       addChatLog(data);
     });
 
-    socketio.on('username exists', () => {
+    socketio_chat.on('username exists', () => {
       addChatMessage("Console", "Username is already being used!");
       console.log("Username exists");
     });
 
-    socketio.on('disconnect', () => {
+    socketio_chat.on('disconnect', () => {
       console.log("Disconnected");
     });
 
     return () => {
       console.log("off");
-      socketio.off();
+      socketio_chat.off();
       cancelled = true;
     };
-  }, [socketio]);
+  }, [socketio_chat]);
 
   function handleClick() {
     if (yourName != "" && yourMessage != "") {
-      socketio.emit("new message", yourName, yourMessage,);
+      socketio_chat.emit("new message", yourName, yourMessage,);
       setYourMessage("");
     }
   }
@@ -79,7 +79,7 @@ export default function Chat({
   function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     if (yourName != "" && yourMessage != "") {
-      socketio.emit("new message", yourName, yourMessage,);
+      socketio_chat.emit("new message", yourName, yourMessage,);
       setYourMessage("");
     }
   }
@@ -118,7 +118,7 @@ export default function Chat({
     setMessages([]);
     setRoomname(roomname);
     console.log("Joining room: " + roomname);
-    socketio.emit("join room", roomname);
+    socketio_chat.emit("join room", roomname);
     setChatroomBtns(false);
   }
 
