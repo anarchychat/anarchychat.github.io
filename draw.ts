@@ -23,13 +23,15 @@ interface SocketData {
 
 const DRAW_LOG_LIMIT_AMNT: number = 10
 
+import { createServer } from "http";
+const httpServer = createServer().listen(5004, "0.0.0.0");
 
 const io = new Server<
   ClientToServerEvents,
   ServerToClientEvents,
   InterServerEvents,
   SocketData
->(5004, {
+>(httpServer, {
 //	transports: ["websocket"],
 	path: '/socketio_draw/',
   cors: {

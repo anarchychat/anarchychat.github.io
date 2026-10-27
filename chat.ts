@@ -26,12 +26,15 @@ interface SocketData {
 
 const CHAT_LOG_LIMIT_AMNT: number = 100
 
+import { createServer } from "http";
+const httpServer = createServer().listen(5000, "0.0.0.0");
+
 const io = new Server<
   ClientToServerEvents,
   ServerToClientEvents,
   InterServerEvents,
   SocketData
->(5000, {
+>(httpServer, {
   transports: ["websocket"],
   path: '/socketio_chat/',
   cors: {

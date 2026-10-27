@@ -19,12 +19,15 @@ interface SocketData {
   age: number;
 }
 
+import { createServer } from "http";
+const httpServer = createServer().listen(5002, "0.0.0.0");
+
 const io = new Server<
   ClientToServerEvents,
   ServerToClientEvents,
   InterServerEvents,
   SocketData
->(5002, {
+>(httpServer, {
 	transports: ["websocket"],
 	path: '/socketio_vc/',
   cors: {
