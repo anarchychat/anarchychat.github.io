@@ -21,38 +21,6 @@ swap_size_mb = 256
     handlers = ["tls", "http"]
     port = "443"
 
-[[services]]
-  internal_port = 5000
-  protocol = "tcp"
-
-  [[services.ports]]
-    handlers = ["tls"]
-    port = "443"
-
-[[services]]
-  internal_port = 5001
-  protocol = "tcp"
-
-  [[services.ports]]
-    handlers = ["tls"]
-    port = "443"
-
-[[services]]
-  internal_port = 5002
-  protocol = "tcp"
-
-  [[services.ports]]
-    handlers = ["tls"]
-    port = "443"
-
-[[services]]
-  internal_port = 5004
-  protocol = "tcp"
-
-  [[services.ports]]
-    handlers = ["tls"]
-    port = "443"
-
 [[vm]]
   cpu_kind = 'shared'
   cpus = 1
