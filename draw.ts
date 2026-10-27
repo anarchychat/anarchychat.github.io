@@ -30,8 +30,8 @@ const io = new Server<
   InterServerEvents,
   SocketData
 >(5004, {
-	transports: ["websocket"],
-	path: 'socketio_dm',
+//	transports: ["websocket"],
+	path: '/socketio_draw/',
   cors: {
     origin: "*",
     methods: ["GET", "POST"],

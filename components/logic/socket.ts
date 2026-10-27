@@ -8,39 +8,34 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
   var domain = "https://anarchychats.com"
 }
 export const socketio_chat = io(domain + ":5000", {
-  //transports: ["websocket"],
-  //withCredentials: true,
+  transports: ["websocket"],
   path: "/socketio_chat/",
   autoConnect: true
 });
 
 export const socketio_dm = io(domain + ":5001", {
-  //transports: ["websocket"],
-  //withCredentials: true,
+  transports: ["websocket"],
   path: "/socketio_dm/",
   autoConnect: true
 });
 
 
 export const socketio_vc = io(domain + ":5002", {
-  //transports: ["websocket"],
-  //withCredentials: true,
+  transports: ["websocket"],
   path: "/socketio_vc/",
   autoConnect: true
 });
 
 /*
 export const socketio_dvc = io(domain + ":5003", {
-  //transports: ["websocket"],
-  //withCredentials: true,
+  transports: ["websocket"],
   path: "/socketio_dvc/",
   autoConnect: true
 });
 */
 
 export const socketio_draw = io(domain + ":5004", {
-  //transports: ["websocket"],
-  //withCredentials: true,
+  transports: ["websocket"],
   path: "/socketio_draw/",
   autoConnect: true
 });

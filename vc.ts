@@ -26,7 +26,7 @@ const io = new Server<
   SocketData
 >(5002, {
 	transports: ["websocket"],
-	path: 'socketio_dm',
+	path: '/socketio_vc/',
   cors: {
     origin: "*",
     methods: ["GET", "POST"],

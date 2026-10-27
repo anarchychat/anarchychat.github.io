@@ -33,7 +33,7 @@ const io = new Server<
   SocketData
 >(5000, {
   transports: ["websocket"],
-  path: 'socketio_chat',
+  path: '/socketio_chat/',
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
