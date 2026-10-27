@@ -10,20 +10,20 @@ swap_size_mb = 256
 [build]
 
 [http_service]
-  internal_port = 3000
-  force_https = false
   auto_stop_machines = true
   auto_start_machines = true
+  internal_port = 3000
   min_machines_running = 0
   processes = ['app']
 
+[[services]]
 [[services.ports]]
+  end_port = 5005
   handlers = ["http"]
   start_port = 5001
-  end_port = 5005
 
 [[vm]]
-  memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
+  memory = '1gb'
   memory_mb = 256
