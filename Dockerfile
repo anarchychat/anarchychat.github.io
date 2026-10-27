@@ -24,7 +24,7 @@ RUN npm prune --omit=dev
 RUN set -eu; \
     mkdir -p /rootfs/usr/local/bin; \
     cp -L /usr/local/bin/node /rootfs/usr/local/bin/node; \
-    for binary in /usr/local/bin/node $(find /app -type f -name '*.node'); do \
+    for binary in /usr/local/bin/node; do \
       ldd "$binary" \
         | awk '{ for (i = 1; i <= NF; i++) if ($i ~ /^\//) print $i }' \
         | sort -u \
