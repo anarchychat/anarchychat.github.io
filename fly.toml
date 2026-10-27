@@ -9,13 +9,17 @@ swap_size_mb = 256
 
 [build]
 
-[http_service]
-  auto_stop_machines = true
-  auto_start_machines = true
-  force_https = true
+[[services]]
   internal_port = 3000
-  min_machines_running = 0
-  processes = ['app']
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = "80"
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = "443"
 
 [[services]]
   internal_port = 5000
