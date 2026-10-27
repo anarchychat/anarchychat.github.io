@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for anarchychat-app on 2026-10-26T23:32:38Z
+# fly.toml app configuration file generated for anarchychat-app on 2026-10-27T01:11:08Z
 #
 # See https://docs.fly.io/reference/configuration for information about how to use this file.
 #
@@ -10,13 +10,15 @@ swap_size_mb = 256
 [build]
 
 [http_service]
-  auto_stop_machines = true
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   internal_port = 3000
   min_machines_running = 0
   processes = ['app']
+  force_https = true
 
 [[services]]
+
 [[services.ports]]
   end_port = 5005
   handlers = ["http"]
