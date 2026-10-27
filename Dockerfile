@@ -6,7 +6,6 @@ FROM node:${NODE_VERSION}-alpine AS build
 USER root
 RUN apk add --no-cache \
     build-base \
-    node-gyp \
     pkgconf \
     python3 \
     ca-certificates
