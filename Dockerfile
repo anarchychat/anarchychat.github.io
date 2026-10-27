@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG NODE_VERSION=22.21.1
+ARG NODE_VERSION=latest
 ARG NODE_IMAGE=cgr.dev/chainguard/node
 
 FROM ${NODE_IMAGE}:${NODE_VERSION}-dev AS build
