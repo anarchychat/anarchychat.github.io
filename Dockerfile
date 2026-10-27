@@ -20,21 +20,16 @@ COPY . .
 RUN npm run build
 RUN npm prune --omit=dev
 
-# Assemble a minimal runtime root: Node, its shared libraries, and CA certificates.
 RUN set -eu; \
-    mkdir -p /rootfs/usr/local/bin; \
+    mkdir -p /rootfs/usr/local/bin /rootfs/lib /rootfs/usr/lib; \
     cp -L /usr/local/bin/node /rootfs/usr/local/bin/node; \
-    for binary in /usr/local/bin/node; do \
-      ldd "$binary" \
-        | awk '{ for (i = 1; i <= NF; i++) if ($i ~ /^\//) print $i }' \
-        | sort -u \
-        | while IFS= read -r lib; do \
-            mkdir -p "/rootfs$(dirname "$lib")"; \
-            cp -L "$lib" "/rootfs$lib"; \
-          done; \
-    done; \
+    cp -a /lib/. /rootfs/lib/; \
+    cp -a /usr/lib/. /rootfs/usr/lib/; \
     mkdir -p /rootfs/etc/ssl/certs; \
-    cp /etc/ssl/certs/ca-certificates.crt /rootfs/etc/ssl/certs/
+    cp -a /etc/ssl/certs/. /rootfs/etc/ssl/certs/; \
+    if [ -e /etc/ssl/cert.pem ]; then \
+      cp -a /etc/ssl/cert.pem /rootfs/etc/ssl/cert.pem; \
+    fi
 
 FROM scratch AS app
 
@@ -48,7 +43,6 @@ ENV NODE_ENV=production \
 
 USER 10001:10001
 
-# Assumes docker-entrypoint.js forwards its arguments to the command.
 ENTRYPOINT ["/usr/local/bin/node", "/app/docker-entrypoint.js"]
 CMD ["node_modules/next/dist/bin/next", "start", "-H", "0.0.0.0"]
 
