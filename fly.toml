@@ -26,7 +26,7 @@ swap_size_mb = 256
   protocol = "tcp"
 
   [[services.ports]]
-    handlers = ["http"]
+    handlers = ["tls", "http"]
     port = "5000"
 
 [[services]]
@@ -34,7 +34,7 @@ swap_size_mb = 256
   protocol = "tcp"
 
   [[services.ports]]
-    handlers = ["http"]
+    handlers = ["tls", "http"]
     port = "5001"
 
 [[services]]
@@ -42,7 +42,7 @@ swap_size_mb = 256
   protocol = "tcp"
 
   [[services.ports]]
-    handlers = ["http"]
+    handlers = ["tls", "http"]
     port = "5002"
 
 [[services]]
@@ -50,7 +50,7 @@ swap_size_mb = 256
   protocol = "tcp"
 
   [[services.ports]]
-    handlers = ["http"]
+    handlers = ["tls", "http"]
     port = "5004"
 
 [[vm]]
