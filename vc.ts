@@ -29,7 +29,7 @@ const io = new Server<
   SocketData
 >(httpServer, {
 	transports: ["websocket"],
-	path: '/socketio_vc/',
+//	path: '/socketio_vc/',
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
