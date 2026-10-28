@@ -23,7 +23,7 @@ primary_region = 'ams'
 
 # Chat
 [[services]]
-  internal_port = 5000
+  internal_port = 10000
   protocol = "tcp"
 
   [[services.ports]]
@@ -32,7 +32,7 @@ primary_region = 'ams'
 
 # Dm
 [[services]]
-  internal_port = 5001
+  internal_port = 10001
   protocol = "tcp"
 
   [[services.ports]]
@@ -41,7 +41,7 @@ primary_region = 'ams'
 
 # Vc
 [[services]]
-  internal_port = 5002
+  internal_port = 10002
   protocol = "tcp"
 
   [[services.ports]]
@@ -50,7 +50,7 @@ primary_region = 'ams'
 
 # Dvc
 #[[services]]
-#  internal_port = 5003
+#  internal_port = 10003
 #  protocol = "tcp"
 #
 #  [[services.ports]]
@@ -59,7 +59,7 @@ primary_region = 'ams'
 
 # Draw
 [[services]]
-  internal_port = 5004
+  internal_port = 10004
   protocol = "tcp"
 
   [[services.ports]]
