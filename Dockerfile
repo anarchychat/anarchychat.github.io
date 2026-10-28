@@ -29,7 +29,7 @@ RUN set -eu; \
     cp -a /etc/ssl/certs/. /rootfs/etc/ssl/certs/; \
     if [ -e /etc/ssl/cert.pem ]; then \
       cp -a /etc/ssl/cert.pem /rootfs/etc/ssl/cert.pem; \
-    fi \
+    fi
     ## Below is needed for npm run start
     # mkdir -p /rootfs/usr/local/lib/node_modules /rootfs/bin; \
     # cp -a /usr/local/lib/node_modules/npm /rootfs/usr/local/lib/node_modules/; \
