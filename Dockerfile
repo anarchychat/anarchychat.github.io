@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-
 ARG NODE_VERSION=24
 FROM node:${NODE_VERSION}-alpine AS build
 
@@ -29,16 +27,17 @@ RUN set -eu; \
     cp -a /etc/ssl/certs/. /rootfs/etc/ssl/certs/; \
     mkdir -p /rootfs/tmp; \
     chmod 1777 /rootfs/tmp; \
+    ### --- Below is needed for npm run start --- ###
+    # mkdir -p /rootfs/usr/local/lib/node_modules /rootfs/bin; \
+    # cp -a /usr/local/lib/node_modules/npm /rootfs/usr/local/lib/node_modules/; \
+    # cp -L /bin/busybox /rootfs/bin/busybox; \
+    # ln -s busybox /rootfs/bin/sh; \
+    # mkdir -p /rootfs/usr/bin; \
+    # cp -L /usr/bin/env /rootfs/usr/bin/env; \
+    ### --- END --- ###
     if [ -e /etc/ssl/cert.pem ]; then \
       cp -a /etc/ssl/cert.pem /rootfs/etc/ssl/cert.pem; \
-    fi; \
-    ## Below is needed for npm run start
-     mkdir -p /rootfs/usr/local/lib/node_modules /rootfs/bin; \
-     cp -a /usr/local/lib/node_modules/npm /rootfs/usr/local/lib/node_modules/; \
-     cp -L /bin/busybox /rootfs/bin/busybox; \
-     ln -s busybox /rootfs/bin/sh; \
-     mkdir -p /rootfs/usr/bin; \
-     cp -L /usr/bin/env /rootfs/usr/bin/env
+    fi
 
 FROM scratch AS app
 
@@ -52,8 +51,9 @@ ENV NODE_ENV=production \
 
 USER 10001:10001
 
-ENTRYPOINT ["/usr/local/bin/node", "/usr/local/lib/node_modules/npm/bin/npm-cli.js"]
-CMD ["run", "start"]
-#ENTRYPOINT ["/usr/local/bin/node", "/app/node_modules/tsx/dist/cli.mjs", "/app/supervisor.ts"]
+#ENTRYPOINT ["/usr/local/bin/node", "/usr/local/lib/node_modules/npm/bin/npm-cli.js"]
+#CMD ["run", "start"]
+
+ENTRYPOINT ["/usr/local/bin/node", "/app/node_modules/tsx/dist/cli.mjs", "/app/docker-entrypoint.ts"]
 
 EXPOSE 3000 10000 10001 10002 10004
