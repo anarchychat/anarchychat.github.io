@@ -21,34 +21,34 @@ function port(num: string) {
   return num
 }
   
-export const socketio_chat = io(domain + port(":10000"), {
+export const socketio_chat = io(domain + port(":5000"), {
   transports: ["websocket"],
   path: "/socketio_chat/",
   autoConnect: true
 });
 
-export const socketio_dm = io(domain + port(":10001"), {
+export const socketio_dm = io(domain + port(":5001"), {
   transports: ["websocket"],
   path: "/socketio_dm/",
   autoConnect: true
 });
 
 
-export const socketio_vc = io(domain + port(":10002"), {
+export const socketio_vc = io(domain + port(":5002"), {
   transports: ["websocket"],
   path: "/socketio_vc/",
   autoConnect: true
 });
 
 /*
-export const socketio_dvc = io(domain + port(":10003"), {
+export const socketio_dvc = io(domain + port(":5003"), {
   transports: ["websocket"],
   path: "/socketio_dvc/",
   autoConnect: true
 });
 */
 
-export const socketio_draw = io(domain + port(":10004"), {
+export const socketio_draw = io(domain + port(":5004"), {
   transports: ["websocket"],
   path: "/socketio_draw/",
   autoConnect: true
