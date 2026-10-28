@@ -23,20 +23,20 @@ function port(num: string) {
   
 export const socketio_chat = io(domain + port(":10000"), {
   transports: ["websocket"],
-//  path: "/socketio_chat/",
+  path: "/socketio_chat/",
   autoConnect: true
 });
 
 export const socketio_dm = io(domain + port(":10001"), {
   transports: ["websocket"],
-//  path: "/socketio_dm/",
+  path: "/socketio_dm/",
   autoConnect: true
 });
 
 
 export const socketio_vc = io(domain + port(":10002"), {
   transports: ["websocket"],
-//  path: "/socketio_vc/",
+  path: "/socketio_vc/",
   autoConnect: true
 });
 
@@ -50,6 +50,6 @@ export const socketio_dvc = io(domain + port(":10003"), {
 
 export const socketio_draw = io(domain + port(":10004"), {
   transports: ["websocket"],
-//  path: "/socketio_draw/",
+  path: "/socketio_draw/",
   autoConnect: true
 });

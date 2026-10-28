@@ -33,7 +33,7 @@ const io = new Server<
   SocketData
 >(httpServer, {
 	transports: ["websocket"],
-//	path: '/socketio_draw/',
+	path: '/socketio_draw/',
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
