@@ -1,11 +1,10 @@
 import { spawn } from "node:child_process";
 
-//const bin = (name: string) => `${process.cwd()}/node_modules/.bin/${name}`;
-const bin = (name: string) => `/app/node_modules/.bin/${name}`;
+const bin = (name: string) => `./node_modules/.bin/${name}`;
+//const bin = (name: string) => `/app/node_modules/.bin/${name}`;
 
 const commands = [
   ["next", "start", "-H", "0.0.0.0", "-p", "3000"],
-//  ["next", "dev"],
   ["tsx", "chat.ts"],
   ["tsx", "draw.ts"],
   ["tsx", "dm.ts"],
