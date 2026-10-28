@@ -5,7 +5,7 @@
 
 app = 'anarchychat-app'
 primary_region = 'ams'
-swap_size_mb = 256
+# swap_size_mb = 256
 
 [build]
 
@@ -21,53 +21,57 @@ swap_size_mb = 256
     handlers = ["tls", "http"]
     port = "443"
 
+# Chat
 [[services]]
   internal_port = 5000
   protocol = "tcp"
 
   [[services.ports]]
-    handlers = ["tls"]
-    port = "80"
-
-  [[services.ports]]
     handlers = ["tls", "http"]
     port = "443"
 
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = "5000"
+
+# Dm
 [[services]]
   internal_port = 5001
   protocol = "tcp"
 
   [[services.ports]]
-    handlers = ["tls"]
-    port = "80"
-
-  [[services.ports]]
     handlers = ["tls", "http"]
     port = "443"
 
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = "5001"
+
+# Vc
 [[services]]
   internal_port = 5002
   protocol = "tcp"
 
   [[services.ports]]
-    handlers = ["tls"]
-    port = "80"
-
-  [[services.ports]]
     handlers = ["tls", "http"]
     port = "443"
 
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = "5002"
+
+# Draw
 [[services]]
   internal_port = 5004
   protocol = "tcp"
 
   [[services.ports]]
-    handlers = ["tls"]
-    port = "80"
+    handlers = ["tls", "http"]
+    port = "443"
 
   [[services.ports]]
     handlers = ["tls", "http"]
-    port = "443"
+    port = "5004"
 
 [[vm]]
   cpu_kind = 'shared'
