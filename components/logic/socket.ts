@@ -1,6 +1,7 @@
 import { io } from "socket.io-client";
 
-const prod = process.env.NODE_ENV === 'production'
+//const prod = process.env.NODE_ENV === 'production'
+const prod = true;
 
 if (!prod) {
   console.log("Development Mode")
@@ -15,7 +16,8 @@ function port(num: string) {
     return num
   }
 
-  return ""
+  //return ""
+  return num
 }
   
 export const socketio_chat = io(domain + port(":5000"), {

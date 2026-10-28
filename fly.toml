@@ -27,11 +27,9 @@ primary_region = 'ams'
   protocol = "tcp"
 
   [[services.ports]]
-    handlers = ["tls", "http"]
     port = "443"
 
   [[services.ports]]
-    handlers = ["tls", "http"]
     port = "5000"
 
 # Dm
@@ -40,11 +38,9 @@ primary_region = 'ams'
   protocol = "tcp"
 
   [[services.ports]]
-    handlers = ["tls", "http"]
     port = "443"
 
   [[services.ports]]
-    handlers = ["tls", "http"]
     port = "5001"
 
 # Vc
@@ -53,11 +49,9 @@ primary_region = 'ams'
   protocol = "tcp"
 
   [[services.ports]]
-    handlers = ["tls", "http"]
     port = "443"
 
   [[services.ports]]
-    handlers = ["tls", "http"]
     port = "5002"
 
 # Draw
@@ -66,11 +60,9 @@ primary_region = 'ams'
   protocol = "tcp"
 
   [[services.ports]]
-    handlers = ["tls", "http"]
     port = "443"
 
   [[services.ports]]
-    handlers = ["tls", "http"]
     port = "5004"
 
 [[vm]]
