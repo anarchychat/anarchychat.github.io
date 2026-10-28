@@ -46,4 +46,4 @@ USER 10001:10001
 ENTRYPOINT ["/usr/local/bin/node", "/app/node_modules/next/dist/bin/next"]
 CMD ["start", "-H", "0.0.0.0"]
 
-EXPOSE 3000 5000 5001 5002 5004
+EXPOSE 3000 10000 10001 10002 10004

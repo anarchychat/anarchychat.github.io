@@ -20,7 +20,7 @@ interface SocketData {
 }
 
 import { createServer } from "http";
-const httpServer = createServer().listen(5002, "0.0.0.0");
+const httpServer = createServer().listen(10002, "0.0.0.0");
 
 const io = new Server<
   ClientToServerEvents,

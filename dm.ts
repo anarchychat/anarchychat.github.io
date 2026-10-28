@@ -28,7 +28,7 @@ interface SocketData {
 const CHAT_LOG_LIMIT_AMNT: number = 100
 
 import { createServer } from "http";
-const httpServer = createServer().listen(5001, "0.0.0.0");
+const httpServer = createServer().listen(10001, "0.0.0.0");
 
 const io = new Server<
   ClientToServerEvents,
