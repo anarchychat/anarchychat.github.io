@@ -27,18 +27,12 @@ primary_region = 'ams'
   protocol = "tcp"
 
   [[services.ports]]
-    port = "443"
-
-  [[services.ports]]
     port = "5000"
 
 # Dm
 [[services]]
   internal_port = 5001
   protocol = "tcp"
-
-  [[services.ports]]
-    port = "443"
 
   [[services.ports]]
     port = "5001"
@@ -49,18 +43,12 @@ primary_region = 'ams'
   protocol = "tcp"
 
   [[services.ports]]
-    port = "443"
-
-  [[services.ports]]
     port = "5002"
 
 # Draw
 [[services]]
   internal_port = 5004
   protocol = "tcp"
-
-  [[services.ports]]
-    port = "443"
 
   [[services.ports]]
     port = "5004"
