@@ -27,6 +27,8 @@ RUN set -eu; \
     cp -a /usr/lib/. /rootfs/usr/lib/; \
     mkdir -p /rootfs/etc/ssl/certs; \
     cp -a /etc/ssl/certs/. /rootfs/etc/ssl/certs/; \
+    mkdir -p /rootfs/tmp; \
+    chmod 1777 /rootfs/tmp; \
     if [ -e /etc/ssl/cert.pem ]; then \
       cp -a /etc/ssl/cert.pem /rootfs/etc/ssl/cert.pem; \
     fi
