@@ -36,7 +36,9 @@ RUN set -eu; \
      mkdir -p /rootfs/usr/local/lib/node_modules /rootfs/bin; \
      cp -a /usr/local/lib/node_modules/npm /rootfs/usr/local/lib/node_modules/; \
      cp -L /bin/busybox /rootfs/bin/busybox; \
-     ln -s busybox /rootfs/bin/sh
+     ln -s busybox /rootfs/bin/sh; \
+     mkdir -p /rootfs/usr/bin; \
+     cp -L /usr/bin/env /rootfs/usr/bin/env
 
 FROM scratch AS app
 
