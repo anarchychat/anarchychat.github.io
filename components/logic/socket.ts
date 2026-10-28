@@ -1,15 +1,15 @@
 import { io } from "socket.io-client";
 
-//const prod = process.env.NODE_ENV === 'production'
-const prod = false;
+const prod = process.env.NODE_ENV === 'production'
+//const prod = false
 
 if (!prod) {
   console.log("Development Mode")
   var domain = "http://localhost"
 } else {
   console.log("Production Mode")
-  //var domain = "https://anarchychats.com"
-  var domain = "http://213.188.198.174"
+  var domain = "https://anarchychats.com"
+  //var domain = "http://213.188.198.174"
 }
 
 function port(num: string) {

@@ -1,14 +1,35 @@
 import { spawn } from "node:child_process";
 
-const bin = (name: string) => `/app/node_modules/.bin/${name}`;
+const prod = process.env.NODE_ENV === 'production'
+const docker = process.env.DOCKER_ENV === 'true'
 
-const commands = [
-  ["next", "start", "-H", "0.0.0.0", "-p", "3000"],
-  ["tsx", "chat.ts"],
-  ["tsx", "draw.ts"],
-  ["tsx", "dm.ts"],
-  ["tsx", "vc.ts"],
-];
+var bin = (name: string) => `string`
+
+if (docker) {
+  bin = (name: string) => `/app/node_modules/.bin/${name}`
+} else {
+  bin = (name: string) => `./node_modules/.bin/${name}`
+}
+
+var commands: any[] = [];
+
+if (prod) {
+  commands = [
+    ["next", "start", "-H", "0.0.0.0", "-p", "3000"],
+    ["tsx", "chat.ts"],
+    ["tsx", "draw.ts"],
+    ["tsx", "dm.ts"],
+    ["tsx", "vc.ts"],
+  ];
+} else {
+  commands = [
+    ["next", "dev"],
+    ["tsx", "chat.ts"],
+    ["tsx", "draw.ts"],
+    ["tsx", "dm.ts"],
+    ["tsx", "vc.ts"],
+  ];
+}
 
 const children = commands.map(([name, ...args]) =>
   spawn(process.execPath, [bin(name), ...args], { stdio: "inherit" })
