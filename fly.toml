@@ -28,7 +28,7 @@ primary_region = 'ams'
 
   [[services.ports]]
     handlers = ["http"]
-    port = "5000"
+    port = "10000"
 
 # Dm
 [[services]]
@@ -37,7 +37,7 @@ primary_region = 'ams'
 
   [[services.ports]]
     handlers = ["http"]
-    port = "5001"
+    port = "10001"
 
 # Vc
 [[services]]
@@ -46,7 +46,7 @@ primary_region = 'ams'
 
   [[services.ports]]
     handlers = ["http"]
-    port = "5002"
+    port = "10002"
 
 # Dvc
 #[[services]]
@@ -55,7 +55,7 @@ primary_region = 'ams'
 #
 #  [[services.ports]]
 #    handlers = ["http"]
-#    port = "5003"
+#    port = "10003"
 
 # Draw
 [[services]]
@@ -64,7 +64,7 @@ primary_region = 'ams'
 
   [[services.ports]]
     handlers = ["http"]
-    port = "5004"
+    port = "10004"
 
 [[vm]]
   cpu_kind = 'shared'
