@@ -29,7 +29,12 @@ RUN set -eu; \
     cp -a /etc/ssl/certs/. /rootfs/etc/ssl/certs/; \
     if [ -e /etc/ssl/cert.pem ]; then \
       cp -a /etc/ssl/cert.pem /rootfs/etc/ssl/cert.pem; \
-    fi
+    fi \
+    ## Below is needed for npm run start
+    # mkdir -p /rootfs/usr/local/lib/node_modules /rootfs/bin; \
+    # cp -a /usr/local/lib/node_modules/npm /rootfs/usr/local/lib/node_modules/; \
+    # cp -L /bin/busybox /rootfs/bin/busybox; \
+    # ln -s busybox /rootfs/bin/sh
 
 FROM scratch AS app
 
@@ -43,7 +48,6 @@ ENV NODE_ENV=production \
 
 USER 10001:10001
 
-ENTRYPOINT ["/usr/local/bin/node", "/app/node_modules/next/dist/bin/next"]
-CMD ["start", "-H", "0.0.0.0"]
+ENTRYPOINT ["/usr/local/bin/node", "/app/node_modules/tsx/dist/cli.mjs", "/app/supervisor.ts"]
 
 EXPOSE 3000 10000 10001 10002 10004
