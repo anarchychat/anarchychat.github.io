@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG NODE_VERSION=24
+ARG NODE_VERSION=current
 FROM node:${NODE_VERSION}-alpine AS build
 
 USER root
@@ -20,15 +20,15 @@ COPY . .
 RUN npm run build
 RUN npm prune --omit=dev
 
-RUN set -eu; \
-    mkdir -p /rootfs/usr/local/bin /rootfs/lib /rootfs/usr/lib; \
-    cp -L /usr/local/bin/node /rootfs/usr/local/bin/node; \
-    cp -a /lib/. /rootfs/lib/; \
-    cp -a /usr/lib/. /rootfs/usr/lib/; \
-    mkdir -p /rootfs/etc/ssl/certs; \
-    cp -a /etc/ssl/certs/. /rootfs/etc/ssl/certs/; \
+RUN set -eu \
+    mkdir -p /rootfs/usr/local/bin /rootfs/lib /rootfs/usr/lib \
+    cp -L /usr/local/bin/node /rootfs/usr/local/bin/node \
+    cp -a /lib/. /rootfs/lib/ \
+    cp -a /usr/lib/. /rootfs/usr/lib/ \
+    mkdir -p /rootfs/etc/ssl/certs \
+    cp -a /etc/ssl/certs/. /rootfs/etc/ssl/certs/ \
     if [ -e /etc/ssl/cert.pem ]; then \
-      cp -a /etc/ssl/cert.pem /rootfs/etc/ssl/cert.pem; \
+      cp -a /etc/ssl/cert.pem /rootfs/etc/ssl/cert.pem \
     fi
 
 FROM scratch AS app
