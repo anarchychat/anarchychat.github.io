@@ -27,6 +27,7 @@ primary_region = 'ams'
   protocol = "tcp"
 
   [[services.ports]]
+    handlers = ["http"]
     port = "5000"
 
 # Dm
@@ -35,6 +36,7 @@ primary_region = 'ams'
   protocol = "tcp"
 
   [[services.ports]]
+    handlers = ["http"]
     port = "5001"
 
 # Vc
@@ -43,7 +45,17 @@ primary_region = 'ams'
   protocol = "tcp"
 
   [[services.ports]]
+    handlers = ["http"]
     port = "5002"
+
+# Dvc
+#[[services]]
+#  internal_port = 5003
+#  protocol = "tcp"
+#
+#  [[services.ports]]
+#    handlers = ["http"]
+#    port = "5003"
 
 # Draw
 [[services]]
@@ -51,6 +63,7 @@ primary_region = 'ams'
   protocol = "tcp"
 
   [[services.ports]]
+    handlers = ["http"]
     port = "5004"
 
 [[vm]]
