@@ -44,4 +44,4 @@ USER 10001:10001
 
 ENTRYPOINT ["/usr/local/bin/node", "/app/node_modules/tsx/dist/cli.mjs", "/app/docker-entrypoint.ts"]
 
-EXPOSE 3000 10000 10001 10002 10004
+EXPOSE 3000
