@@ -1,6 +1,8 @@
 // Setup basic express server
 import { Server, Socket } from "socket.io"
 
+console.log("Starting chat.ts")
+
 // Make this file NOT print console logs
 //console.log = function() {}
 

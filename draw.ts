@@ -1,6 +1,8 @@
 // Setup basic express server
 import { Server, Socket } from "socket.io"
 
+console.log("Starting draw.ts")
+
 interface ServerToClientEvents {
   'log': (a: { username: string, data: string }[] ) => void;
   'new drawing': (a: string, b: string) => void;

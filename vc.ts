@@ -1,6 +1,8 @@
 // Setup basic express server
 import { Server, Socket } from "socket.io"
 
+console.log("Starting vc.ts")
+
 interface ServerToClientEvents {
   'user-connected': (a: string) => void;
   'user-disconnected': (a: string) => void;

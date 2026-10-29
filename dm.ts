@@ -1,6 +1,8 @@
 // Setup basic express server
 import { Server, Socket } from "socket.io"
 
+console.log("Starting dm.ts")
+
 interface ServerToClientEvents {
   'log': (a: { username: string, message: string }[]) => void;
   'new message': (a: string, b: string) => void;
