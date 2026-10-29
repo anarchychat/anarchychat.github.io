@@ -6,15 +6,15 @@ RUN apk add --no-cache \
     build-base \
     pkgconf \
     python3 \
-    ca-certificates
+    ca-certificates \
+    git
 
 WORKDIR /app
 ENV NODE_ENV=production
 
-COPY package-lock.json package.json ./
-RUN npm ci --include=dev
+RUN git clone https://github.com/anarchychat/anarchychat.github.io
 
-COPY . .
+RUN npm ci --include=dev
 RUN npm run build
 RUN npm prune --omit=dev
 
