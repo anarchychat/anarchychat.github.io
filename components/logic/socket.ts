@@ -1,7 +1,6 @@
 import { io } from "socket.io-client";
 
-//const prod = process.env.NODE_ENV === 'production'
-const prod = false
+const prod = process.env.NODE_ENV === 'production'
 
 if (!prod) {
   console.log("Development Mode")
