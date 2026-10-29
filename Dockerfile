@@ -36,7 +36,7 @@ WORKDIR /app
 COPY --from=build --chown=10001:10001 /app /app
 
 ENV NODE_ENV=production \
-    DOCKER=true \
+    DOCKER_ENV=true \
     HOSTNAME=0.0.0.0 \
     PORT=3000
 
