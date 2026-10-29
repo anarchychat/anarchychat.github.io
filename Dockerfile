@@ -14,6 +14,7 @@ ENV NODE_ENV=production
 
 RUN git clone https://github.com/anarchychat/anarchychat.github.io
 RUN mv anarchychat.github.io/* anarchychat.github.io/.* ./
+
 RUN npm ci --include=dev
 RUN npm run build
 RUN npm prune --omit=dev
