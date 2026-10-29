@@ -3,12 +3,10 @@ import { spawn } from "node:child_process";
 const prod = process.env.NODE_ENV === 'production'
 const docker = process.env.DOCKER_ENV === 'true'
 
-var bin = (name: string) => `string`
+var bin = (name: string) => `./node_modules/.bin/${name}`
 
 if (docker) {
   bin = (name: string) => `/app/node_modules/.bin/${name}`
-} else {
-  bin = (name: string) => `./node_modules/.bin/${name}`
 }
 
 var commands: any[] = [];
