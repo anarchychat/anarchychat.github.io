@@ -1,4 +1,3 @@
-// Setup basic express server
 import type { Server } from "socket.io"
 import { Socket } from "socket.io"
 
