@@ -12,10 +12,7 @@ RUN apk add --no-cache \
 WORKDIR /app
 ENV NODE_ENV=production
 
-RUN git clone https://github.com/anarchychat/anarchychat.github.io
-RUN mv anarchychat.github.io/* ./ 
-RUN mv anarchychat.github.io/.* ./
-RUN rmdir anarchychat.github.io
+RUN git clone https://github.com/anarchychat/anarchychat.github.io .
 
 RUN npm ci --include=dev
 RUN npm run build
