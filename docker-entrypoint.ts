@@ -15,24 +15,23 @@ var commands: any[] = [];
 
 if (prod) {
   commands = [
-    ["next", "start", "-H", "0.0.0.0", "-p", "3000"],
-    ["tsx", "chat.ts"],
-    ["tsx", "draw.ts"],
-    ["tsx", "dm.ts"],
-    ["tsx", "vc.ts"],
+    ["tsx", "server.ts"],
   ];
 } else {
   commands = [
-    ["next", "dev"],
-    ["tsx", "chat.ts"],
-    ["tsx", "draw.ts"],
-    ["tsx", "dm.ts"],
-    ["tsx", "vc.ts"],
+    ["tsx", "server.ts", "NODE_ENV=development"],
   ];
 }
 
 const children = commands.map(([name, ...args]) =>
-  spawn(process.execPath, [bin(name), ...args], { stdio: "inherit" })
+  spawn(process.execPath, [bin(name), ...args], 
+  { stdio: "inherit",
+    env: {
+      ...process.env,
+      NODE_ENV: prod ? "production" : "development",
+    },
+  }
+)
 );
 
 let stopping = false;
