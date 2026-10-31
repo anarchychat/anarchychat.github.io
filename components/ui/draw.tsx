@@ -29,7 +29,8 @@ export default function Draw({
 
   function isTouchEvent(x: any) {
     if (x.type === "touchstart"
-    || x.type === "touchend" || x.type === "touchcancel"
+    || x.type === "touchend" 
+    || x.type === "touchcancel"
     || x.type === "touchmove") {
       return true
     }
