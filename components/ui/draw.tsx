@@ -55,22 +55,22 @@ export default function Draw({
       event = event as TouchEvent
       console.log("TOUCH MODE")
       console.log(event.touches[0].clientX, rect.left,
-        canvas.clientLeft, canvas.clientWidth, canvas.width
+        canvas.clientWidth, canvas.width
       )
       console.log(event.touches[0].clientY, rect.top,
-        canvas.clientTop, canvas.clientHeight, canvas.height
+        canvas.clientHeight, canvas.height
       )
       return {
         x: Math.floor(  
           (
-            (event.touches[0].clientX - rect.left - canvas.clientLeft) 
+            (event.touches[0].clientX - rect.left) 
             / canvas.clientWidth
           )
           * canvas.width
         ),
         y: Math.floor(
           (
-            (event.touches[0].clientY - rect.top - canvas.clientTop) 
+            (event.touches[0].clientY - rect.top) 
             / canvas.clientHeight
           ) 
           * canvas.height
@@ -81,22 +81,22 @@ export default function Draw({
     event = event as MouseEvent
     console.log("MOUSE MODE")
     console.log(event.clientX, rect.left,
-      canvas.clientLeft, canvas.clientWidth, canvas.width
+      canvas.clientWidth, canvas.width
     )
     console.log(event.clientY, rect.top,
-      canvas.clientTop, canvas.clientHeight, canvas.height
+      canvas.clientHeight, canvas.height
     )
     return { 
       x: Math.floor(
         (
-          (event.clientX - rect.left - canvas.clientLeft) 
+          (event.clientX - rect.left) 
           / canvas.clientWidth
         ) 
         * canvas.width
       ),
       y: Math.floor(
         (
-          (event.clientY - rect.top - canvas.clientTop) 
+          (event.clientY - rect.top) 
           / canvas.clientHeight
         ) 
         * canvas.height
