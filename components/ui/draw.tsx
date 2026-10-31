@@ -54,53 +54,29 @@ export default function Draw({
     if (isEvent(event)) {
       event = event as TouchEvent
       console.log("TOUCH MODE")
-      console.log(event.touches[0].clientX, rect.left,
-        canvas.clientWidth, canvas.width
-      )
-      console.log(event.touches[0].clientY, rect.top,
-        canvas.clientHeight, canvas.height
-      )
+      const x = ((event.touches[0].clientX - rect.left) 
+        / canvas.clientWidth) 
+        * canvas.width;
+      const y = ((event.touches[0].clientY - rect.top) 
+        / canvas.clientHeight) 
+        * canvas.height;
       return {
-        x: Math.floor(  
-          (
-            (event.touches[0].clientX - rect.left) 
-            / canvas.clientWidth
-          )
-          * canvas.width
-        ),
-        y: Math.floor(
-          (
-            (event.touches[0].clientY - rect.top) 
-            / canvas.clientHeight
-          ) 
-          * canvas.height
-        )
+        x: x,
+        y: y
       }
     }
 
     event = event as MouseEvent
     console.log("MOUSE MODE")
-    console.log(event.clientX, rect.left,
-      canvas.clientWidth, canvas.width
-    )
-    console.log(event.clientY, rect.top,
-      canvas.clientHeight, canvas.height
-    )
+    const x = ((event.clientX - rect.left) 
+      / canvas.clientWidth) 
+      * canvas.width;
+    const y = ((event.clientY - rect.top) 
+      / canvas.clientHeight) 
+      * canvas.height;
     return { 
-      x: Math.floor(
-        (
-          (event.clientX - rect.left) 
-          / canvas.clientWidth
-        ) 
-        * canvas.width
-      ),
-      y: Math.floor(
-        (
-          (event.clientY - rect.top) 
-          / canvas.clientHeight
-        ) 
-        * canvas.height
-      )
+      x: x,
+      y: y
     };
   };
 
