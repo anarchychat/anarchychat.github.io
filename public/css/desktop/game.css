@@ -154,6 +154,13 @@ article section+header {
   background-color: rgba(29, 29, 29, 0.8);
   height: 100%;
   width: 100%;
+  padding:0.5rem;
+  color:rgba(255,255,255,0.9);
+  font:inherit;
+  line-height:1em;
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius:0.5rem;
+  box-sizing:border-box;
 }
 
 #gameFrame {

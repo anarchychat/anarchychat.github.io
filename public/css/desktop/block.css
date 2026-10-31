@@ -35,13 +35,20 @@
   /* top: 79%; */
   /* transform: translateY(-50%); */
   color: rgb(255, 255, 255);
-  padding: 5px;
+  /* padding: 5px; */
   border: 1px solid rgba(255,255,255,0.15);
   border-radius: 5px;
   width: 10px;
   backdrop-filter: blur(3px);
   background-color: rgba(29, 29, 29, 0.8);
   width: 200px;
+  padding:0.5rem;
+    color:rgba(255,255,255,0.9);
+  font:inherit;
+  line-height:1em;
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius:0.5rem;
+  box-sizing:border-box;
 }
 
 .unblockInputClass {
@@ -50,13 +57,20 @@
   /* top: 87%; */
   /* transform: translateY(-50%); */
   color: rgb(255, 255, 255);
-  padding: 5px;
+  /* padding: 5px; */
   border: 1px solid rgba(255,255,255,0.15);
   border-radius: 5px;
   width: 10px;
   backdrop-filter: blur(3px);
   background-color: rgba(29, 29, 29, 0.8);
   width: 200px;
+  padding:0.5rem;
+  color:rgba(255,255,255,0.9);
+  font:inherit;
+  line-height:1em;
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius:0.5rem;
+  box-sizing:border-box;
 }
 
 .unblockAllButtonClass {
