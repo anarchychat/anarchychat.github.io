@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Topbar from "@/components/layout/topbar";
 import Sidebar from "@/components/layout/sidebar";
 import Bg from "@/components/ui/bg";

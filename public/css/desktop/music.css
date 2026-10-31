@@ -23,6 +23,9 @@
 
 .innerMusicPage {
   padding: 1.5rem 1rem 0.5rem 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
 .music-ib {
@@ -38,4 +41,82 @@
   padding: .5rem;
   line-height: 1em;
   height: 40px;
+}
+
+.music-player {
+  background-color: #2b2b2bc4;
+  padding: 25px;
+  border-radius: 15px;
+  width: 250px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.track-name {
+  place-content: center;
+  display: flex;
+}
+
+.buttons {
+  place-content: center;
+  display: flex;
+  font-size: 25px;
+  gap: 10px;
+}
+
+.btn {
+  background-color: #000000c4;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.time {
+  place-content: center;
+  display: flex;
+}
+
+.play-pause {
+
+}
+
+.volume {
+  margin-right: auto;
+  /* left: 0px; */
+}
+
+.total-duration {
+  margin-left: auto;
+}
+
+.volume-slider {
+  color: #ffffffe6;
+  z-index: 2;
+  border: 2px solid #ffffff26;
+  border-radius: 10px;
+  place-content: center;
+  height: 45px;
+  padding: 0 20px;
+  font-size: 30px;
+}
+
+.time-slider {
+  color: #ffffffe6;
+  z-index: 2;
+  border: 2px solid #ffffff26;
+  border-radius: 10px;
+  place-content: center;
+  height: 45px;
+  padding: 0 20px;
+  font-size: 30px;
+}
+
+.music-container {
+  place-content: center;
+  place-items: center;
+  place-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 250px;
 }

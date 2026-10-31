@@ -327,17 +327,15 @@ export default function Draw({
               Neon
             </button>
             <div className="blur sliderbox">
-              <div className="slidecontainer">
-                <input 
-                  type="range" 
-                  min="1" 
-                  max="100" 
-                  value={slider} 
-                  onChange={(event) => setSlider(event.target.valueAsNumber)}
-                  className="slider" 
-                  id="myRange"
-                />
-              </div>
+              <input 
+                type="range" 
+                min="1" 
+                max="100" 
+                value={slider} 
+                onChange={(event) => setSlider(event.target.valueAsNumber)}
+                className="slider" 
+                id="myRange"
+              />
             </div>
           </div>
           <div className="right-side">

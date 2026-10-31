@@ -9,7 +9,18 @@ export default function Game({
   const [input, setInput] = useState("");
 
   function onGameChange(e: string) {
-    setInput(e);
+    var url = e
+
+    if (url.includes("https://")) {
+      console.log("https: ", e)
+      url = e.replace('https://', '')
+    }
+    if (url.includes("http://")) {
+      console.log("http: ", e)
+      url = e.replace('http://', '')
+    }
+    
+    setInput(url);
     setGameFrame(true);
   }
 
