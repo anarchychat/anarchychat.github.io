@@ -27,11 +27,11 @@ export default function Draw({
   const [mousePosition, setMousePosition] = useState<Coordinate | undefined>(undefined);
   var j = 0;
 
-  function isTouchEvent(x: any) {
-    if (x.type === "touchstart"
-    || x.type === "touchend" 
-    || x.type === "touchcancel"
-    || x.type === "touchmove") {
+  function isTouchEvent(event: MouseEvent | TouchEvent) {
+    if (event.type === "touchstart"
+    || event.type === "touchend" 
+    || event.type === "touchcancel"
+    || event.type === "touchmove") {
       return true
     }
   }
@@ -56,11 +56,11 @@ export default function Draw({
       event = event as TouchEvent
       console.log("TOUCH MODE")
       return {
-        x: ((event.touches[0].clientX - rect.left) 
-          / canvas.clientWidth) 
+        x: ((event.touches[0].clientX - rect.left)
+          / canvas.clientWidth)
           * canvas.width,
-        y: ((event.touches[0].clientY - rect.top) 
-          / canvas.clientHeight) 
+        y: ((event.touches[0].clientY - rect.top)
+          / canvas.clientHeight)
           * canvas.height
       }
     }
@@ -68,11 +68,11 @@ export default function Draw({
     event = event as MouseEvent
     console.log("MOUSE MODE")
     return { 
-      x: ((event.clientX - rect.left) 
-        / canvas.clientWidth) 
+      x: ((event.clientX - rect.left)
+        / canvas.clientWidth)
         * canvas.width,
-      y: ((event.clientY - rect.top) 
-        / canvas.clientHeight) 
+      y: ((event.clientY - rect.top)
+        / canvas.clientHeight)
         * canvas.height
     };
   };
