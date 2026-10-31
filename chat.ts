@@ -4,9 +4,6 @@ import { Socket } from "socket.io"
 export function registerChat(io: Server) {
   console.log("Starting chat.ts")
 
-  // Make this file NOT print console logs
-  //console.log = function() {}
-
   interface ServerToClientEvents {
     'log': (a: { username: string, message: string }[]) => void;
     'new message': (a: string, b: string) => void;

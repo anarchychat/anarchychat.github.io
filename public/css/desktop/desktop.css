@@ -134,6 +134,7 @@ body .main {
   grid-area: main;
   /* display: flex; */
   flex-direction: column;
+  position: fixed;
 }
 
 h1 {

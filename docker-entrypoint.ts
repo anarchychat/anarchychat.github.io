@@ -11,15 +11,9 @@ if (docker) {
 
 var commands: any[] = [];
 
-if (prod) {
-  commands = [
-    ["tsx", "server.ts"],
-  ];
-} else {
-  commands = [
-    ["tsx", "server.ts", "NODE_ENV=development"],
-  ];
-}
+commands = [
+  ["tsx", "server.ts"],
+];
 
 const children = commands.map(([name, ...args]) =>
   spawn(process.execPath, [bin(name), ...args], 

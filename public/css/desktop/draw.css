@@ -18,7 +18,7 @@
 }
 
 .draw-page {
-  position: fixed;
+  position: absolute;
   right: -100%;
   width: calc(100% - 50px);
   height: calc(100% - 50px);

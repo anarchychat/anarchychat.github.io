@@ -7,6 +7,13 @@ import { registerDraw } from "./draw"
 import { registerDm } from "./dm"
 import { registerVc } from "./vc"
 
+const prod = process.env.NODE_ENV === 'production'
+
+// Make this file NOT print console logs
+if (prod) {
+  console.log = function() {}
+}
+
 const dev = process.env.NODE_ENV !== "production"
 
 var hostname = "0.0.0.0"

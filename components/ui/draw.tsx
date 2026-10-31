@@ -22,12 +22,22 @@ export default function Draw({
     username: string,
     data: string
   }[]>([]);
+  const ongoingTouches: any[] = [];
   type Coordinate = { x: number; y: number; };
   const [isPainting, setIsPainting] = useState(false);
   const [mousePosition, setMousePosition] = useState<Coordinate | undefined>(undefined);
   var j = 0;
 
-  const startPaint = useCallback((event: MouseEvent) => {
+  function isEvent(x: any) {
+    if (x.type === "touchstart"
+    || x.type === "touchend" || x.type === "touchcancel"
+    || x.type === "touchmove") {
+      //console.log("TRUE!")
+      return true
+    }
+  }
+
+  const startPaint = useCallback((event: MouseEvent | TouchEvent) => {
     const coordinates = getCoordinates(event);
     //console.log("Coordinates: ", coordinates);
     if (coordinates) {
@@ -36,7 +46,7 @@ export default function Draw({
     }
   }, []);
 
-  const getCoordinates = (event: MouseEvent): Coordinate | undefined => {
+  const getCoordinates = (event: MouseEvent | TouchEvent): Coordinate | undefined => {
     if (!canvasRef.current) {
       return;
     }
@@ -44,6 +54,21 @@ export default function Draw({
     const canvas: HTMLCanvasElement = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
 
+    //console.log(event)
+    //console.log(isEvent(event))
+
+    if (isEvent(event)) {
+      event = event as TouchEvent
+      //const touches = event.changedTouches;
+      console.log("TOUCH MODE")
+      return {
+        x: Math.floor(  ((event.touches[0].clientX - rect.left - canvas.clientLeft) / canvas.clientWidth) *    canvas.width),
+        y: Math.floor(  ((event.touches[0].clientY - rect.top - canvas.clientTop) / canvas.clientHeight) *    canvas.height)
+      }
+    }
+
+    event = event as MouseEvent
+    console.log("MOUSE MODE")
     return { 
       x: Math.floor(  ((event.clientX - rect.left - canvas.clientLeft) / canvas.clientWidth) *    canvas.width),
       y: Math.floor(  ((event.clientY - rect.top - canvas.clientTop) / canvas.clientHeight) *    canvas.height)
@@ -51,7 +76,7 @@ export default function Draw({
   };
 
   const paint = useCallback(
-    (event: MouseEvent) => {
+    (event: MouseEvent | TouchEvent) => {
       if (isPainting) {
         const newMousePosition = getCoordinates(event);
         //console.log("New Mouse Position: ", newMousePosition);
@@ -142,10 +167,14 @@ export default function Draw({
     });
 
     const canvas: HTMLCanvasElement = canvasRef.current;
-    canvas.addEventListener('mousedown', startPaint);
-    canvas.addEventListener('mousemove', paint);
-    canvas.addEventListener('mouseup', exitPaint);
-    canvas.addEventListener('mouseleave', exitPaint);
+    canvas.addEventListener('mousedown', startPaint)
+    canvas.addEventListener('mousemove', paint)
+    canvas.addEventListener('mouseup', exitPaint)
+    canvas.addEventListener('mouseleave', exitPaint)
+    canvas.addEventListener('touchstart', startPaint)
+    canvas.addEventListener('touchmove', paint)
+    canvas.addEventListener('touchend', exitPaint)
+    canvas.addEventListener('touchcancel', exitPaint)
 
     return () => {
       cancelled = true;
@@ -153,7 +182,11 @@ export default function Draw({
       canvas.removeEventListener('mousemove', paint);
       canvas.removeEventListener('mouseup', exitPaint);
       canvas.removeEventListener('mouseleave', exitPaint);
-      socketio_draw.off();
+      canvas.removeEventListener('touchstart', startPaint)
+      canvas.removeEventListener('touchmove', paint)
+      canvas.removeEventListener('touchend', exitPaint)
+      canvas.removeEventListener('touchcancel', exitPaint)
+        socketio_draw.off();
     }
   }, [socketio_draw, color, startPaint, paint, exitPaint]) 
 
