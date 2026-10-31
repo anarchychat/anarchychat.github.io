@@ -22,7 +22,6 @@ export default function Draw({
     username: string,
     data: string
   }[]>([]);
-  const ongoingTouches: any[] = [];
   type Coordinate = { x: number; y: number; };
   const [isPainting, setIsPainting] = useState(false);
   const [mousePosition, setMousePosition] = useState<Coordinate | undefined>(undefined);
@@ -32,14 +31,12 @@ export default function Draw({
     if (x.type === "touchstart"
     || x.type === "touchend" || x.type === "touchcancel"
     || x.type === "touchmove") {
-      //console.log("TRUE!")
       return true
     }
   }
 
   const startPaint = useCallback((event: MouseEvent | TouchEvent) => {
     const coordinates = getCoordinates(event);
-    //console.log("Coordinates: ", coordinates);
     if (coordinates) {
       setIsPainting(true);
       setMousePosition(coordinates);
@@ -54,12 +51,8 @@ export default function Draw({
     const canvas: HTMLCanvasElement = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
 
-    //console.log(event)
-    //console.log(isEvent(event))
-
     if (isEvent(event)) {
       event = event as TouchEvent
-      //const touches = event.changedTouches;
       console.log("TOUCH MODE")
       return {
         x: Math.floor(  ((event.touches[0].clientX - rect.left - canvas.clientLeft) / canvas.clientWidth) *    canvas.width),
@@ -79,7 +72,6 @@ export default function Draw({
     (event: MouseEvent | TouchEvent) => {
       if (isPainting) {
         const newMousePosition = getCoordinates(event);
-        //console.log("New Mouse Position: ", newMousePosition);
         if (mousePosition && newMousePosition) {
           drawLine(mousePosition, newMousePosition);
           setMousePosition(newMousePosition);
@@ -93,12 +85,6 @@ export default function Draw({
     if (!canvasRef.current) {
       return;
     }
-
-    /*
-    console.log("Original Mouse Position: ", originalMousePosition,
-      "\nNew Mouse Position: ", newMousePosition
-    )
-    */
 
     const canvas: HTMLCanvasElement = canvasRef.current
     const context = canvas.getContext('2d')
