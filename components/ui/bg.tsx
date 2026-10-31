@@ -1,11 +1,13 @@
+import { SetStateAction, Dispatch } from "react";
+
 export default function Bg({
-  bg
+  bg, setUrl
 }: {
-  bg: boolean
+  bg: boolean, setUrl: Dispatch<SetStateAction<string>>
 }) {
 
   function changeBg(bg: string) {
-
+    setUrl(bg)
   }
 
   return (

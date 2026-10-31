@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Topbar from "@/components/layout/topbar";
 import Sidebar from "@/components/layout/sidebar";
 import Bg from "@/components/ui/bg";
@@ -21,8 +21,7 @@ export default function HomePage() {
   const [bg, setBg] = useState(false);
   const [dm, setDm] = useState(false);
   const [vc, setVc] = useState(false);
-
-  //game-page draw-page chat-page block-page music-page background-page dm-page voicechat-page
+  const [url, setUrl] = useState("");
   
   function unsetAll() {
     for (const setValue of [
@@ -51,7 +50,7 @@ export default function HomePage() {
       ["dm", dm, setDm],
       ["vc", vc, setVc],
     ] as const) {
-      if (btn == name) {
+      if (btn === name) {
         if (getValue) {
           console.log("true: " + name);
           unsetAll();
@@ -69,12 +68,16 @@ export default function HomePage() {
 
   return (
     <>
-      <video 
-      id="video-background" 
-      autoPlay={true} 
-      loop={true} 
-      style={{ 'opacity': '0.6' }}
-      ></video>
+      {url ? (
+        <video 
+          id="video-background" 
+          autoPlay={true} 
+          loop={true} 
+          style={{ 'opacity': '0.6' }}
+          src={url}
+        ></video>
+      ):(<></>)
+      }
       <div className="main" id="gridLayer">
             <Topbar />
             <Sidebar 
@@ -104,7 +107,7 @@ export default function HomePage() {
               }}
             />
           <div className="mid" style={{ 'gridArea': 'mid', 'zIndex': '0' }}>
-            <Bg bg={bg} />
+            <Bg bg={bg} setUrl={setUrl}/>
             <Block block={block} />
             <Chat chat={chat} />
             <Draw draw={draw} />
