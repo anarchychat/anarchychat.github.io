@@ -55,8 +55,20 @@ export default function Draw({
       event = event as TouchEvent
       console.log("TOUCH MODE")
       return {
-        x: Math.floor(  ((event.touches[0].clientX - rect.left - canvas.clientLeft) / canvas.clientWidth) *    canvas.width),
-        y: Math.floor(  ((event.touches[0].clientY - rect.top - canvas.clientTop) / canvas.clientHeight) *    canvas.height)
+        x: Math.floor(  
+            (
+              (event.touches[0].clientX - rect.left - canvas.clientLeft) 
+              / canvas.clientWidth
+            )
+            * canvas.width
+          ),
+        y: Math.floor(
+            (
+              (event.touches[0].clientY - rect.top - canvas.clientTop) 
+              / canvas.clientHeight
+            ) 
+            * canvas.height
+          )
       }
     }
 
