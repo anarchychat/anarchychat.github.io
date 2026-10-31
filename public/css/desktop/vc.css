@@ -111,17 +111,14 @@
 }
 
 #voice-name {
-  /* padding: 0 0.5em 0 0.5em; */
   margin: 0;
-  /* position: absolute; */
   top: 1em;
   left: 0px;
   width: 100%;
   overflow: hidden;
-  /* display: flex; */
+  display: flex;
   flex-direction: row;
   height: 40px;
-  display: grid;
   grid-template-areas: 'back input button';
   grid-template-columns: auto 1fr auto;
   grid-template-rows: 48px;
@@ -129,26 +126,21 @@
 }
 
 #voice-log {
-  /* background-color: #101010; */
   margin: 0;padding: 0.5em 0.5em 0.5em 0.5em;
-  /* position: absolute; */
   top: 3em;
   left: 0.5em;
   right: 0.5em;
   bottom: 3em;
   overflow: auto;
-  /* width: 540px; */
   flex-direction: column-reverse;
-  /* display: flex; */
+  display: flex;
   flex-grow: 1;
   height: calc(100vh - 148px);
   overflow-y: auto;
 }
 
 #voice-message {
-  /* padding: 0 0.5em 0 0.5em; */
   margin: 0;
-  /* position: absolute; */
   bottom: 1em;
   left: 0px;
   width: 100%;
@@ -156,7 +148,6 @@
   display: flex;
   flex-direction: row;
   height: 40px;
-  display: grid;
   grid-template-areas: 'input button';
   grid-template-columns: 1fr auto;
   grid-template-rows: 48px;
@@ -167,12 +158,7 @@
 }
 
 #voice-colorpicker {
-  /* color: rgb(53, 84, 192); */
   width: 50px;
-  /* height: 21px; */
-  /* background-color: rgb(53, 84, 192); */
-  /* display: inline-block; */
-  /* vertical-align: bottom; */
   color: rgb(151, 190, 136);
   width: 53.33px;
   font-weight: 600;
@@ -219,7 +205,6 @@
   display: flex;
   flex-direction: row;
   height: 40px;
-  display: grid;
   grid-template-areas: input button;
   grid-template-columns: 1fr auto;
   grid-template-rows: 48px;

@@ -113,15 +113,17 @@ export default function Dm({
 
   function addChatMessage(username: string, message: string) {
     // console.log("Receiving message2: " + username + ": " + message)
-    setMessages((current) => [...current, 
-      {username: username, message: message}
+    setMessages((current) => [
+      {username: username, message: message},
+      ...current
     ])
   }
 
   function addChatLog(data: any) {
     data.forEach((prop: any) => {
-      setMessages((current) => [...current, 
-        {username: prop.username, message: prop.message}
+      setMessages((current) => [
+        {username: prop.username, message: prop.message},
+        ...current
       ])
     })
   }
