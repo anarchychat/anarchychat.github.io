@@ -54,29 +54,25 @@ export default function Draw({
     if (isEvent(event)) {
       event = event as TouchEvent
       console.log("TOUCH MODE")
-      const x = ((event.touches[0].clientX - rect.left) 
-        / canvas.clientWidth) 
-        * canvas.width;
-      const y = ((event.touches[0].clientY - rect.top) 
-        / canvas.clientHeight) 
-        * canvas.height;
       return {
-        x: x,
-        y: y
+        x: ((event.touches[0].clientX - rect.left) 
+          / canvas.clientWidth) 
+          * canvas.width,
+        y: ((event.touches[0].clientY - rect.top) 
+          / canvas.clientHeight) 
+          * canvas.height
       }
     }
 
     event = event as MouseEvent
     console.log("MOUSE MODE")
-    const x = ((event.clientX - rect.left) 
-      / canvas.clientWidth) 
-      * canvas.width;
-    const y = ((event.clientY - rect.top) 
-      / canvas.clientHeight) 
-      * canvas.height;
     return { 
-      x: x,
-      y: y
+      x: ((event.clientX - rect.left) 
+        / canvas.clientWidth) 
+        * canvas.width,
+      y: ((event.clientY - rect.top) 
+        / canvas.clientHeight) 
+        * canvas.height
     };
   };
 
