@@ -102,7 +102,6 @@ export default function Draw({
       }
       if (neon && !eraser) {
         context.shadowColor = color
-        //context.shadowBlur = 18;
         context.shadowBlur = slider * 1.5
       }
 
