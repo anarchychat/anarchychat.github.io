@@ -27,7 +27,7 @@ export default function Draw({
   const [mousePosition, setMousePosition] = useState<Coordinate | undefined>(undefined);
   var j = 0;
 
-  function isEvent(x: any) {
+  function isTouchEvent(x: any) {
     if (x.type === "touchstart"
     || x.type === "touchend" || x.type === "touchcancel"
     || x.type === "touchmove") {
@@ -51,7 +51,7 @@ export default function Draw({
     const canvas: HTMLCanvasElement = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
 
-    if (isEvent(event)) {
+    if (isTouchEvent(event)) {
       event = event as TouchEvent
       console.log("TOUCH MODE")
       return {
