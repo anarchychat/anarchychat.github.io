@@ -13,6 +13,19 @@ export default function Sidebar({
   setDm: () => void;
   setVc: () => void;
 }) {
+  const [fs, setFs] = useState(false);
+
+  function fsHandler() {
+    if (!fs) {
+      document.body.requestFullscreen()
+      setFs(!fs)
+      return
+    }
+    
+    document.exitFullscreen()
+    setFs(!fs)
+    return
+  }
 
   return (
     <div className="sbo sidebar blur">
@@ -67,7 +80,7 @@ export default function Sidebar({
         </a>
         <a id="fullscreen-btn"
           className="item nav-button desktop-button"
-          /* onClick={() => setFs(true)} */
+          onClick={() => fsHandler()}
         >
           <i className="ti ti-arrows-maximize" />
         </a>
