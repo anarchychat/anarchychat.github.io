@@ -21,51 +21,6 @@ primary_region = 'ams'
     handlers = ["tls", "http"]
     port = "443"
 
-# Chat
-[[services]]
-  internal_port = 10000
-  protocol = "tcp"
-
-  [[services.ports]]
-    handlers = ["http"]
-    port = "10000"
-
-# Dm
-[[services]]
-  internal_port = 10001
-  protocol = "tcp"
-
-  [[services.ports]]
-    handlers = ["http"]
-    port = "10001"
-
-# Vc
-[[services]]
-  internal_port = 10002
-  protocol = "tcp"
-
-  [[services.ports]]
-    handlers = ["http"]
-    port = "10002"
-
-# Dvc
-#[[services]]
-#  internal_port = 10003
-#  protocol = "tcp"
-#
-#  [[services.ports]]
-#    handlers = ["http"]
-#    port = "10003"
-
-# Draw
-[[services]]
-  internal_port = 10004
-  protocol = "tcp"
-
-  [[services.ports]]
-    handlers = ["http"]
-    port = "10004"
-
 [[vm]]
   cpu_kind = 'shared'
   cpus = 1
