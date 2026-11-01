@@ -24,7 +24,6 @@ export default function Sidebar({
     
     document.exitFullscreen()
     setFs(!fs)
-    return
   }
 
   return (
