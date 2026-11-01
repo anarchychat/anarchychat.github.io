@@ -23,6 +23,6 @@ swap_size_mb = 256
 
 [[vm]]
   cpu_kind = 'shared'
-  cpus = 1
+  cpus = 2
   memory = '1gb'
   memory_mb = 256
