@@ -167,3 +167,7 @@ article section+header {
   padding: 15px;
   height: calc(100% - 65px);
 }
+
+.margins {
+  margin: 10px;
+}

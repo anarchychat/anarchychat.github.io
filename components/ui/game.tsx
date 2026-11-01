@@ -37,7 +37,7 @@ export default function Game({
         inert={!game}
       >
         <div id="gamePage" className="gamePageClass active">
-          <form>
+          <form className="margins">
             <input 
               className="gameURL" 
               type="text" 
