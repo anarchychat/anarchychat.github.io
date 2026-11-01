@@ -1,10 +1,15 @@
-import { SetStateAction, Dispatch } from "react";
+import { useState, SetStateAction, Dispatch } from "react";
 
 export default function Bg({
-  bg, setUrl
+  bg, setUrl, setBlur, blur
 }: {
-  bg: boolean, setUrl: Dispatch<SetStateAction<string>>
+  bg: boolean, setUrl: Dispatch<SetStateAction<string>>,
+  setBlur: Dispatch<SetStateAction<boolean>>,
+  blur: boolean
 }) {
+  function changeBlur() {
+    setBlur(!blur)
+  }
 
   function changeBg(bg: string) {
     setUrl(bg)
@@ -12,15 +17,15 @@ export default function Bg({
 
   return (
     <div id="background-page" 
-      className={`background-page blur ${bg ? "active" : ""}`} 
+      className={`background-page ${blur ? "blur" : ""} ${bg ? "active" : ""}`} 
       tabIndex={bg ? 0 : -1}
       inert={!bg}
     >
       <div className="sidebars">
-        <div className="header">
-          Anarchy Chat
-        </div>
         <div className="backgroundstyles">
+          <li className="header-bg">
+            Anarchy Chat
+          </li>
           <li>
             <button 
               className="b1 b" 
@@ -104,6 +109,19 @@ export default function Bg({
                 placeholder="Background URL" 
                 onChange={(event) => changeBg(event.target.value)}
               />
+            </div>
+          </li>
+          <li>
+            <div className="blur-mode">
+              Blur Mode
+              <label className="switch">
+                <input 
+                  type="checkbox"
+                  defaultChecked={blur}
+                  onClick={() => changeBlur()}
+                />
+                <span className="toggle-slider round"></span>
+              </label>
             </div>
           </li>
         </div>

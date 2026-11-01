@@ -10,9 +10,10 @@ var myPeer: any = 0
 var cancelled = false;
 
 export default function Vc({
-  vc
+  vc, blur
 }: {
-  vc: boolean
+  vc: boolean,
+  blur: boolean
 }) {
   const [yourName, setYourName] = useState("Guest");
   const [yourMessage, setYourMessage] = useState("");
@@ -139,7 +140,7 @@ export default function Vc({
 
   return (
     <div id="voicechat-page" 
-      className={`voicechat-page blur ${vc ? "active" : ""}`} 
+      className={`voicechat-page ${blur ? "blur" : ""} ${vc ? "active" : ""}`} 
       tabIndex={vc ? 0 : -1}
       inert={!vc}
     >

@@ -5,9 +5,10 @@ import { getRandomColor, getRandomDigit } from "../logic/userInfo";
 var cancelled = false;
 
 export default function Dm({
-  dm
+  dm, blur
 }: {
-  dm: boolean
+  dm: boolean,
+  blur: boolean
 }) {
   const [yourName, setYourName] = useState("Guest");
   const [yourMessage, setYourMessage] = useState("");
@@ -176,7 +177,7 @@ export default function Dm({
 
   return (
     <div id="dm-page" 
-      className={`dm-page blur ${dm ? "active" : ""}`} 
+      className={`dm-page ${blur ? "blur" : ""} ${dm ? "active" : ""}`} 
       tabIndex={dm ? 0 : -1}
       inert={!dm}
     >

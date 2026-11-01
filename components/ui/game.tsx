@@ -1,9 +1,10 @@
 import {useState} from "react"
 
 export default function Game({
-  game
+  game, blur
 }: {
-  game: boolean
+  game: boolean,
+  blur: boolean
 }) {
   const [gameFrame, setGameFrame] = useState(false);
   const [input, setInput] = useState("");
@@ -32,7 +33,7 @@ export default function Game({
 
   return (
       <div id="game-page" 
-        className={`game-page blur ${game ? "active" : ""}`} 
+        className={`game-page ${blur ? "blur" : ""} ${game ? "active" : ""}`} 
         tabIndex={game ? 0 : -1}
         inert={!game}
       >

@@ -3,9 +3,10 @@ import { useState, useRef } from 'react'
 // Use sample music from here: https://samplelib.com/sample-mp3.html
 
 export default function Music({
-  music
+  music, blur
 }: {
-  music: boolean
+  music: boolean,
+  blur: boolean
 }) {
   const [volume, setVolume] = useState(false)
   const [volumeNum ,setVolumeNum] = useState(50)
@@ -149,7 +150,7 @@ export default function Music({
 
   return (
     <div id="music-page" 
-      className={`music-page blur ${music ? "active" : ""}`}
+      className={`music-page ${blur ? "blur" : ""} ${music ? "active" : ""}`}
       tabIndex={music ? 0 : -1} 
       inert={!music}
     >
@@ -162,7 +163,7 @@ export default function Music({
                 onClick={() => setVolume(!volume)}
               />
               {volume ? (
-              <div className="blur volume-slider">
+              <div className={`${blur ? "blur" : ""} volume-slider`}>
                 <input 
                   type="range" 
                   min={0}
@@ -181,7 +182,7 @@ export default function Music({
               {trackName}
             </div>
 
-            <div className="blur time-slider">
+            <div className={`${blur ? "blur" : ""} time-slider`}>
               <input 
                 type="range" 
                 min={0}

@@ -5,9 +5,10 @@ import { socketio_draw } from "../logic/socket"
 var cancelled = false
 
 export default function Draw({
-  draw
+  draw, blur
 }: {
-  draw: boolean
+  draw: boolean,
+  blur: boolean
 }) {
   const WIDTH = 1920
   const HEIGHT = 720
@@ -225,7 +226,7 @@ export default function Draw({
 
   return (
     <div id="draw-page" 
-      className={`draw-page blur ${draw ? "active" : ""}`} 
+      className={`draw-page ${blur ? "blur" : ""} ${draw ? "active" : ""}`} 
       tabIndex={draw ? 0 : -1}
       inert={!draw}
     >
@@ -275,7 +276,7 @@ export default function Draw({
         <div className="bottom-row">
           <div className="right-side">
             <button 
-              className="add spacing-margin blur ti ti-plus"
+              className={`add spacing-margin ${blur ? "blur" : ""} ti ti-plus`}
               onClick={() => setDrawMode(true)}
             />
           </div>
@@ -321,12 +322,12 @@ export default function Draw({
               onClick={() => setEraser(!eraser)}
             />
             <button
-              className={`neon blur ${neon ? `on`: ""}`}
+              className={`neon ${blur ? "blur" : ""} ${neon ? `on`: ""}`}
               onClick={() => setNeon(!neon)}
             >
               Neon
             </button>
-            <div className="blur sliderbox">
+            <div className={`${blur ? "blur" : ""} sliderbox`}>
               <input 
                 type="range" 
                 min="1" 
@@ -340,7 +341,7 @@ export default function Draw({
           </div>
           <div className="right-side">
             <button 
-              className="blur wipe ti ti-trash-x"
+              className={`${blur ? "blur" : ""} wipe ti ti-trash-x`}
               onClick={() => clearCanvas()}
             >
             </button>
@@ -359,13 +360,13 @@ export default function Draw({
         <div className="bottom-row">
           <div className="left-side">
             <button 
-              className="backarrow blur ti ti-logout"
+              className={`backarrow ${blur ? "blur" : ""} ti ti-logout`}
               onClick={() => setDrawMode(false)}
             />
           </div>
           <div className="right-side">
             <button
-              className="checkmark blur ti ti-check"
+              className={`checkmark ${blur ? "blur" : ""} ti ti-check`}
               onClick={function() { sendDraw(); setDrawMode(false) }}
             />
           </div>

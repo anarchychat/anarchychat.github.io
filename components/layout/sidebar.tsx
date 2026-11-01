@@ -2,7 +2,7 @@ import {useState} from "react"
 
 export default function Sidebar({
   setGame, setDraw, setChat, setBlock,
-  setMusic, setBg, setDm, setVc
+  setMusic, setBg, setDm, setVc, blur
 }: {
   setGame: () => void;
   setDraw: () => void;
@@ -12,6 +12,7 @@ export default function Sidebar({
   setBg: () => void;
   setDm: () => void;
   setVc: () => void;
+  blur: boolean;
 }) {
   const [fs, setFs] = useState(false);
 
@@ -27,7 +28,7 @@ export default function Sidebar({
   }
 
   return (
-    <div className="sbo sidebar blur">
+    <div className={`sbo sidebar ${blur ? "blur" : ""}`}>
       <div className="sbt button list opac">
         <a id="game-page-btn" 
           className="item nav-button desktop-button"

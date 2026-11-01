@@ -1,11 +1,12 @@
 export default function Block({
-  block
+  block, blur
 }: {
-  block: boolean
+  block: boolean,
+  blur: boolean
 }) {
   return (
     <div id="block-page" 
-      className={`block-page blur ${block ? "active" : ""}`} 
+      className={`block-page ${blur ? "blur" : ""} ${block ? "active" : ""}`} 
       tabIndex={block ? 0 : -1}
       inert={!block}
     >

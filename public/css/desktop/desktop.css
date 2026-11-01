@@ -55,8 +55,8 @@ body .main {
 }
 
 .blur {
-  /* backdrop-filter: blur(9px); */
-  /* opacity: 100%; */
+  backdrop-filter: blur(9px);
+  opacity: 100%;
   background-color: rgba(26, 27, 30, 0.6);
 }
 

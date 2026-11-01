@@ -13,15 +13,16 @@ import Dm from "@/components/ui/dm";
 import Vc from "@/components/ui/vc";
 
 export default function HomePage() {
-  const [game, setGame] = useState(false);
-  const [draw, setDraw] = useState(false);
-  const [chat, setChat] = useState(false);
-  const [block, setBlock] = useState(false);
-  const [music, setMusic] = useState(false);
-  const [bg, setBg] = useState(false);
-  const [dm, setDm] = useState(false);
-  const [vc, setVc] = useState(false);
-  const [url, setUrl] = useState("");
+  const [game, setGame] = useState(false)
+  const [draw, setDraw] = useState(false)
+  const [chat, setChat] = useState(false)
+  const [block, setBlock] = useState(false)
+  const [music, setMusic] = useState(false)
+  const [bg, setBg] = useState(false)
+  const [dm, setDm] = useState(false)
+  const [vc, setVc] = useState(false)
+  const [url, setUrl] = useState("")
+  const [blur, setBlur] = useState(false)
   
   function unsetAll() {
     for (const setValue of [
@@ -79,7 +80,7 @@ export default function HomePage() {
       ):(<></>)
       }
       <div className="main" id="gridLayer">
-            <Topbar />
+            <Topbar blur={blur} />
             <Sidebar 
               setGame={() => {
                 btnHandler("game")
@@ -105,16 +106,17 @@ export default function HomePage() {
               setVc={() => {
                 btnHandler("vc")
               }}
+              blur={blur}
             />
           <div className="mid" style={{ 'gridArea': 'mid', 'zIndex': '0' }}>
-            <Bg bg={bg} setUrl={setUrl}/>
-            <Block block={block} />
-            <Chat chat={chat} />
-            <Draw draw={draw} />
-            <Game game={game} />
-            <Music music={music} />
-            <Dm dm={dm} />
-            <Vc vc={vc} />
+            <Bg bg={bg} setUrl={setUrl} blur={blur} setBlur={setBlur} />
+            <Block block={block} blur={blur} />
+            <Chat chat={chat} blur={blur} />
+            <Draw draw={draw} blur={blur} />
+            <Game game={game} blur={blur} />
+            <Music music={music} blur={blur} />
+            <Dm dm={dm} blur={blur} />
+            <Vc vc={vc} blur={blur} />
           </div>
       </div>
       

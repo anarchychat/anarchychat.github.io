@@ -5,9 +5,10 @@ import { getRandomColor, getRandomDigit } from "../logic/userInfo";
 var cancelled = false;
 
 export default function Chat({
-  chat
+  chat, blur
 }: {
-  chat: boolean
+  chat: boolean,
+  blur: boolean
 }) {
   const [yourName, setYourName] = useState("Guest");
   const [yourMessage, setYourMessage] = useState("");
@@ -126,7 +127,7 @@ export default function Chat({
 
   return (
     <div id="chat-page" 
-      className={`chat-page blur ${chat ? "active" : ""}`}
+      className={`chat-page ${blur ? "blur" : ""} ${chat ? "active" : ""}`}
       tabIndex={chat ? 0 : -1}
       inert={!chat}
     >

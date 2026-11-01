@@ -1,6 +1,10 @@
-export default function Topbar() {
+export default function Topbar({
+  blur
+}: {
+  blur: boolean
+}) {
   return (
-    <nav className="blur" id="navbar">
+    <nav className={` ${blur ? "blur" : ""} `} id="navbar">
       <div className="logo desktop opac" id="logo-style">
         <div className="logo-top menu list">
           <a href="index.html">
