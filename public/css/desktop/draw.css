@@ -311,6 +311,7 @@
   z-index: 2;
   font-size: 30px;
   place-content: center;
+  background-color: #1b1b1d;
 }
 
 .spacing-margin {
