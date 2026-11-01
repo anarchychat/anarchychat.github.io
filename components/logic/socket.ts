@@ -4,9 +4,7 @@ const prod = process.env.NODE_ENV === 'production'
 
 if (!prod) {
   console.log("Development Mode")
-  //var domain = "http://localhost:3000"
-  //var domain = "193.181.219.45"
-  var domain = "https://anarchychat-app.fly.dev"
+  var domain = "http://localhost:3000"
 } else {
   console.log("Production Mode")
   var domain = "https://anarchychats.com"
