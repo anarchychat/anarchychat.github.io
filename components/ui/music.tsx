@@ -19,7 +19,8 @@ export default function Music({
   const [currentTimeMin, setCurrentTimeMin] = useState("0")
   const [totalTimeSec, setTotalTimeSec] = useState("00")
   const [currentTimeSec, setCurrentTimeSec] = useState("00")
-  const [trackName, setTrackName] = useState("Track Name")
+  const [trackName, setTrackName] = useState("")
+  const [isMusicChanged, setIsMusicChanged] = useState(false)
   const musicPlayer = useRef<HTMLAudioElement>(null)
   
   function onMusicChange(e: string) {
@@ -43,6 +44,11 @@ export default function Music({
         setSpotifyInput(res)
       }
       setInput("")
+      setTrackName("")
+      setTotalTimeMin("0")
+      setCurrentTimeMin("0")
+      setTotalTimeSec("00")
+      setCurrentTimeSec("00")
       setSpotifyFrame(true)
       return
     }
@@ -54,6 +60,7 @@ export default function Music({
     console.log("fileName: ", fileName)
     setTrackName(fileName)
     setSpotifyFrame(false)
+    setIsMusicChanged(true)
   }
 
   function player() {
@@ -98,11 +105,17 @@ export default function Music({
     var roundedCurrent = Math.floor(current)
     var roundedDuration = Math.floor(duration)
 
-    if (roundedCurrent === currentTime) {
+    console.log("roundedCurrent: ", roundedCurrent)
+    console.log("roundedDuration: ", roundedDuration)
+
+    if (roundedCurrent === currentTime
+      && !isMusicChanged
+    ) {
       console.log("Same, not continuing.")
       return
     }
 
+    setIsMusicChanged(false)
     setCurrentTime(roundedCurrent)
     setTotalTime(roundedDuration)
 
