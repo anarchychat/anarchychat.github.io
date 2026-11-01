@@ -4,7 +4,8 @@ const prod = process.env.NODE_ENV === 'production'
 
 if (!prod) {
   console.log("Development Mode")
-  var domain = "http://localhost:3000"
+  //var domain = "http://localhost:3000"
+  var domain = "https://anarchychats.com"
 } else {
   console.log("Production Mode")
   var domain = "https://anarchychats.com"
