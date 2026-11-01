@@ -6,6 +6,9 @@
   bottom: 43px;
   width: 100%;
   overflow-y: hidden;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .blockedUsersListClass {

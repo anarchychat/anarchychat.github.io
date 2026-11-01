@@ -21,7 +21,13 @@ export default function Game({
     }
     
     setInput(url);
-    setGameFrame(true);
+
+    if (e === "") {
+      setGameFrame(false)
+      return
+    }
+
+    setGameFrame(true)
   }
 
   return (
@@ -44,7 +50,10 @@ export default function Game({
           </form>
           <div id="gameFrame">
             {gameFrame && (
-              <iframe className="gameURL" src={`https://${input}`}></iframe>
+              <iframe 
+                className="gameURL" 
+                src={`https://${input}`}
+              />
             )}
           </div>
         </div>

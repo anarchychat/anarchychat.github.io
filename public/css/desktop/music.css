@@ -58,7 +58,15 @@
   display: flex;
 }
 
-.buttons {
+.top-buttons {
+  place-content: center;
+  display: flex;
+  font-size: 25px;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+.bottom-buttons {
   place-content: center;
   display: flex;
   font-size: 25px;
@@ -119,4 +127,10 @@
   flex-direction: column;
   gap: 10px;
   width: 250px;
+}
+
+.spotify-iframe {
+  width: 330px;
+  height: 400px;
+  border-color: transparent;
 }

@@ -15,7 +15,6 @@ import "@/public/css/desktop/performancemode.css"
 import "@/public/css/tabler-icons.css";
 import "@/public/css/style.css";
 import "./globals.css";
-//import Script from "next/script";
 
 const exo2 = Exo_2({
   subsets: ["latin"],
@@ -35,21 +34,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/*
-        <Script src="/js/modules/dm.js" strategy="beforeInteractive" />
-        <Script src="/js/modules/background.js" strategy="beforeInteractive" />
-        <Script src="/js/modules/buttons.js" strategy="beforeInteractive" />
-        <Script src="/js/modules/custom-feature.js" strategy="beforeInteractive" />
-        <Script src="/js/modules/gif-autoload.js" strategy="beforeInteractive" />
-        <Script src="/js/modules/chat.js" strategy="beforeInteractive" />
-        <Script src="/js/modules/chatroom.js" strategy="beforeInteractive" />
-        <Script src="/js/modules/draw.js" strategy="beforeInteractive" />
-        <Script src="/js/modules/music.js" strategy="beforeInteractive" />
-        <Script src="/js/modules/spotify.js" strategy="beforeInteractive" />
-        <Script src="/js/modules/performance.js" strategy="beforeInteractive" />
-        <Script src="/js/modules.js" strategy="afterInteractive" />
-        */}
-
         {children}
       </body>
     </html>
