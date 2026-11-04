@@ -26,6 +26,9 @@
   display: flex;
   flex-direction: row;
   gap: 20px;
+  flex-wrap: wrap;
+  overflow: scroll;
+  height: calc(100% - 30px);
 }
 
 .music-ib {
