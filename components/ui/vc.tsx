@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
-import { socketio_vc } from "../logic/socket";
-import { getRandomColor, getRandomDigit } from "../logic/userInfo";
-import { Peer } from "peerjs";
+import { useState, useEffect } from "react"
+import { socketio_vc } from "../logic/socket"
+import { getRandomColor, getRandomDigit } from "../logic/userInfo"
+import { Peer } from "peerjs"
 
 //var stream: Promise<MediaStream> = 0
 var stream: any = 0
 var myPeer: any = 0
 
-var cancelled = false;
+var cancelled = false
 
 export default function Vc({
   vc, blur
@@ -15,88 +15,88 @@ export default function Vc({
   vc: boolean,
   blur: boolean
 }) {
-  const [yourName, setYourName] = useState("Guest");
-  const [yourMessage, setYourMessage] = useState("");
-  const [roomname, setRoomname] = useState("Chatroom 1");
-  const [color, setColor] = useState("#000000");
+  const [yourName, setYourName] = useState("Guest")
+  const [yourMessage, setYourMessage] = useState("")
+  const [roomname, setRoomname] = useState("Chatroom 1")
+  const [color, setColor] = useState("#000000")
   const [messages, setMessages] = useState<{
     username: string,
     message: string
-  }[]>([]);
+  }[]>([])
   const [chatrooms, setChatrooms] = useState<{
     name: string
-  }[]>([]);
+  }[]>([])
   const [users, setUsers] = useState<{
     name: string
-  }[]>([]);
+  }[]>([])
   const [mic, setMic] = useState(false)
-  const [chatroomBtns, setChatroomBtns] = useState(true);
-  var i = 0;
-  var j = 0;
-  var k = 0;
+  const [chatroomBtns, setChatroomBtns] = useState(true)
+  var i = 0
+  var j = 0
+  var k = 0
 
   useEffect(() =>  {
     if (!cancelled) {
-      addChatrooms();
-      setYourName("Guest" + getRandomDigit());
-      setColor(getRandomColor());
+      addChatrooms()
+      setYourName("Guest" + getRandomDigit())
+      setColor(getRandomColor())
     }
 
     socketio_vc.on("connect", () => {
-      console.log("Client connected:", socketio_vc.id);
-      console.log("Client room: " + roomname);
-      socketio_vc.emit("join room", roomname);
-    });
+      console.log("Client connected:", socketio_vc.id)
+      console.log("Client room: " + roomname)
+      socketio_vc.emit("join room", roomname)
+    })
 
     socketio_vc.on("connect_error", (error) => {
-      console.log("Socket connection error:", error.message);
-    });
+      console.log("Socket connection error:", error.message)
+    })
 
     socketio_vc.on('username exists', () => {
-      //addChatMessage("Console", "Username is already being used!");
-      console.log("Username exists");
-    });
+      //addChatMessage("Console", "Username is already being used!")
+      console.log("Username exists")
+    })
 
     socketio_vc.on('disconnect', () => {
-      console.log("Disconnected");
-    });
+      console.log("Disconnected")
+    })
 
     return () => {
-      console.log("off");
-      socketio_vc.off();
-      cancelled = true;
-    };
-  }, [socketio_vc]);
+      console.log("off")
+      socketio_vc.off()
+      cancelled = true
+    }
+  }, [socketio_vc])
 
   function addChatrooms() {
-    var m = 1;
+    var m = 1
     for (k = 1; k < 10; k++) {
-      console.log("num: " + k);
-      //console.log("realnum: " + k);
-      const newItem = {name: "Chatroom " + k};
+      console.log("num: " + k)
+      //console.log("realnum: " + k)
+      const newItem = {name: "Chatroom " + k}
       setChatrooms((current) => [
         ...current,
         newItem,
-      ]);
-      //console.log("chatroom: " + chatrooms);
+      ])
+      //console.log("chatroom: " + chatrooms)
     }
   }
 
   function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault();
+    event.preventDefault()
     if (yourName != "" && yourMessage != "") {
-      socketio_vc.emit("new message", yourName, yourMessage,);
-      setYourMessage("");
+      socketio_vc.emit("new message", yourName, yourMessage,)
+      setYourMessage("")
     }
   }
 
   function clickChatBtn(roomname: string) {
-    //console.log(name);
-    setMessages([]);
-    setRoomname(roomname);
-    console.log("Joining room: " + roomname);
-    socketio_vc.emit("join room", roomname);
-    setChatroomBtns(false);
+    //console.log(name)
+    setMessages([])
+    setRoomname(roomname)
+    console.log("Joining room: " + roomname)
+    socketio_vc.emit("join room", roomname)
+    setChatroomBtns(false)
 
     myPeer = new Peer("", {
       host: '/',
@@ -106,16 +106,16 @@ export default function Vc({
     stream = navigator.mediaDevices.getUserMedia({
       video: false,
       audio: true
-    });
+    })
   }
 
   function updateName(newName: string) {
-    setYourName(newName);
-    socketio_vc.emit('username', newName);
+    setYourName(newName)
+    socketio_vc.emit('username', newName)
   }
 
   function microphone() {
-    setMic(!mic);
+    setMic(!mic)
 
     if (mic) {
       stream.then((stream: any) => {
@@ -230,5 +230,5 @@ export default function Vc({
         </div>
       </div>
     </div>
-  );
+  )
 }

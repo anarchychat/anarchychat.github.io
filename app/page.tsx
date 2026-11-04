@@ -15,7 +15,7 @@ import Vc from "@/components/ui/vc";
 export default function HomePage() {
   const [game, setGame] = useState(false)
   const [draw, setDraw] = useState(false)
-  const [chat, setChat] = useState(false)
+  const [chat, setChat] = useState(true)
   const [block, setBlock] = useState(false)
   const [music, setMusic] = useState(false)
   const [bg, setBg] = useState(false)

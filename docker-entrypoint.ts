@@ -1,4 +1,5 @@
-import { spawn } from "node:child_process";
+import { spawn } from "node:child_process"
+const process = require('node:process')
 
 const prod = process.env.NODE_ENV === 'production'
 const docker = process.env.DOCKER_ENV === 'true'
@@ -9,11 +10,11 @@ if (docker) {
   bin = (name: string) => `/app/node_modules/.bin/${name}`
 }
 
-var commands: any[] = [];
+var commands: any[] = []
 
 commands = [
-  ["tsx", "server.ts"],
-];
+  ["tsx", "backend/server.ts"]
+]
 
 const children = commands.map(([name, ...args]) =>
   spawn(process.execPath, [bin(name), ...args], 
@@ -24,31 +25,20 @@ const children = commands.map(([name, ...args]) =>
     },
   }
 )
-);
+)
 
-let stopping = false;
-
-function stop() {
-  if (stopping) return;
-  stopping = true;
-  for (const child of children) child.kill("SIGTERM");
-  setTimeout(() => {
-    for (const child of children) child.kill("SIGKILL");
-  }, 5000).unref();
-}
-
-process.on("SIGTERM", () => stop());
-process.on("SIGINT", () => stop());
+process.on("SIGTERM", () => stop())
+process.on("SIGINT", () => stop())
 
 for (const child of children) {
   child.on("error", () => {
-    process.exitCode = 1;
-    stop();
-  });
+    console.log("error")
+    process.exitCode = 1
+    for (const child of children) child.kill("SIGTERM")
+  })
   child.on("exit", (code) => {
-    if (!stopping) {
-      process.exitCode = code ?? 1;
-      stop();
-    }
-  });
+    console.log("exit: ", code)
+    process.exitCode = code ?? 1
+    for (const child of children) child.kill("SIGTERM")
+  })
 }

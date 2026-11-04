@@ -1,38 +1,35 @@
 import type { Server } from "socket.io"
 import { Socket } from "socket.io"
 
-export function registerChat(io: Server) {
-  console.log("Starting chat.ts")
+export async function registerDraw(io: Server) {
+  console.log("Starting draw.ts")
 
   interface ServerToClientEvents {
-    'log': (a: { username: string, message: string }[]) => void;
-    'new message': (a: string, b: string) => void;
-    'username exists': () => void;
+    'log': (a: { username: string, data: string }[] ) => void
+    'new drawing': (a: string, b: string) => void
+    'username exists': () => void
   }
 
   interface ClientToServerEvents {
-    'join room': (a: string) => void;
-    'new message': (a: string, b: string) => void;
+    'log': () => void
+    'new drawing': (a: string, b: string) => void
   }
 
   interface InterServerEvents {
-    ping: () => void;
+    ping: () => void
   }
 
   interface SocketData {
-    name: string;
-    age: number;
+    name: string
+    age: number
   }
 
-  const CHAT_LOG_LIMIT_AMNT: number = 100
+  const DRAW_LOG_LIMIT_AMNT: number = 10
 
-  // Chatroom
+  // Drawings
   const outerArray: {
-    roomname: string, 
-    data: {
-      username: string,
-      message: string
-    }[]
+    username: string, 
+    data: string
   }[] = []
 
   const usernames: string[] = []
@@ -43,7 +40,6 @@ export function registerChat(io: Server) {
     InterServerEvents,
     SocketData
   >) => {
-    var roomname: string = ""
     var yourUsername: string = ""
 
     socket.on('disconnect', () => {
@@ -56,15 +52,11 @@ export function registerChat(io: Server) {
       }
     })
 
-    socket.on('join room', (newRoomname: string) => {
-      console.log("Joining room: " + newRoomname)
-      socket.leave(roomname)
-      roomname = newRoomname
-      socket.join(roomname)
-      socket.emit('log', getChatlog(roomname))
+    socket.on('log', () => {
+      socket.emit('log', getDrawlog())
     })
 
-    socket.on('new message', (username: string, message: string) => {
+    socket.on('new drawing', (username: string, data: string) => {
       if (checkIfUsernameExists(username, yourUsername, socket)) {
         console.log("Username already exists")
         return
@@ -83,12 +75,12 @@ export function registerChat(io: Server) {
         console.log("Changed username")
       }
 
-      setupChatlog(username, message, roomname)
+      setupDrawlog(username, data)
 
-      console.log("New message received: " + 
-        roomname + ": " + username + ": " + message)
+      console.log("New drawing received: " + 
+        username + ": " + data)
 
-      io.to(roomname).emit('new message', username, message)
+      io.emit('new drawing', username, data)
     })
   })
 
@@ -109,27 +101,17 @@ export function registerChat(io: Server) {
     return exists
   }
 
-  function setupChatlog(username: string, message: string, roomname: string) {
-    var room = outerArray.find(array => array.roomname === roomname)
+  function setupDrawlog(username: string, data: string) {
+    outerArray.push({username, data})
 
-    if (!room) {
-      room = { roomname, data: [] }    
-      outerArray.push(room)
-    }
-
-    room.data.push({username, message})
-
-    if (room.data.length > CHAT_LOG_LIMIT_AMNT) {
-      room.data.shift()
+    if (outerArray.length > DRAW_LOG_LIMIT_AMNT) {
+      outerArray.shift()
     }
   }
 
-  function getChatlog(roomname: string) {
-    const room = outerArray.find(array => array.roomname === roomname)
-
-    if (room) {
-      var chatLog = room.data
-      return chatLog
+  function getDrawlog() {
+    if (outerArray.length > 0) {
+      return outerArray
     }
 
     return []

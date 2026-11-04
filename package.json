@@ -23,7 +23,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/ws": "^8.18.1",
+    "@types/socket.io": "^3.0.1",
+    "@types/ws": "^8.18.2",
     "eslint-config-next": "^16.4.2",
     "ts-node": "^10.9.2",
     "typescript": "^5"

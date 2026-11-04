@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-import { socketio_chat } from "../logic/socket";
-import { getRandomColor, getRandomDigit } from "../logic/userInfo";
+import { useEffect, useState } from "react"
+import { socketio_chat } from "../logic/socket"
+import { getRandomColor, getRandomDigit } from "../logic/userInfo"
+var domain = "http://localhost:3000"
 
-var cancelled = false;
+var cancelled = false
 
 export default function Chat({
   chat, blur
@@ -10,78 +11,86 @@ export default function Chat({
   chat: boolean,
   blur: boolean
 }) {
-  const [yourName, setYourName] = useState("Guest");
-  const [yourMessage, setYourMessage] = useState("");
-  const [roomname, setRoomname] = useState("Chatroom 1");
-  const [color, setColor] = useState("#000000");
+  const [yourName, setYourName] = useState("Guest")
+  const [yourMessage, setYourMessage] = useState("")
+  const [roomname, setRoomname] = useState("Chatroom 1")
+  const [color, setColor] = useState("#000000")
   const [messages, setMessages] = useState<{
     username: string,
     message: string
-  }[]>([]);
+  }[]>([])
   const [chatrooms, setChatrooms] = useState<{
     name: string
-  }[]>([]);
-  const [chatroomBtns, setChatroomBtns] = useState(false);
-  var i = 0;
-  var j = 0;
-  var k = 0;
+  }[]>([])
+  const [chatroomBtns, setChatroomBtns] = useState(false)
+  var i = 0
+  var j = 0
+  var k = 0
+
+  console.log("CHAT TEST")
 
   useEffect(() =>  {
     if (!cancelled) {
-      setColor(getRandomColor());
-      setYourName("Guest" + getRandomDigit());
-      addChatrooms();
+      setColor(getRandomColor())
+      setYourName("Guest" + getRandomDigit())
+      addChatrooms()
     }
 
+    console.log("CHAT TEST 2")
+
     socketio_chat.on("connect", () => {
-      console.log("Client connected:", socketio_chat.id);
-      console.log("Client room: " + roomname);
-      socketio_chat.emit("join room", roomname);
-    });
+      console.log("CHAT Client connected:", socketio_chat.id)
+      console.log("CHAT Client room: " + roomname)
+      socketio_chat.emit("join room", roomname)
+    })
 
     socketio_chat.on("connect_error", (error) => {
-      console.log("Socket connection error:", error.message);
-    });
+      console.log("Socket connection error:", error.message)
+    })
 
     socketio_chat.on("new message", (username, message) => {
       console.log("Receiving message1: " + username + ": " + message)
-      addChatMessage(username, message);
-    });
+      addChatMessage(username, message)
+    })
 
     socketio_chat.on('log', (data) => {
-      setMessages([]);
-      console.log("Receiving logs: " + data);
-      addChatLog(data);
-    });
+      setMessages([])
+      console.log("Receiving logs: " + data)
+      addChatLog(data)
+    })
+
+    socketio_chat.on('muted', () => {
+      console.log("muted...")
+      addChatMessage("Console", "You've been muted, please wait")
+    })
 
     socketio_chat.on('username exists', () => {
-      addChatMessage("Console", "Username is already being used!");
-      console.log("Username exists");
-    });
+      addChatMessage("Console", "Username is already being used!")
+      console.log("Username exists")
+    })
 
     socketio_chat.on('disconnect', () => {
-      console.log("Disconnected");
-    });
-
+      console.log("Disconnected")
+    })
     return () => {
-      console.log("off");
-      socketio_chat.off();
-      cancelled = true;
-    };
-  }, [socketio_chat]);
+      console.log("off")
+      socketio_chat.off()
+      cancelled = true
+    }
+  }, [socketio_chat])
 
   function handleClick() {
     if (yourName != "" && yourMessage != "") {
-      socketio_chat.emit("new message", yourName, yourMessage,);
-      setYourMessage("");
+      socketio_chat.emit("new message", yourName, yourMessage,)
+      setYourMessage("")
     }
   }
 
   function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault();
+    event.preventDefault()
     if (yourName != "" && yourMessage != "") {
-      socketio_chat.emit("new message", yourName, yourMessage,);
-      setYourMessage("");
+      socketio_chat.emit("new message", yourName, yourMessage,)
+      setYourMessage("")
     }
   }
 
@@ -103,26 +112,26 @@ export default function Chat({
   }
 
   function addChatrooms() {
-    var m = 1;
+    var m = 1
     for (k = 1; k < 10; k++) {
-      console.log("num: " + k);
-      //console.log("realnum: " + k);
-      const newItem = {name: "Chatroom " + k};
+      console.log("num: " + k)
+      //console.log("realnum: " + k)
+      const newItem = {name: "Chatroom " + k}
       setChatrooms((current) => [
         ...current,
         newItem,
-      ]);
-      //console.log("chatroom: " + chatrooms);
+      ])
+      //console.log("chatroom: " + chatrooms)
     }
   }
 
   function clickChatBtn(roomname: string) {
-    //console.log(name);
-    setMessages([]);
-    setRoomname(roomname);
-    console.log("Joining room: " + roomname);
-    socketio_chat.emit("join room", roomname);
-    setChatroomBtns(false);
+    //console.log(name)
+    setMessages([])
+    setRoomname(roomname)
+    console.log("Joining room: " + roomname)
+    socketio_chat.emit("join room", roomname)
+    setChatroomBtns(false)
   }
 
   return (
@@ -222,5 +231,5 @@ export default function Chat({
         </div>
       </div>
     </div>
-  );
+  )
 }

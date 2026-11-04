@@ -22,11 +22,11 @@ export default function Draw({
   const [drawings, setDrawings] = useState<{
     username: string,
     data: string
-  }[]>([]);
-  type Coordinate = { x: number; y: number; };
-  const [isPainting, setIsPainting] = useState(false);
-  const [mousePosition, setMousePosition] = useState<Coordinate | undefined>(undefined);
-  var j = 0;
+  }[]>([])
+  type Coordinate = { x: number; y: number }
+  const [isPainting, setIsPainting] = useState(false)
+  const [mousePosition, setMousePosition] = useState<Coordinate | undefined>(undefined)
+  var j = 0
 
   function isTouchEvent(event: MouseEvent | TouchEvent) {
     if (event.type === "touchstart"
@@ -38,20 +38,20 @@ export default function Draw({
   }
 
   const startPaint = useCallback((event: MouseEvent | TouchEvent) => {
-    const coordinates = getCoordinates(event);
+    const coordinates = getCoordinates(event)
     if (coordinates) {
-      setIsPainting(true);
-      setMousePosition(coordinates);
+      setIsPainting(true)
+      setMousePosition(coordinates)
     }
-  }, []);
+  }, [])
 
   const getCoordinates = (event: MouseEvent | TouchEvent): Coordinate | undefined => {
     if (!canvasRef.current) {
-      return;
+      return
     }
 
-    const canvas: HTMLCanvasElement = canvasRef.current;
-    const rect = canvas.getBoundingClientRect();
+    const canvas: HTMLCanvasElement = canvasRef.current
+    const rect = canvas.getBoundingClientRect()
 
     if (isTouchEvent(event)) {
       event = event as TouchEvent
@@ -75,25 +75,25 @@ export default function Draw({
       y: ((event.clientY - rect.top)
         / canvas.clientHeight)
         * canvas.height
-    };
-  };
+    }
+  }
 
   const paint = useCallback(
     (event: MouseEvent | TouchEvent) => {
       if (isPainting) {
-        const newMousePosition = getCoordinates(event);
+        const newMousePosition = getCoordinates(event)
         if (mousePosition && newMousePosition) {
-          drawLine(mousePosition, newMousePosition);
-          setMousePosition(newMousePosition);
+          drawLine(mousePosition, newMousePosition)
+          setMousePosition(newMousePosition)
         }
       }
     },
     [isPainting, mousePosition]
-  );
+  )
 
   const drawLine = (originalMousePosition: Coordinate, newMousePosition: Coordinate) => {
     if (!canvasRef.current) {
-      return;
+      return
     }
 
     const canvas: HTMLCanvasElement = canvasRef.current
@@ -122,46 +122,46 @@ export default function Draw({
 
       context.stroke()
     }
-  };
+  }
 
   const exitPaint = useCallback(() => {
-      setIsPainting(false);
-  }, []);
+      setIsPainting(false)
+  }, [])
 
   useEffect(() => {
     if (!cancelled) {
-      setColor(getRandomColor());
-      setYourName("Guest" + getRandomDigit());
+      setColor(getRandomColor())
+      setYourName("Guest" + getRandomDigit())
     }
     if (!canvasRef.current) {
-      return;
+      return
     }
 
     socketio_draw.on("connect", () => {
-      console.log("Client connected:", socketio_draw.id);
-      socketio_draw.emit("log");
-    });
+      console.log("Client connected:", socketio_draw.id)
+      socketio_draw.emit("log")
+    })
 
     socketio_draw.on("new drawing", (username, message) => {
       console.log("Receiving message1: " + username + ": " + message)
-      addDraw(username, message);
-    });
+      addDraw(username, message)
+    })
 
     socketio_draw.on('log', (data) => {
-      setDrawings([]);
-      console.log("Receiving logs: " + data);
-      addDrawLog(data);
-    });
+      setDrawings([])
+      console.log("Receiving logs: " + data)
+      addDrawLog(data)
+    })
 
     socketio_draw.on("connect_error", (error) => {
-      console.log("Socket connection error:", error.message);
-    });
+      console.log("Socket connection error:", error.message)
+    })
 
     socketio_draw.on('disconnect', () => {
-      console.log("Disconnected");
-    });
+      console.log("Disconnected")
+    })
 
-    const canvas: HTMLCanvasElement = canvasRef.current;
+    const canvas: HTMLCanvasElement = canvasRef.current
     canvas.addEventListener('mousedown', startPaint)
     canvas.addEventListener('mousemove', paint)
     canvas.addEventListener('mouseup', exitPaint)
@@ -172,32 +172,32 @@ export default function Draw({
     canvas.addEventListener('touchcancel', exitPaint)
 
     return () => {
-      cancelled = true;
-      canvas.removeEventListener('mousedown', startPaint);
-      canvas.removeEventListener('mousemove', paint);
-      canvas.removeEventListener('mouseup', exitPaint);
-      canvas.removeEventListener('mouseleave', exitPaint);
+      cancelled = true
+      canvas.removeEventListener('mousedown', startPaint)
+      canvas.removeEventListener('mousemove', paint)
+      canvas.removeEventListener('mouseup', exitPaint)
+      canvas.removeEventListener('mouseleave', exitPaint)
       canvas.removeEventListener('touchstart', startPaint)
       canvas.removeEventListener('touchmove', paint)
       canvas.removeEventListener('touchend', exitPaint)
       canvas.removeEventListener('touchcancel', exitPaint)
-        socketio_draw.off();
+      socketio_draw.off()
     }
   }, [socketio_draw, color, startPaint, paint, exitPaint]) 
 
   function clearCanvas() {
-    console.log("clear");
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d");
-    if (!canvas || !ctx) return;
+    console.log("clear")
+    const canvas = canvasRef.current
+    const ctx = canvas?.getContext("2d")
+    if (!canvas || !ctx) return
 
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    ctx.clearRect(0, 0, WIDTH, HEIGHT)
   }
 
   function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault();
+    event.preventDefault()
     if (yourName != "") {
-      socketio_draw.emit("new message", yourName);
+      socketio_draw.emit("new message", yourName)
     }
   }
 
@@ -373,5 +373,5 @@ export default function Draw({
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,31 +1,31 @@
 import type { Server } from "socket.io"
 import { Socket } from "socket.io"
 
-export function registerDm(io: Server) {
+export async function registerDm(io: Server) {
 	console.log("Starting dm.ts")
 
 	interface ServerToClientEvents {
-		'log': (a: { username: string, message: string }[]) => void;
-		'new message': (a: string, b: string) => void;
-		'add to userlist': (a: string) => void;
-		'remove from userlist': (a: string) => void;
-		'userlist': (a: string[]) => void;
+		'log': (a: { username: string, message: string }[]) => void
+		'new message': (a: string, b: string) => void
+		'add to userlist': (a: string) => void
+		'remove from userlist': (a: string) => void
+		'userlist': (a: string[]) => void
 	}
 
 	interface ClientToServerEvents {
-		'username': (a: string) => void;
-		'username list': () => void;
-		'join room': (newRoomname: string[]) => void;
-		'new message': (a: string, b: string) => void;
+		'username': (a: string) => void
+		'username list': () => void
+		'join room': (newRoomname: string[]) => void
+		'new message': (a: string, b: string) => void
 	}
 
 	interface InterServerEvents {
-		ping: () => void;
+		ping: () => void
 	}
 
 	interface SocketData {
-		name: string;
-		age: number;
+		name: string
+		age: number
 	}
 
 	const CHAT_LOG_LIMIT_AMNT: number = 100
@@ -151,7 +151,7 @@ export function registerDm(io: Server) {
 		// Instantiate a copy of both variables
 
 		// Because if both are matching,
-		// The parameters treat it as one;
+		// The parameters treat it as one
 		// If you modify arr1, it would also modify arr2
 		arr1 = Array.from(arr1)
 		arr2 = Array.from(arr2)
