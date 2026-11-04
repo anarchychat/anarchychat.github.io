@@ -125,9 +125,9 @@
 }
 
 .music-container {
-  place-content: center;
+  /* place-content: center; */
   place-items: center;
-  place-self: center;
+  /* place-self: center; */
   display: flex;
   flex-direction: column;
   gap: 10px;
