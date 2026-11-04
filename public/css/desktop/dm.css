@@ -49,7 +49,8 @@
   transition: right 0.75s ease, opacity 0.2s ease;
   width: 100%;
   position: absolute;
-  height: 100%;
+  overflow-y: scroll;
+  height: calc(100% - 30px);
 }
 
 .dm-chat-page.active {
