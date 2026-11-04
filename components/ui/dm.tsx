@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { socketio_dm } from "../logic/socket"
-import { getRandomColor, getRandomDigit } from "../logic/userInfo"
+import * as userInfo from "../logic/userInfo"
 
 var cancelled = false
 
@@ -24,14 +24,13 @@ export default function Dm({
   const [chatroomBtns, setChatroomBtns] = useState(true)
   var i = 0
   var j = 0
-  var k = 0
 
   //console.log("test")
 
   useEffect(() =>  {
     if (!cancelled) {
-      setColor(getRandomColor())
-      setYourName("Guest" + getRandomDigit())
+      setColor(userInfo.getRandomColor())
+      setYourName("Guest" + userInfo.getRandomDigit())
     }
 
     // Properly make client disconnect on page refresh 
@@ -68,17 +67,19 @@ export default function Dm({
 
     socketio_dm.on("new message", (username, message) => {
       console.log("Receiving message1: " + username + ": " + message)
-      addChatMessage(username, message)
+      userInfo.addChatMessage(username, message, setMessages)
     })
 
     socketio_dm.on('log', (data) => {
       console.log("Receiving logs: " + data)
       setMessages([])
-      addChatLog(data)
+      userInfo.addChatLog(data, setMessages)
     })
 
     socketio_dm.on('username exists', () => {
-      addChatMessage("Console", "Username is already being used!")
+      userInfo.addChatMessage("Console", "Username is already being used!",
+        setMessages
+      )
       console.log("Username exists")
     })
 
@@ -112,23 +113,6 @@ export default function Dm({
     }
   }, [socketio_dm, chatrooms, yourName])
 
-  function addChatMessage(username: string, message: string) {
-    // console.log("Receiving message2: " + username + ": " + message)
-    setMessages((current) => [
-      {username: username, message: message},
-      ...current
-    ])
-  }
-
-  function addChatLog(data: any) {
-    data.forEach((prop: any) => {
-      setMessages((current) => [
-        {username: prop.username, message: prop.message},
-        ...current
-      ])
-    })
-  }
-
   function addUserlist(data: string[]) {
     // console.log("Receiving message2: " + username + ": " + message)
     console.log("423525 userlist: " + data)
@@ -155,21 +139,6 @@ export default function Dm({
     setChatroomBtns(false)
   }
 
-  function handleClick() {
-    if (yourName != "" && yourMessage != "") {
-      socketio_dm.emit("new message", yourName, yourMessage,)
-      setYourMessage("")
-    }
-  }
-
-  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault()
-    if (yourName != "" && yourMessage != "") {
-      socketio_dm.emit("new message", name, yourMessage,)
-      setYourMessage("")
-    }
-  }
-
   function updateName(newName: string) {
     setYourName(newName)
     socketio_dm.emit('username', newName)
@@ -185,7 +154,11 @@ export default function Dm({
         id="dm-chatroom-btns-page" 
         className={`dm-chatroom-btns-page ${chatroomBtns ? "active" : "" }`}
       >
-        <form id="dm-name-home" onSubmit={handleSubmit}>
+        <form id="dm-name-home" onSubmit={
+          (e) => userInfo.handleSubmit(
+            e, yourName, yourMessage, socketio_dm, setYourMessage
+          )
+        }>
           <input
             value={yourName}
             onChange={(e) => updateName(e.target.value)} 
@@ -201,7 +174,7 @@ export default function Dm({
             style={{
               color: color,
             }}
-            onClick={() => setColor(getRandomColor())}
+            onClick={() => setColor(userInfo.getRandomColor())}
           />
         </form>
         <div className="header">Your Group Chats</div>
@@ -225,7 +198,9 @@ export default function Dm({
         className={`dm-chatroom ${chatroomBtns ? "" : "active" }`}
       >
         <div id="dm-chat" className="dm-chat">
-          <form id="dm-message" onSubmit={handleSubmit}>
+          <form id="dm-message" onSubmit={(e) => userInfo.handleSubmit(
+            e, yourName, yourMessage, socketio_dm, setYourMessage
+          )}>
             <input
               value={yourMessage}
               onChange={(e) => setYourMessage(e.target.value)}
@@ -240,7 +215,9 @@ export default function Dm({
               id="dm-send"
               value="Send"
               className="ti ti-send"
-              onClick={() => handleClick()}
+              onClick={() => userInfo.handleClick(yourName, yourMessage,
+                socketio_dm, setYourMessage
+              )}
             />
           </form>
           <div id="dm-log">
@@ -248,7 +225,9 @@ export default function Dm({
               <li key={i += 1}>{message.username}: {message.message}</li>
             ))} 
           </div>
-          <form id="dm-name" onSubmit={handleSubmit}>
+          <form id="dm-name" onSubmit={(e) => userInfo.handleSubmit(
+            e, yourName, yourMessage, socketio_dm, setYourMessage
+          )}>
             <button
               id="dm-backarrow" 
               className="ti ti-logout dm-backarrow hoverButton"
@@ -269,7 +248,7 @@ export default function Dm({
               style={{
                 color: color,
               }}
-              onClick={() => setColor(getRandomColor())}
+              onClick={() => setColor(userInfo.getRandomColor())}
             />
           </form>
         </div>

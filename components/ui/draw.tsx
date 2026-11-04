@@ -137,6 +137,12 @@ export default function Draw({
       return
     }
 
+    // Properly make client disconnect on page refresh 
+    const onBeforeUnload = () => {
+      socketio_draw.disconnect()
+    }
+    window.addEventListener("beforeunload", onBeforeUnload)
+
     socketio_draw.on("connect", () => {
       console.log("Client connected:", socketio_draw.id)
       socketio_draw.emit("log")

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { socketio_vc } from "../logic/socket"
-import { getRandomColor, getRandomDigit } from "../logic/userInfo"
+import * as userInfo from "../logic/userInfo"
 import { Peer } from "peerjs"
 
 //var stream: Promise<MediaStream> = 0
@@ -32,15 +32,19 @@ export default function Vc({
   const [mic, setMic] = useState(false)
   const [chatroomBtns, setChatroomBtns] = useState(true)
   var i = 0
-  var j = 0
-  var k = 0
 
   useEffect(() =>  {
     if (!cancelled) {
-      addChatrooms()
-      setYourName("Guest" + getRandomDigit())
-      setColor(getRandomColor())
+      userInfo.addChatrooms(setChatrooms)
+      setYourName("Guest" + userInfo.getRandomDigit())
+      setColor(userInfo.getRandomColor())
     }
+
+    // Properly make client disconnect on page refresh 
+    const onBeforeUnload = () => {
+      socketio_vc.disconnect()
+    }
+    window.addEventListener("beforeunload", onBeforeUnload)
 
     socketio_vc.on("connect", () => {
       console.log("Client connected:", socketio_vc.id)
@@ -67,28 +71,6 @@ export default function Vc({
       cancelled = true
     }
   }, [socketio_vc])
-
-  function addChatrooms() {
-    var m = 1
-    for (k = 1; k < 10; k++) {
-      console.log("num: " + k)
-      //console.log("realnum: " + k)
-      const newItem = {name: "Chatroom " + k}
-      setChatrooms((current) => [
-        ...current,
-        newItem,
-      ])
-      //console.log("chatroom: " + chatrooms)
-    }
-  }
-
-  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault()
-    if (yourName != "" && yourMessage != "") {
-      socketio_vc.emit("new message", yourName, yourMessage,)
-      setYourMessage("")
-    }
-  }
 
   function clickChatBtn(roomname: string) {
     //console.log(name)
@@ -148,7 +130,11 @@ export default function Vc({
         id="voice-chatroom-btns-page3" 
         className={`voice-chatroom-btns-page ${chatroomBtns ? "active" : "" }`}
       >
-        <form id="voice-name-home" onSubmit={handleSubmit}>
+        <form id="voice-name-home" onSubmit={
+          (e) => userInfo.handleSubmit(
+            e, yourName, yourMessage, socketio_vc, setYourMessage
+          )
+        }>
           <input
             value={yourName}
             onChange={(e) => updateName(e.target.value)} 
@@ -164,7 +150,7 @@ export default function Vc({
             style={{
               color: color,
             }}
-            onClick={() => setColor(getRandomColor())}
+            onClick={() => setColor(userInfo.getRandomColor())}
           />
         </form>
         <div className="header">Chatrooms</div>
@@ -188,7 +174,9 @@ export default function Vc({
         className={`voice-chatroom ${chatroomBtns ? "" : "active" }`}
       >
         <div id="voice-chat" className="voice-chat">
-          <form id="voice-message" onSubmit={handleSubmit}>
+          <form id="voice-message" onSubmit={(e) => userInfo.handleSubmit(
+            e, yourName, yourMessage, socketio_vc, setYourMessage
+          )}>
             <button 
               type="submit" 
               id="voice-send"
@@ -203,7 +191,9 @@ export default function Vc({
               <li key={i += 1}>{user.name}</li>
             ))} 
           </div>
-          <form id="voice-name" onSubmit={handleSubmit}>
+          <form id="voice-name" onSubmit={(e) => userInfo.handleSubmit(
+            e, yourName, yourMessage, socketio_vc, setYourMessage
+          )}>
             <button
               id="voice-backarrow" 
               className="ti ti-logout voice-backarrow hoverButton"
@@ -224,7 +214,7 @@ export default function Vc({
               style={{
                 color: color,
               }}
-              onClick={() => setColor(getRandomColor())}
+              onClick={() => setColor(userInfo.getRandomColor())}
             />
           </form>
         </div>

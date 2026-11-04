@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { socketio_chat } from "../logic/socket"
-import { getRandomColor, getRandomDigit } from "../logic/userInfo"
+import * as userInfo from "../logic/userInfo"
 var domain = "http://localhost:3000"
 
 var cancelled = false
@@ -24,18 +24,22 @@ export default function Chat({
   }[]>([])
   const [chatroomBtns, setChatroomBtns] = useState(false)
   var i = 0
-  var j = 0
-  var k = 0
 
   console.log("CHAT TEST")
 
   useEffect(() =>  {
     if (!cancelled) {
-      setColor(getRandomColor())
-      setYourName("Guest" + getRandomDigit())
-      addChatrooms()
+      setColor(userInfo.getRandomColor())
+      setYourName("Guest" + userInfo.getRandomDigit())
+      userInfo.addChatrooms(setChatrooms)
     }
 
+    // Properly make client disconnect on page refresh 
+    const onBeforeUnload = () => {
+      socketio_chat.disconnect()
+    }
+    window.addEventListener("beforeunload", onBeforeUnload)
+    
     console.log("CHAT TEST 2")
 
     socketio_chat.on("connect", () => {
@@ -50,22 +54,26 @@ export default function Chat({
 
     socketio_chat.on("new message", (username, message) => {
       console.log("Receiving message1: " + username + ": " + message)
-      addChatMessage(username, message)
+      userInfo.addChatMessage(username, message, setMessages)
     })
 
     socketio_chat.on('log', (data) => {
       setMessages([])
       console.log("Receiving logs: " + data)
-      addChatLog(data)
+      userInfo.addChatLog(data, setMessages)
     })
 
     socketio_chat.on('muted', () => {
       console.log("muted...")
-      addChatMessage("Console", "You've been muted, please wait")
+      userInfo.addChatMessage("Console", "You've been muted, please wait",
+        setMessages
+      )
     })
 
     socketio_chat.on('username exists', () => {
-      addChatMessage("Console", "Username is already being used!")
+      userInfo.addChatMessage("Console", "Username is already being used!",
+        setMessages
+      )
       console.log("Username exists")
     })
 
@@ -79,61 +87,6 @@ export default function Chat({
     }
   }, [socketio_chat])
 
-  function handleClick() {
-    if (yourName != "" && yourMessage != "") {
-      socketio_chat.emit("new message", yourName, yourMessage,)
-      setYourMessage("")
-    }
-  }
-
-  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault()
-    if (yourName != "" && yourMessage != "") {
-      socketio_chat.emit("new message", yourName, yourMessage,)
-      setYourMessage("")
-    }
-  }
-
-  function addChatMessage(username: string, message: string) {
-    console.log("Receiving message2: " + username + ": " + message)
-    setMessages((current) => [
-      {username: username, message: message},
-      ...current
-    ])
-  }
-
-  function addChatLog(data: any) {
-    data.forEach((prop: any) => {
-      setMessages((current) => [
-        {username: prop.username, message: prop.message},
-        ...current
-      ])
-    })
-  }
-
-  function addChatrooms() {
-    var m = 1
-    for (k = 1; k < 10; k++) {
-      console.log("num: " + k)
-      //console.log("realnum: " + k)
-      const newItem = {name: "Chatroom " + k}
-      setChatrooms((current) => [
-        ...current,
-        newItem,
-      ])
-      //console.log("chatroom: " + chatrooms)
-    }
-  }
-
-  function clickChatBtn(roomname: string) {
-    //console.log(name)
-    setMessages([])
-    setRoomname(roomname)
-    console.log("Joining room: " + roomname)
-    socketio_chat.emit("join room", roomname)
-    setChatroomBtns(false)
-  }
-
   return (
     <div id="chat-page" 
       className={`chat-page ${blur ? "blur" : ""} ${chat ? "active" : ""}`}
@@ -144,7 +97,11 @@ export default function Chat({
         id="chatroom-btns-page" 
         className={`chatroom-btns-page ${chatroomBtns ? "active" : ""}`}
       >
-        <form id="chat-name-home" onSubmit={handleSubmit}>
+        <form id="chat-name-home" onSubmit={
+          (e) => userInfo.handleSubmit(
+            e, yourName, yourMessage, socketio_chat, setYourMessage
+          )
+        }>
           <input
             value={yourName}
             onChange={(e) => setYourName(e.target.value)} 
@@ -160,7 +117,7 @@ export default function Chat({
             style={{
               color: color,
             }}
-            onClick={() => setColor(getRandomColor())}
+            onClick={() => setColor(userInfo.getRandomColor())}
           />
         </form>
         <div className="header">Chatrooms</div>
@@ -170,7 +127,10 @@ export default function Chat({
               <button 
                 key={chatroom.name} 
                 className="hoverButton chatroom-btns" 
-                onClick={() => clickChatBtn(chatroom.name)}
+                onClick={() => userInfo.clickChatBtn(
+                  chatroom.name, setMessages, setRoomname, 
+                  socketio_chat, setChatroomBtns
+                )}
               >
                 {chatroom.name}
               </button>
@@ -181,7 +141,9 @@ export default function Chat({
 
       <div id="chatroom" className={`chatroom ${chatroomBtns ? "" : "active"}`}>
         <div id="chat" className="chat">
-          <form id="message" onSubmit={handleSubmit}>
+          <form id="message" onSubmit={(e) => userInfo.handleSubmit(
+            e, yourName, yourMessage, socketio_chat, setYourMessage
+          )}>
             <input
               value={yourMessage}
               onChange={(e) => setYourMessage(e.target.value)}
@@ -196,7 +158,9 @@ export default function Chat({
               id="send"
               value="Send"
               className="ti ti-send"
-              onClick={() => handleClick()}
+              onClick={() => userInfo.handleClick(yourName, yourMessage,
+                socketio_chat, setYourMessage
+              )}
             />
           </form>
           <div id="log">
@@ -204,7 +168,9 @@ export default function Chat({
               <li key={i += 1}>{message.username}: {message.message}</li>
             ))} 
           </div>
-          <form id="name" onSubmit={handleSubmit}>
+          <form id="name" onSubmit={(e) => userInfo.handleSubmit(
+            e, yourName, yourMessage, socketio_chat, setYourMessage
+          )}>
             <button
               id="backarrow" 
               className="ti ti-logout backarrow hoverButton"
@@ -225,7 +191,7 @@ export default function Chat({
               style={{
                 color: color,
               }}
-              onClick={() => setColor(getRandomColor())}
+              onClick={() => setColor(userInfo.getRandomColor())}
             />
           </form>
         </div>
