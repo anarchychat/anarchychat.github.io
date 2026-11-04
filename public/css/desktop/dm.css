@@ -156,6 +156,7 @@
   height: calc(100vh - 148px);
   overflow-y: auto;
   gap: 10px;
+  list-style: none;
 }
 
 #dm-message {

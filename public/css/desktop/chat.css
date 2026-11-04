@@ -137,6 +137,7 @@
   flex-grow: 1;
   height: calc(100vh - 148px);
   gap: 10px;
+  list-style: none;
 }
 
 #message {
