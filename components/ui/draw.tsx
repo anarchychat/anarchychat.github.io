@@ -293,7 +293,7 @@ export default function Draw({
         className={`draw drawClass ${drawMode ? `active` : ""}`} 
         id="firstDrawServer" 
       >
-        <div className="top-row">
+        <div className="row">
           <form id="draw-name-home" onSubmit={handleSubmit}>
             <input
               value={yourName}
@@ -314,44 +314,39 @@ export default function Draw({
             />
           </form>
         </div>
-        <div className="top-row colors">
-          <div className="left-side">
-            <button
-              className="colorpicker-draw"
-              style={{
-                backgroundColor: color,
-              }}
-              onClick={() => setColor(getRandomColor())}
+        <div className="row colors">
+          <button
+            className="colorpicker-draw"
+            style={{
+              backgroundColor: color,
+            }}
+            onClick={() => setColor(getRandomColor())}
+          />
+          <button
+            className={`eraser blur ti ${eraser ? `ti-pencil` : `ti-eraser`}`}
+            onClick={() => setEraser(!eraser)}
+          />
+          <button
+            className={`neon ${blur ? "blur" : ""} ${neon ? `on`: ""}`}
+            onClick={() => setNeon(!neon)}
+          >
+            Neon
+          </button>
+          <div className={`${blur ? "blur" : ""} sliderbox`}>
+            <input 
+              type="range" 
+              min="1" 
+              max="100" 
+              value={slider} 
+              onChange={(event) => setSlider(event.target.valueAsNumber)}
+              className="slider" 
+              id="myRange"
             />
-            <button
-              className={`eraser blur ti ${eraser ? `ti-pencil` : `ti-eraser`}`}
-              onClick={() => setEraser(!eraser)}
-            />
-            <button
-              className={`neon ${blur ? "blur" : ""} ${neon ? `on`: ""}`}
-              onClick={() => setNeon(!neon)}
-            >
-              Neon
-            </button>
-            <div className={`${blur ? "blur" : ""} sliderbox`}>
-              <input 
-                type="range" 
-                min="1" 
-                max="100" 
-                value={slider} 
-                onChange={(event) => setSlider(event.target.valueAsNumber)}
-                className="slider" 
-                id="myRange"
-              />
-            </div>
           </div>
-          <div className="right-side">
-            <button 
-              className={`${blur ? "blur" : ""} wipe ti ti-trash-x`}
-              onClick={() => clearCanvas()}
-            >
-            </button>
-          </div>
+          <button 
+            className={`${blur ? "blur" : ""} wipe ti ti-trash-x`}
+            onClick={() => clearCanvas()}
+          />
         </div>
 
         <div className="middle-whiteboard">
@@ -363,19 +358,15 @@ export default function Draw({
           />
         </div>
 
-        <div className="bottom-row">
-          <div className="left-side">
-            <button 
-              className={`backarrow ${blur ? "blur" : ""} ti ti-logout`}
-              onClick={() => setDrawMode(false)}
-            />
-          </div>
-          <div className="right-side">
-            <button
-              className={`checkmark ${blur ? "blur" : ""} ti ti-check`}
-              onClick={function() { sendDraw(); setDrawMode(false) }}
-            />
-          </div>
+        <div className="row">
+          <button 
+            className={`backarrow ${blur ? "blur" : ""} ti ti-logout`}
+            onClick={() => setDrawMode(false)}
+          />
+          <button
+            className={`checkmark ${blur ? "blur" : ""} ti ti-check`}
+            onClick={function() { sendDraw(); setDrawMode(false) }}
+          />
         </div>
       </div>
     </div>
