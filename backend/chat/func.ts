@@ -41,7 +41,12 @@ export function checkIfBanned(directIp: string, xForwardForIp: string,
   return find
 }
 
-export function setupChatlog(username: string, message: string, roomname: string) {
+export function setupChatlog(
+  username: string, 
+  message: string, 
+  color: string, 
+  roomname: string
+) {
   var room = chat.chatrooms.find(array => array.roomname === roomname)
 
   if (!room) {
@@ -49,7 +54,7 @@ export function setupChatlog(username: string, message: string, roomname: string
     chat.chatrooms.push(room)
   }
 
-  room.data.push({username, message})
+  room.data.push({username, message, color})
 
   if (room.data.length > chat.CHAT_LOG_LIMIT_AMNT) {
     room.data.shift()

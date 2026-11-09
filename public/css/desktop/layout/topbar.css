@@ -8,7 +8,7 @@
   grid-template-rows: 80px;
   align-items: center;
   height: 80px;
-  z-index: 100;
+  z-index: -1;
 }
 
 #gridLayer {

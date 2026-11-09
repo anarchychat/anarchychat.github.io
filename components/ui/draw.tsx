@@ -1,32 +1,35 @@
-import { useRef, useState, useEffect, useCallback } from "react"
+import { SetStateAction, Dispatch, useRef, useState, useEffect, useCallback } from "react"
 import { getRandomDigit, getRandomColor } from "../logic/userInfo"
 import { socketio_draw } from "../logic/socket"
 
 var cancelled = false
 
 export default function Draw({
-  draw, blur
+  draw, blur, blockData, yourName, color, setCookieValue
 }: {
   draw: boolean,
-  blur: boolean
+  blur: boolean,
+  blockData: string[],
+  yourName: string,
+  color: string,
+  setCookieValue: (name: string, value: string) => void,
 }) {
   const WIDTH = 1920
   const HEIGHT = 720
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [color, setColor] = useState("#000000")
   const [eraser, setEraser] = useState(false)
   const [neon, setNeon] = useState(false)
   const [slider, setSlider] = useState<number>(10)
   const [drawMode, setDrawMode] = useState(false)
-  const [yourName, setYourName] = useState("Guest")
   const [drawings, setDrawings] = useState<{
     username: string,
+    color: string,
     data: string
   }[]>([])
   type Coordinate = { x: number; y: number }
+  const [drawColor, setDrawColor] = useState("#000000")
   const [isPainting, setIsPainting] = useState(false)
   const [mousePosition, setMousePosition] = useState<Coordinate | undefined>(undefined)
-  var j = 0
 
   function isTouchEvent(event: MouseEvent | TouchEvent) {
     if (event.type === "touchstart"
@@ -99,7 +102,7 @@ export default function Draw({
     const canvas: HTMLCanvasElement = canvasRef.current
     const context = canvas.getContext('2d')
     if (context) {
-      context.strokeStyle = color
+      context.strokeStyle = drawColor
       context.lineJoin = 'round'
       context.lineWidth = slider
       context.globalCompositeOperation = "source-over"
@@ -111,7 +114,7 @@ export default function Draw({
         context.globalCompositeOperation = "destination-out"
       }
       if (neon && !eraser) {
-        context.shadowColor = color
+        context.shadowColor = drawColor
         context.shadowBlur = slider * 1.5
       }
 
@@ -130,8 +133,7 @@ export default function Draw({
 
   useEffect(() => {
     if (!cancelled) {
-      setColor(getRandomColor())
-      setYourName("Guest" + getRandomDigit())
+      setDrawColor(getRandomColor())
     }
     if (!canvasRef.current) {
       return
@@ -148,9 +150,9 @@ export default function Draw({
       socketio_draw.emit("log")
     })
 
-    socketio_draw.on("new drawing", (username, message) => {
-      console.log("Receiving message1: " + username + ": " + message)
-      addDraw(username, message)
+    socketio_draw.on("new drawing", (username, color, message) => {
+      console.log("Receiving message1: " + username + ": " + message + " " + color)
+      addDraw(username, color, message)
     })
 
     socketio_draw.on('log', (data) => {
@@ -189,7 +191,7 @@ export default function Draw({
       canvas.removeEventListener('touchcancel', exitPaint)
       socketio_draw.off()
     }
-  }, [socketio_draw, color, startPaint, paint, exitPaint]) 
+  }, [socketio_draw, color, drawColor, startPaint, paint, exitPaint]) 
 
   function clearCanvas() {
     console.log("clear")
@@ -207,17 +209,17 @@ export default function Draw({
     }
   }
 
-  function addDraw(username: string, data: string) {
+  function addDraw(username: string, color: string, data: string) {
     console.log("Receiving message2: " + username + ": " + data)
     setDrawings((current) => [...current, 
-      {username: username, data: data}
+      {username: username, color: color, data: data}
     ])
   }
 
   function addDrawLog(data: any) {
     data.forEach((prop: any) => {
       setDrawings((current) => [...current, 
-        {username: prop.username, data: prop.data}
+        {username: prop.username, color: prop.color, data: prop.data}
       ])
     })
   }
@@ -226,8 +228,19 @@ export default function Draw({
     const canvas = canvasRef.current
     if (canvas) {
       const dataUrl = canvas.toDataURL("image/png")
-      socketio_draw.emit("new drawing", yourName, dataUrl)
+      socketio_draw.emit("new drawing", yourName, color, dataUrl)
     }
+  }
+
+  function blockInArray(item: {username: string}) {
+    for (const blockedUsername of blockData) {
+      if (item.username === blockedUsername) {
+        console.log("EQUAL")
+        return false
+      }
+    }
+    console.log("NOT EQUAL")
+    return true
   }
 
   return (
@@ -243,7 +256,7 @@ export default function Draw({
           <form id="draw-name-home" onSubmit={handleSubmit}>
             <input
               value={yourName}
-              onChange={(e) => setYourName(e.target.value)} 
+              onChange={(e) => setCookieValue("name", e.target.value)} 
               type="text" 
               id="chat-nme" 
               placeholder="Name" 
@@ -256,7 +269,7 @@ export default function Draw({
               style={{
                 color: color,
               }}
-              onClick={() => setColor(getRandomColor())}
+              onClick={() => setCookieValue("color", getRandomColor())}
             />
           </form>
         </div>
@@ -265,9 +278,9 @@ export default function Draw({
             Drawings
           </div>
           <div className="hold-list">
-            {drawings.map((drawing) => (
-              <li key={j += 1} className="drawing-landscape">
-                <p>
+            {drawings.filter(username => blockInArray(username)).map((drawing, i) => (
+              <li key={i} className="drawing-landscape">
+                <p style={{color: drawing.color}}>
                   {drawing.username}
                 </p>
                 <img 
@@ -297,7 +310,7 @@ export default function Draw({
           <form id="draw-name-home" onSubmit={handleSubmit}>
             <input
               value={yourName}
-              onChange={(e) => setYourName(e.target.value)} 
+              onChange={(e) => setCookieValue("name", e.target.value)} 
               type="text" 
               id="chat-nme" 
               placeholder="Name" 
@@ -310,7 +323,7 @@ export default function Draw({
               style={{
                 color: color,
               }}
-              onClick={() => setColor(getRandomColor())}
+              onClick={() => setCookieValue("color", getRandomColor())}
             />
           </form>
         </div>
@@ -318,9 +331,9 @@ export default function Draw({
           <button
             className="colorpicker-draw"
             style={{
-              backgroundColor: color,
+              backgroundColor: drawColor,
             }}
-            onClick={() => setColor(getRandomColor())}
+            onClick={() => setDrawColor(getRandomColor())}
           />
           <button
             className={`eraser blur ti ${eraser ? `ti-pencil` : `ti-eraser`}`}

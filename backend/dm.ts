@@ -5,18 +5,18 @@ export async function registerDm(io: Server) {
 	console.log("Starting dm.ts")
 
 	interface ServerToClientEvents {
-		'log': (a: { username: string, message: string }[]) => void
-		'new message': (a: string, b: string) => void
-		'add to userlist': (a: string) => void
+		'log': (a: { username: string, message: string, color: string }[]) => void
+		'new message': (a: string, b: string, c: string) => void
+		'add to userlist': (a: string, b: string) => void
 		'remove from userlist': (a: string) => void
-		'userlist': (a: string[]) => void
+		'userlist': (a: {username: string, color: string}[]) => void
 	}
 
 	interface ClientToServerEvents {
-		'username': (a: string) => void
+		'username': (a: string, b: string) => void
 		'username list': () => void
 		'join room': (newRoomname: string[]) => void
-		'new message': (a: string, b: string) => void
+		'new message': (a: string, b: string, c: string) => void
 	}
 
 	interface InterServerEvents {
@@ -31,16 +31,17 @@ export async function registerDm(io: Server) {
 	const CHAT_LOG_LIMIT_AMNT: number = 100
 
 	// Chatroom
-	const outerArray: {
+	const chatrooms: {
 		connected: boolean[],
 		roomname: string[], 
 		data: {
 			username: string,
-			message: string
+			message: string,
+			color: string
 		}[]
 	}[] = []
 
-	const usernames: string[] = []
+	const usernames: {username: string, color: string}[] = []
 
 	io.on('connection', (socket: Socket<
 		ClientToServerEvents,
@@ -52,26 +53,26 @@ export async function registerDm(io: Server) {
 		var yourUsername: string = ""
 
 		socket.on('disconnect', () => {
-			if (usernames.includes(yourUsername)) {
+			if (usernames.some(e => e.username === yourUsername)) {
 				removeUser(yourUsername)
 			}
 
 			console.log("Disconnected: " + usernames)
 		})
 
-		socket.on('username', (username: string) => {
+		socket.on('username', (username: string, color: string) => {
 			console.log("Connected user: " + username)
-			if (yourUsername != username && usernames.includes(yourUsername)) {
+			if (yourUsername != username && usernames.some(e => e.username === yourUsername)) {
 				removeUser(yourUsername)
 			}
 
-			addUser(username)
-			console.log("Connected: " + usernames)
+			addUser(username, color)
+			console.log("Connected: ", usernames)
 		})
 
 		socket.on('username list', () => {
 			userList()
-			console.log("Userlist: " + usernames)
+			console.log("Userlist: ", usernames)
 		})
 
 		socket.on('join room', (newRoomname: string[]) => {
@@ -85,48 +86,49 @@ export async function registerDm(io: Server) {
 			console.log("JOIN========================")
 		})
 
-		socket.on('new message', (username: string, message: string) => {
+		socket.on('new message', (username: string, message: string, color: string) => {
 			console.log("========================NEW MESSAGE")
 			console.log("ROOMNAME RECEIVED: " + roomname)
 
-			setupChatlog(username, message, roomname)
+			setupChatlog(username, message, color, roomname)
 
 			console.log("ROOMNAME: " + roomname)
 			console.log("New message received: " + 
 				roomname + ": " + username + ": " + message)
 
-			io.to(JSON.stringify(roomname)).emit("new message", username ,message)
+			io.to(JSON.stringify(roomname)).emit("new message", username ,message, color)
 
-			outerArray.forEach((array) => console.log("Room names available: " + array.roomname))
+			chatrooms.forEach((array) => console.log("Room names available: " + array.roomname))
 
 			console.log("NEW MESSAGE========================")
 		})
 
-		function addUser(username: string) {
+		function addUser(username: string, color: string) {
 			yourUsername = username
-			usernames.push(username)
-			socket.broadcast.emit('add to userlist', yourUsername)
+			usernames.push({username: username, color: color})
+			socket.broadcast.emit('add to userlist', yourUsername, color)
 		}
 
 		function removeUser(yourUsername: string) {
-			var index = usernames.indexOf(yourUsername)
+			var index = usernames.findIndex(e => e.username === yourUsername)
 			usernames.splice(index, 1)
 			socket.broadcast.emit('remove from userlist', yourUsername)
 		}
 
 		function userList() {
-			const remove = usernames.filter((array) => array !== yourUsername)
+			const remove = usernames.filter((array) => array.username !== yourUsername)
+			console.log("remove: ", remove)
 			socket.emit('userlist', remove)
 		}
 
 		function correctOrderArray(newRoomname: string[]) {
-			const matchingRoom = outerArray.find( (array) =>
+			const matchingRoom = chatrooms.find( (array) =>
 				arraysMatch(array.roomname, newRoomname) 
 			)
 
 			console.log(matchingRoom)
 			if (matchingRoom) {
-				outerArray.forEach((array) => console.log("found: " + array.roomname))
+				chatrooms.forEach((array) => console.log("found: " + array.roomname))
 				console.log("Right order: " + matchingRoom.roomname)
 				return matchingRoom.roomname
 			}
@@ -147,7 +149,7 @@ export async function registerDm(io: Server) {
 	function arraysMatch (arr1: string[], arr2: string[]) {
 		console.log("========================ARRAYS MATCH")
 
-		console.log("L I S T of chatrooms:" + outerArray)
+		console.log("L I S T of chatrooms:" + chatrooms)
 		// Instantiate a copy of both variables
 
 		// Because if both are matching,
@@ -197,7 +199,7 @@ export async function registerDm(io: Server) {
 	}
 
 	function getChatlog(roomname: string[], yourUsername: string) {
-		const room = outerArray.find((array) => 
+		const room = chatrooms.find((array) => 
 			arraysMatch(array.roomname, roomname)
 		)
 
@@ -209,19 +211,19 @@ export async function registerDm(io: Server) {
 		return []
 	}
 
-	function setupChatlog(username: string, message: string, yourRoomname: string[]) {
-		var room = outerArray.find( (array) =>
+	function setupChatlog(username: string, message: string, color: string, yourRoomname: string[]) {
+		var room = chatrooms.find( (array) =>
 			arraysMatch(array.roomname, yourRoomname)
 		)
 
 		if (!room) {
 			room = {connected: [], roomname: yourRoomname, data: []}
-			outerArray.push(room)
+			chatrooms.push(room)
 		}
 
 		console.log("new message to send")
 
-		room.data.push({username, message})
+		room.data.push({username, message, color})
 
 		if (room.data.length > CHAT_LOG_LIMIT_AMNT) {
 			room.data.shift()

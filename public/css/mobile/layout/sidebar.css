@@ -1,0 +1,56 @@
+.sidebars {
+  white-space:nowrap;
+  height: 100%;
+}
+
+.sidebars .header {
+  /* color: #fc0; */
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 1.5rem 1rem 0.5rem 1rem;
+  /* -webkit-background-clip: text; */
+  /* display: none; */
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
+  font-weight: bold;
+}
+
+.sbo {
+  grid-area: sidebar;
+  z-index: 3;
+  overflow: scroll; 
+  scrollbar-width: none; 
+}
+
+.sbt {
+  z-index: 0; 
+  height: 50px; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  margin: 0; 
+  padding: 0; 
+  white-space: nowrap;
+  place-items: center;
+  place-content: center;
+  place-self: center;
+  height: fit-content;
+}
+
+.sbt > * {
+  font-weight: 500;
+  padding: 0.50rem;
+  font-size: 28px;
+  font-style: normal;
+  display: block;
+  display: flex;
+  border-radius: 10px;
+}
+
+.button.list.opac a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+}

@@ -3,8 +3,13 @@
   src: url('../../webfonts/CoolveticaLt-Regular.woff2') format('truetype');
 }
 
+@font-face {
+  font-family: 'Roboto-RG';
+  src: url('../../webfonts/Roboto-Regular.ttf')
+}
+
 .plain-color {
-  backdrop-filter: blur(0px);
+  /* backdrop-filter: blur(0px); */
   background-color: rgb(38, 38, 38);
 }
 
@@ -49,9 +54,10 @@ a.href:visited {
 }
 
 body .main {
-  z-index: 0;
+  z-index: -100;
   grid-area: main;
   flex-direction: column;
+  position: relative;
 }
 
 .blur {
@@ -68,4 +74,13 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+.video-background {
+  position: fixed;
+  z-index: -111;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

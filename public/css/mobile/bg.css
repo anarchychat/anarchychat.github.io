@@ -1,0 +1,173 @@
+#video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 1;
+}
+
+.backgroundstyles {
+  overflow-x: scroll;
+  width: 100%;
+  word-break: break-all;
+  text-wrap: wrap;
+  scrollbar-color: transparent rgba(255, 255, 255, 0.05);
+  scrollbar-width: none;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  height: calc(100% - 30px);
+}
+
+.sidebars {
+  white-space:nowrap;
+  height: 100%;
+}
+
+.sidebars .header-bg {
+  /* color: #fc0; */
+  font-size: 1.25rem;
+  font-weight: bold;
+  /* -webkit-background-clip: text; */
+  /* display: none; */
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
+  font-weight: bold;
+}
+
+.background-page {
+  position: fixed;
+  right: -100%;
+  width: calc(100% - 50px);
+  height: calc(100% - 50px);
+  /* background-color: rgba(26, 27, 30, 0.6); */
+  /* backdrop-filter: blur(9px); */
+  opacity: 0;
+  transition: right 0.75s ease, opacity 0.2s ease;
+  position: absolute;
+}
+
+.background-page.active {
+  right: 0px;
+  opacity: 1;
+  transition: right 0.3s ease, opacity 0.5s ease 0.1s;
+}
+
+#b, .b {
+  background-color: transparent;
+  border-color: transparent;
+  color: white;
+  color: #ffffffe6;
+  font-family: CoolveticaLT-RG;
+  font-size: 16px;
+  font-weight: 1000;
+  /* margin: 10px 0px 10px 0px; */
+  padding: 8px;
+}
+
+.ib {
+  /* backdrop-filter: blur(3px); */
+  background-color: #1d1d1dcc;
+  width: 200px;
+  box-sizing: border-box;
+  border: 1px solid #ffffff0d;
+  border-radius: .5rem;
+  color: #ffffffe6;
+  font: inherit;
+  line-height: inherit;
+  padding: .5rem;
+  line-height: 1em;
+  height: 40px;
+  box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
+}
+
+ /* The switch - the box around the toggle-slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The toggle-slider */
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background-color: #ccc; */
+  background-color: #1d1d1dcc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  height: 34px;
+  width: 60px;
+  box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  /* background-color: white; */
+  background-color: #737373;
+  /* background-color: #ffffffe6; */
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .toggle-slider {
+  /* background-color: #2196F3; */
+  background-color: #00d54f;
+}
+
+input:focus + .toggle-slider {
+  /* box-shadow: 0 0 1px #2196F3; */
+  box-shadow: 0 0 1px #00d54f;
+}
+
+input:checked + .toggle-slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+  background-color: white;
+}
+
+/* Rounded toggle-sliders */
+.toggle-slider.round {
+  border-radius: 34px;
+}
+
+.toggle-slider.round:before {
+  border-radius: 50%;
+} 
+
+.blur-mode {
+  place-items: center;
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+}
+
+.bg-div {
+  place-items: center;
+  gap: 10px;
+  padding: 8px;
+  display: flex;
+}

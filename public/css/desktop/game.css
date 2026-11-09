@@ -149,10 +149,9 @@ article section+header {
   transition: right 0.3s ease, opacity 0.5s ease 0.1s;
 }
 
-.gameURL {
-  backdrop-filter: blur(3px);
+.game-url {
   background-color: rgba(29, 29, 29, 0.8);
-  height: 100%;
+  height: calc(100% - 30px);
   width: 100%;
   padding:0.5rem;
   color:rgba(255,255,255,0.9);
@@ -161,13 +160,84 @@ article section+header {
   border:1px solid rgba(255,255,255,0.05);
   border-radius:0.5rem;
   box-sizing:border-box;
+  box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
 }
 
-#gameFrame {
+.game-iframe {
+  background-color: rgba(29, 29, 29, 0.8);
+  height: calc(100% - 30px);
+  width: 100%;
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius:0.5rem;
+  box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
+}
+
+.game-frame {
   padding: 15px;
-  height: calc(100% - 65px);
+  height: calc(100% - 100px);
+  margin: 10px;
+  background-color: rgba(29, 29, 29, 0.8);
+  padding:0.5rem;
+  color:rgba(255,255,255,0.9);
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius:0.5rem;
+  box-sizing:border-box;
+  box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .margins {
   margin: 10px;
+}
+
+.game-row {
+  display: flex;
+  height: 40px;
+}
+
+.game-row > * {
+  height: 40px;
+  width: 40px;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  display: flex;
+}
+
+.game-fullscreen {
+  margin-left: auto;
+  background-color: rgba(29, 29, 29, 0.8);
+  place-items: center;
+  place-content: center;
+  place-self: center;
+  color: white;
+  font-weight: 500;
+  font-size: 28px;
+  font-style: normal;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.game-fullscreen:hover {
+  background-color: rgba(255,255,255,0.5);
+}
+
+.game-fs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.game-fs-button {
+  z-index: 1000;
+  bottom: 10px;
+  position: fixed;
+  right: 10px;
 }

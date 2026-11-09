@@ -157,6 +157,8 @@
   overflow-y: auto;
   gap: 10px;
   list-style: none;
+  font-family: "Roboto-RG";
+  font-weight: 500;
 }
 
 #dm-message {
@@ -266,4 +268,11 @@
 
 .hoverButton:hover {
   background-color: rgba(255,255,255,0.5) !important;
+}
+
+.dm-username,
+.dm-message {
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
 }

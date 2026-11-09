@@ -3,14 +3,14 @@ import { Socket } from "socket.io"
 import * as func from "./chat/func"
 
 export interface ServerToClientEvents {
-  'log': (a: { username: string, message: string }[]) => void
-  'new message': (a: string, b: string) => void
+  'log': (a: { username: string, message: string, color: string }[]) => void
+  'new message': (a: string, b: string, c: string) => void
   'username exists': () => void
   'muted': () => void
 }
 export interface ClientToServerEvents {
   'join room': (a: string) => void
-  'new message': (a: string, b: string) => void
+  'new message': (a: string, b: string, c: string) => void
 }
 export interface InterServerEvents {
   ping: () => void
@@ -25,7 +25,8 @@ export const chatrooms: {
   roomname: string, 
   data: {
     username: string,
-    message: string
+    message: string,
+    color: string
   }[]
 }[] = []
 export const usernames: string[] = []
@@ -83,7 +84,7 @@ export async function registerChat(io: Server) {
       socket.emit('log', func.getChatlog(roomname))
     })
 
-    socket.on('new message', (username: string, message: string) => {
+    socket.on('new message', (username: string, message: string, color: string) => {
       if (func.checkIfUsernameExists(username, yourUsername, socket)) {
         console.log("Username already exists")
         return
@@ -100,14 +101,14 @@ export async function registerChat(io: Server) {
         changeUsername(username)
       }
 
-      func.setupChatlog(username, message, roomname)
+      func.setupChatlog(username, message, color, roomname)
 
       console.log("New message received: " + 
         roomname + ": " + username + ": " + message)
 
       checkIfSpamming()
 
-      io.to(roomname).emit('new message', username, message)
+      io.to(roomname).emit('new message', username, message, color)
     })
 
     function changeUsername(username: string) {

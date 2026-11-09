@@ -8,14 +8,14 @@ export function getRandomColor(): string {
   return "#" + Math.random().toString(16).slice(2, 8).padStart(6, "0");
 }
 
-export function addChatrooms(
+export function addChatrooms(options: {
   setChatrooms: React.Dispatch<React.SetStateAction<{name: string}[]>>
-) {
+}) {
   for (let i = 1; i < 10; i++) {
     console.log("num: " + i)
     //console.log("realnum: " + k)
     const newItem = {name: "Chatroom " + i}
-    setChatrooms((current) => [
+    options.setChatrooms((current) => [
       ...current,
       newItem,
     ])
@@ -23,68 +23,100 @@ export function addChatrooms(
   }
 }
 
-export function addChatLog(data: any,
+export function addChatLog(options: {
+  data: string[],
   setMessages: React.Dispatch<React.SetStateAction<{
     username: string
     message: string
+    color: string
   }[]>>
-) {
-  data.forEach((prop: any) => {
-    setMessages((current) => [
-      {username: prop.username, message: prop.message},
+}) {
+  options.data.forEach((prop: any) => {
+    options.setMessages((current) => [
+      {username: prop.username, message: prop.message, color: prop.color},
       ...current
     ])
   })
 }
 
-export function handleClick(yourName: string, yourMessage: string,
+export function handleClick(options: {
+  yourName: string, 
+  yourMessage: string,
+  color: string,
   socketio: Socket, 
   setYourMessage: React.Dispatch<React.SetStateAction<string>>
-) {
-  if (yourName != "" && yourMessage != "") {
-    socketio.emit("new message", yourName, yourMessage,)
-    setYourMessage("")
+}) {
+  if (options.yourName != "" && options.yourMessage != "") {
+    options.socketio.emit("new message", 
+      options.yourName, 
+      options.yourMessage, 
+      options.color
+    )
+    options.setYourMessage("")
   }
 }
 
-export function handleSubmit(event: React.SubmitEvent<HTMLFormElement>,
-  yourName: string, yourMessage: string,
+export function handleSubmit(options: {
+  event: React.SubmitEvent<HTMLFormElement>,
+  yourName: string, 
+  yourMessage: string,
+  color: string,
   socketio: Socket,
   setYourMessage: React.Dispatch<React.SetStateAction<string>>
-) {
-  event.preventDefault()
-  if (yourName != "" && yourMessage != "") {
-    socketio.emit("new message", yourName, yourMessage,)
-    setYourMessage("")
+}) {
+  options.event.preventDefault()
+  if (options.yourName != "" && options.yourMessage != "") {
+    options.socketio.emit("new message", 
+      options.yourName, 
+      options.yourMessage,
+      options.color
+    )
+    options.setYourMessage("")
   }
 }
 
-export function addChatMessage(username: string, message: string,
+export function addChatMessage(options: {
+  username: string, 
+  message: string,
+  color: string
   setMessages: React.Dispatch<React.SetStateAction<{
     username: string
     message: string
+    color: string
   }[]>>
-) {
-  console.log("Receiving message2: " + username + ": " + message)
-  setMessages((current) => [
-    {username: username, message: message},
+}) {
+  console.log("Receiving message2: " + options.username +
+    ": " + options.message)
+  options.setMessages((current) => [
+    {username: options.username, message: options.message, color: options.color},
     ...current
   ])
 }
 
-export function clickChatBtn(roomname: string,
+export function clickChatBtn(options: {
+  roomname: string,
   setMessages: React.Dispatch<React.SetStateAction<{
     username: string
     message: string
+    color: string
   }[]>>,
   setRoomname: React.Dispatch<React.SetStateAction<string>>,
   socketio: Socket,
   setChatroomBtns: React.Dispatch<React.SetStateAction<boolean>>
-) {
+}) {
   //console.log(name)
-  setMessages([])
-  setRoomname(roomname)
-  console.log("Joining room: " + roomname)
-  socketio.emit("join room", roomname)
-  setChatroomBtns(false)
+  options.setMessages([])
+  options.setRoomname(options.roomname)
+  console.log("Joining room: " + options.roomname)
+  options.socketio.emit("join room", options.roomname)
+  options.setChatroomBtns(false)
+}
+
+export function updateName(options: {
+  newName: string, 
+  socketio: Socket,
+  setCookieValue: (name: string, value: string) => void,
+}) {
+  options.setCookieValue("name", options.newName)
+  options.socketio.emit('username', options.newName)
 }

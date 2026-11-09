@@ -1,20 +1,17 @@
-import { useState, SetStateAction, Dispatch } from "react";
+import { SetStateAction, Dispatch, useState } from "react";
 
 export default function Bg({
-  bg, setUrl, setBlur, blur
+  bg, blur, 
+  b1, b2, b3, b4, b5, b6, 
+  setCookieValue
 }: {
-  bg: boolean, setUrl: Dispatch<SetStateAction<string>>,
-  setBlur: Dispatch<SetStateAction<boolean>>,
-  blur: boolean
+  bg: boolean,
+  blur: boolean,
+  b1: boolean, b2: boolean,
+  b3: boolean, b4: boolean,
+  b5: boolean, b6: boolean,
+  setCookieValue: (name: string, value: string | boolean) => void,
 }) {
-  function changeBlur() {
-    setBlur(!blur)
-  }
-
-  function changeBg(bg: string) {
-    setUrl(bg)
-  }
-
   return (
     <div id="background-page" 
       className={`background-page ${blur ? "blur" : ""} ${bg ? "active" : ""}`} 
@@ -27,87 +24,116 @@ export default function Bg({
             Anarchy Chat
           </li>
           <li>
-            <button 
-              className="b1 b" 
-              id="hoverButton"
-              onClick={() => changeBg(
-                "https://cdn.pixabay.com/video/2024/05/29/214405_large.mp4"
-              )}
+            <div
+              className="bg-div" 
             >
               Background 1
-            </button>
+              <label className="switch">
+                <input 
+                  type="checkbox"
+                  checked={b1}
+                  onChange={() => setCookieValue("b1", 
+                    "https://cdn.pixabay.com/video/2024/05/29/214405_large.mp4"
+                  )}
+                />
+                <span className="toggle-slider round"></span>
+              </label>
+            </div>
           </li>
           <li>
-            <button 
-              className="b2 b" 
-              id="hoverButton"
-              onClick={() => changeBg(
-                "https://cdn.pixabay.com/video/2024/06/08/215762_large.mp4"
-              )}
+            <div
+              className="bg-div" 
             >
               Background 2
-            </button>
+              <label className="switch">
+                <input 
+                  type="checkbox"
+                  checked={b2}
+                  onChange={() => setCookieValue("b2",
+                    "https://cdn.pixabay.com/video/2024/06/08/215762_large.mp4"
+                  )}
+                />
+                <span className="toggle-slider round"></span>
+              </label>
+            </div>
           </li>
           <li>
-            <button 
-              className="b3 b" 
-              id="hoverButton"
-              onClick={() => changeBg(
-                "https://cdn.pixabay.com/video/2024/03/01/202587-918431513_large.mp4"
-              )}
+            <div
+              className="bg-div" 
             >
               Background 3
-            </button>
+              <label className="switch">
+                <input 
+                  type="checkbox"
+                  checked={b3}
+                  onChange={() => setCookieValue("b3",
+                    "https://cdn.pixabay.com/video/2024/03/01/202587-918431513_large.mp4"
+                  )}
+                />
+                <span className="toggle-slider round"></span>
+              </label>
+            </div>
           </li>
           <li>
-            <button 
-              className="b4 b" 
-              id="hoverButton"
-              onClick={() => changeBg(
-                "https://cdn.pixabay.com/video/2021/04/15/71122-537102350_large.mp4"
-              )}
+            <div
+              className="bg-div" 
             >
               Background 4
-            </button>
+              <label className="switch">
+                <input 
+                  type="checkbox"
+                  checked={b4}
+                  onChange={() => setCookieValue("b4",
+                    "https://cdn.pixabay.com/video/2021/04/15/71122-537102350_large.mp4"
+                  )}
+                />
+                <span className="toggle-slider round"></span>
+              </label>
+            </div>
           </li>
           <li>
-            <button 
-              className="b5 b" 
-              id="hoverButton"
-              onClick={() => changeBg(
-                "https://cdn.pixabay.com/video/2021/10/10/91562-629172467_large.mp4"
-              )}
+            <div
+              className="bg-div" 
             >
               Background 5
-            </button>
+              <label className="switch">
+                <input 
+                  type="checkbox"
+                  checked={b5}
+                  onChange={() => setCookieValue("b5",
+                    "https://cdn.pixabay.com/video/2021/10/10/91562-629172467_large.mp4"
+                  )}
+                />
+                <span className="toggle-slider round"></span>
+              </label>
+            </div>
           </li>
           <li>
-            <button 
-              className="b6 b" 
-              id="hoverButton"
-              onClick={() => changeBg(
-                "https://cdn.pixabay.com/video/2019/10/09/27669-365224683_large.mp4"
-              )}
+            <div
+              className="bg-div" 
             >
               Background 6
-            </button>
-          </li>
-          <li>
-            <button 
-              className="rem b" 
-              id="hoverButton"
-              onClick={() => changeBg("")}
-            >
-              No Background
-            </button>
+              <label className="switch">
+                <input 
+                  type="checkbox"
+                  checked={b6}
+                  onChange={() => setCookieValue("b6",
+                    "https://cdn.pixabay.com/video/2019/10/09/27669-365224683_large.mp4"
+                  )}
+                />
+                <span className="toggle-slider round"></span>
+              </label>
+            </div>
           </li>
           <li>
             <div className="cust">
               <input
                 id="url-background"
                 className="ib" 
-                placeholder="Background URL" 
-                onChange={(event) => changeBg(event.target.value)}
+                placeholder="Background URL"
+                onChange={(event) => setCookieValue("cust", 
+                  event.target.value
+                )}
               />
             </div>
           </li>
@@ -117,8 +143,8 @@ export default function Bg({
               <label className="switch">
                 <input 
                   type="checkbox"
-                  defaultChecked={blur}
-                  onClick={() => changeBlur()}
+                  checked={blur}
+                  onChange={() => setCookieValue("blur", !blur)}
                 />
                 <span className="toggle-slider round"></span>
               </label>

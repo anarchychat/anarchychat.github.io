@@ -5,14 +5,14 @@ export async function registerDraw(io: Server) {
   console.log("Starting draw.ts")
 
   interface ServerToClientEvents {
-    'log': (a: { username: string, data: string }[] ) => void
-    'new drawing': (a: string, b: string) => void
+    'log': (a: { username: string, color: string, data: string }[] ) => void
+    'new drawing': (a: string, b: string, c: string) => void
     'username exists': () => void
   }
 
   interface ClientToServerEvents {
     'log': () => void
-    'new drawing': (a: string, b: string) => void
+    'new drawing': (a: string, b: string, c: string) => void
   }
 
   interface InterServerEvents {
@@ -27,8 +27,9 @@ export async function registerDraw(io: Server) {
   const DRAW_LOG_LIMIT_AMNT: number = 10
 
   // Drawings
-  const outerArray: {
+  const drawings: {
     username: string, 
+    color: string,
     data: string
   }[] = []
 
@@ -56,7 +57,7 @@ export async function registerDraw(io: Server) {
       socket.emit('log', getDrawlog())
     })
 
-    socket.on('new drawing', (username: string, data: string) => {
+    socket.on('new drawing', (username: string, color: string, data: string) => {
       if (checkIfUsernameExists(username, yourUsername, socket)) {
         console.log("Username already exists")
         return
@@ -75,12 +76,12 @@ export async function registerDraw(io: Server) {
         console.log("Changed username")
       }
 
-      setupDrawlog(username, data)
+      setupDrawlog(username, color, data)
 
       console.log("New drawing received: " + 
         username + ": " + data)
 
-      io.emit('new drawing', username, data)
+      io.emit('new drawing', username, color, data)
     })
   })
 
@@ -101,17 +102,17 @@ export async function registerDraw(io: Server) {
     return exists
   }
 
-  function setupDrawlog(username: string, data: string) {
-    outerArray.push({username, data})
+  function setupDrawlog(username: string, color: string, data: string) {
+    drawings.push({username, color, data})
 
-    if (outerArray.length > DRAW_LOG_LIMIT_AMNT) {
-      outerArray.shift()
+    if (drawings.length > DRAW_LOG_LIMIT_AMNT) {
+      drawings.shift()
     }
   }
 
   function getDrawlog() {
-    if (outerArray.length > 0) {
-      return outerArray
+    if (drawings.length > 0) {
+      return drawings
     }
 
     return []

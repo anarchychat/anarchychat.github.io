@@ -5,12 +5,12 @@ export async function registerVc(io: Server) {
   console.log("Starting vc.ts")
 
   interface ServerToClientEvents {
-    'user-connected': (a: string) => void
+    'user-connected': (a: string, b: string) => void
     'user-disconnected': (a: string) => void
   }
 
   interface ClientToServerEvents {
-    'join-room': (a: string, b: string) => void
+    'join-room': (a: string, b: string, c: string) => void
   }
 
   interface InterServerEvents {
@@ -28,12 +28,16 @@ export async function registerVc(io: Server) {
     InterServerEvents,
     SocketData
   >) => {
-    socket.on('join-room', (roomId: string, userId: string) => {
+    console.log("VC - connected")
+    socket.on('join-room', (roomId: string, userId: string, color: string) => {
       socket.join(roomId)
-      socket.broadcast.emit('user-connected', userId)
+      console.log("VC - joining: ", roomId)
+      io.to(roomId).emit('user-connected', userId, color)
+      console.log("VC - user-connected: ", userId, " ", color)
 
       socket.on('disconnect', () => {
-        socket.broadcast.emit('user-disconnected', userId)
+        io.to(roomId).emit('user-disconnected', userId)
+        console.log("VC - disconnect: ", userId)
       })
     })
   })

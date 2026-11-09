@@ -5,6 +5,7 @@ import { registerChat } from "./chat"
 import { registerDraw } from "./draw"
 import { registerDm } from "./dm"
 import { registerVc } from "./vc"
+import { PeerServer } from "peer"
 
 var hostname = "0.0.0.0"
 const dev = process.env.NODE_ENV !== "production"
@@ -27,6 +28,14 @@ export const socketOptions = {
   },
 }
   
+// opts, callback
+PeerServer({
+  port: 3001,
+  path: "/",
+})
+
+console.log("PeerServer: ", PeerServer)
+
 export const io_chat = new Server(httpServer, {  
   ...socketOptions,  
   path: "/socketio_chat/",

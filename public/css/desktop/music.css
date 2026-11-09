@@ -32,7 +32,7 @@
 }
 
 .music-ib {
-  backdrop-filter: blur(3px);
+  /* backdrop-filter: blur(3px); */
   background-color: #1d1d1dcc;
   width: 200px;
   box-sizing: border-box;
@@ -55,6 +55,7 @@
   gap: 10px;
   display: flex;
   flex-direction: column;
+  box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
 }
 
 .track-name {
@@ -90,11 +91,12 @@
 }
 
 .play-pause {
-
+  box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
 }
 
 .volume {
   margin-right: auto;
+  box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
   /* left: 0px; */
 }
 
@@ -122,6 +124,7 @@
   height: 45px;
   padding: 0 20px;
   font-size: 30px;
+  box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
 }
 
 .music-container {
@@ -138,4 +141,10 @@
   width: 330px;
   height: 400px;
   border-color: transparent;
+  box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
+  border-radius: 15px;
+}
+
+.url-music {
+  box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
 }

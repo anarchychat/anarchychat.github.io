@@ -1,13 +1,14 @@
 import {useState} from "react"
 
 export default function Game({
-  game, blur
+  game, blur, gameInput, setCookieValue
 }: {
   game: boolean,
-  blur: boolean
+  blur: boolean,
+  gameInput: string,
+  setCookieValue: (name: string, value: string) => void;
 }) {
-  const [gameFrame, setGameFrame] = useState(false);
-  const [input, setInput] = useState("");
+  const [fullscreen, setFullscreen] = useState(false);
 
   function onGameChange(e: string) {
     var url = e
@@ -21,42 +22,52 @@ export default function Game({
       url = e.replace('http://', '')
     }
     
-    setInput(url);
+    setCookieValue("game", url);
+  }
 
-    if (e === "") {
-      setGameFrame(false)
-      return
+  function gameFullscreen() {
+    setFullscreen(!fullscreen)
+
+    if (!fullscreen) {
+      console.log("run")
+
+
     }
-
-    setGameFrame(true)
   }
 
   return (
       <div id="game-page" 
-        className={`game-page ${blur ? "blur" : ""} ${game ? "active" : ""}`} 
+        className={`game-page ${blur ? "blur" : ""} 
+          ${game ? "active" : ""}`} 
         tabIndex={game ? 0 : -1}
         inert={!game}
       >
         <div id="gamePage" className="gamePageClass active">
           <form className="margins">
             <input 
-              className="gameURL" 
+              className="game-url" 
               type="text" 
-              id="gameURL" 
               name="gameURL" 
               placeholder="Game URL"
-              value={input}
+              value={gameInput}
               onChange={(e) => onGameChange(e.target.value)}
             />
           </form>
-          <div id="gameFrame">
-            {gameFrame && (
+          {gameInput && (
+            <div className="game-frame">
               <iframe 
-                className="gameURL" 
-                src={`https://${input}`}
+                className={`game-iframe ${fullscreen ? 'game-fs' : ''}`}
+                src={`https://${gameInput}`}
               />
-            )}
-          </div>
+              <div className="game-row">
+                <button
+                  className={`game-fullscreen ti ti-arrows-maximize
+                    ${fullscreen ? 'game-fs-button' : ''}`}
+                  onClick={() => gameFullscreen()}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
   );

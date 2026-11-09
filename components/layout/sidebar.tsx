@@ -1,18 +1,15 @@
-import {useState} from "react"
+import { useState } from "react"
 
 export default function Sidebar({
-  setGame, setDraw, setChat, setBlock,
-  setMusic, setBg, setDm, setVc, blur
+  blur, game, draw, chat, block, music,
+  bg, dm, vc, setCookieValue
 }: {
-  setGame: () => void;
-  setDraw: () => void;
-  setChat: () => void;
-  setBlock: () => void;
-  setMusic: () => void;
-  setBg: () => void;
-  setDm: () => void;
-  setVc: () => void;
-  blur: boolean;
+  blur: boolean; game: boolean;
+  draw: boolean; chat: boolean;
+  block: boolean; music: boolean;
+  bg: boolean; dm: boolean;
+  vc: boolean;
+  setCookieValue: (name: string, value: string) => void;
 }) {
   const [fs, setFs] = useState(false);
 
@@ -32,49 +29,57 @@ export default function Sidebar({
       <div className="sbt button list opac">
         <a id="game-page-btn" 
           className="item nav-button desktop-button"
-          onClick={() => setGame()}
+          style={game ? {backgroundColor: 'rgba(255,255,255,0.1)'} : {}}
+          onClick={() => setCookieValue("btn", "game")}
         >
           <i className="ti ti-device-gamepad" />
         </a>
         <a id="draw-page-btn" 
           className="item nav-button desktop-button"
-          onClick={() => setDraw()}
+          style={draw ? {backgroundColor: 'rgba(255,255,255,0.1)'} : {}}
+          onClick={() => setCookieValue("btn", "draw")}
         >
           <i className="ti ti-pencil" />
         </a>
         <a id="chat-page-btn"
           className="item nav-button desktop-button"
-          onClick={() => setChat()}
+          style={chat ? {backgroundColor: 'rgba(255,255,255,0.1)'} : {}}
+          onClick={() => setCookieValue("btn", "chat")}
         >
           <i className="ti ti-message" />
         </a>
         <a id="block-page-btn"
           className="item nav-button desktop-button"
-          onClick={() => setBlock()}
+          style={block ? {backgroundColor: 'rgba(255,255,255,0.1)'} : {}}
+          onClick={() => setCookieValue("btn", "block")}
         >
           <i className="ti ti-forbid-2" />
         </a>
         <a id="music-page-btn"
           className="item nav-button desktop-button"
-          onClick={() => setMusic()}
+          style={music ? {backgroundColor: 'rgba(255,255,255,0.1)'} : {}}
+          onClick={() => setCookieValue("btn", "music")}
         >
           <i className="ti ti-music" />
         </a>
         <a id="background-page-btn"
           className="item nav-button desktop-button"
-          onClick={() => setBg()}
+          style={bg ? {backgroundColor: 'rgba(255,255,255,0.1)'} : {}}
+          onClick={() => setCookieValue("btn", "bg")}
         >
           <i className="ti ti-polaroid" />
         </a>
         <a id="dm-page-btn"
           className="item nav-button desktop-button"
-          onClick={() => setDm()}
+          style={dm ? {backgroundColor: 'rgba(255,255,255,0.1)'} : {}}
+          onClick={() => setCookieValue("btn", "dm")}
         >
           <i className="ti ti-messages" />
         </a>
         <a id="voicechat-page-btn"
           className="item nav-button desktop-button"
-          onClick={() => setVc()}
+          style={vc ? {backgroundColor: 'rgba(255,255,255,0.1)'} : {}}
+          onClick={() => setCookieValue("btn", "vc")}
         >
           <i className="ti ti-microphone" />
         </a>

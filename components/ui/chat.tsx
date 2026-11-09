@@ -1,37 +1,37 @@
-import { useEffect, useState } from "react"
+import { SetStateAction, Dispatch, useEffect, useState } from "react"
 import { socketio_chat } from "../logic/socket"
 import * as userInfo from "../logic/userInfo"
-var domain = "http://localhost:3000"
+import { setCookie } from "../logic/cookie"
 
 var cancelled = false
 
 export default function Chat({
-  chat, blur
+  chat, blur, blockData, yourName, color, setCookieValue
 }: {
   chat: boolean,
-  blur: boolean
+  blur: boolean,
+  blockData: string[],
+  yourName: string,
+  color: string,
+  setCookieValue: (name: string, value: string) => void,
 }) {
-  const [yourName, setYourName] = useState("Guest")
   const [yourMessage, setYourMessage] = useState("")
   const [roomname, setRoomname] = useState("Chatroom 1")
-  const [color, setColor] = useState("#000000")
   const [messages, setMessages] = useState<{
     username: string,
-    message: string
+    message: string,
+    color: string
   }[]>([])
   const [chatrooms, setChatrooms] = useState<{
     name: string
   }[]>([])
   const [chatroomBtns, setChatroomBtns] = useState(false)
-  var i = 0
 
   console.log("CHAT TEST")
 
   useEffect(() =>  {
     if (!cancelled) {
-      setColor(userInfo.getRandomColor())
-      setYourName("Guest" + userInfo.getRandomDigit())
-      userInfo.addChatrooms(setChatrooms)
+      userInfo.addChatrooms({setChatrooms: setChatrooms})
     }
 
     // Properly make client disconnect on page refresh 
@@ -52,28 +52,42 @@ export default function Chat({
       console.log("Socket connection error:", error.message)
     })
 
-    socketio_chat.on("new message", (username, message) => {
+    socketio_chat.on("new message", (username, message, color) => {
       console.log("Receiving message1: " + username + ": " + message)
-      userInfo.addChatMessage(username, message, setMessages)
+      userInfo.addChatMessage({
+        username: username, 
+        message: message, 
+        color: color,
+        setMessages: setMessages
+      })
     })
 
-    socketio_chat.on('log', (data) => {
+    socketio_chat.on('log', (data: string[]) => {
       setMessages([])
       console.log("Receiving logs: " + data)
-      userInfo.addChatLog(data, setMessages)
+      userInfo.addChatLog({
+        data: data,
+        setMessages: setMessages
+      })
     })
 
     socketio_chat.on('muted', () => {
       console.log("muted...")
-      userInfo.addChatMessage("Console", "You've been muted, please wait",
-        setMessages
-      )
+      userInfo.addChatMessage({
+        username: "Console", 
+        message: "You've been muted, please wait",
+        color: "#000000",
+        setMessages: setMessages
+      })
     })
 
     socketio_chat.on('username exists', () => {
-      userInfo.addChatMessage("Console", "Username is already being used!",
-        setMessages
-      )
+      userInfo.addChatMessage({
+        username: "Console", 
+        message: "Username is already being used!",
+        color: "#000000",
+        setMessages: setMessages
+      })
       console.log("Username exists")
     })
 
@@ -87,6 +101,17 @@ export default function Chat({
     }
   }, [socketio_chat])
 
+  function blockInArray(item: {username: string}) {
+    for (const blockedUsername of blockData) {
+      if (item.username === blockedUsername) {
+        console.log("EQUAL")
+        return false
+      }
+    }
+    console.log("NOT EQUAL")
+    return true
+  }
+
   return (
     <div id="chat-page" 
       className={`chat-page ${blur ? "blur" : ""} ${chat ? "active" : ""}`}
@@ -98,13 +123,18 @@ export default function Chat({
         className={`chatroom-btns-page ${chatroomBtns ? "active" : ""}`}
       >
         <form id="chat-name-home" onSubmit={
-          (e) => userInfo.handleSubmit(
-            e, yourName, yourMessage, socketio_chat, setYourMessage
-          )
+          (e) => userInfo.handleSubmit({
+            event: e, 
+            yourName: yourName, 
+            yourMessage: yourMessage, 
+            color: color,
+            socketio: socketio_chat, 
+            setYourMessage: setYourMessage
+          })
         }>
           <input
             value={yourName}
-            onChange={(e) => setYourName(e.target.value)} 
+            onChange={(e) => setCookieValue("name", e.target.value)} 
             type="text" 
             id="chat-nme" 
             placeholder="Name" 
@@ -117,7 +147,7 @@ export default function Chat({
             style={{
               color: color,
             }}
-            onClick={() => setColor(userInfo.getRandomColor())}
+            onClick={() => setCookieValue("color", userInfo.getRandomColor())}
           />
         </form>
         <div className="header">Chatrooms</div>
@@ -127,10 +157,13 @@ export default function Chat({
               <button 
                 key={chatroom.name} 
                 className="hoverButton chatroom-btns" 
-                onClick={() => userInfo.clickChatBtn(
-                  chatroom.name, setMessages, setRoomname, 
-                  socketio_chat, setChatroomBtns
-                )}
+                onClick={() => userInfo.clickChatBtn({
+                  roomname: chatroom.name, 
+                  setMessages: setMessages, 
+                  setRoomname: setRoomname, 
+                  socketio: socketio_chat, 
+                  setChatroomBtns: setChatroomBtns
+                })}
               >
                 {chatroom.name}
               </button>
@@ -141,9 +174,14 @@ export default function Chat({
 
       <div id="chatroom" className={`chatroom ${chatroomBtns ? "" : "active"}`}>
         <div id="chat" className="chat">
-          <form id="message" onSubmit={(e) => userInfo.handleSubmit(
-            e, yourName, yourMessage, socketio_chat, setYourMessage
-          )}>
+          <form id="message" onSubmit={(e) => userInfo.handleSubmit({
+            event: e, 
+            yourName: yourName, 
+            yourMessage: yourMessage, 
+            color: color,
+            socketio: socketio_chat, 
+            setYourMessage: setYourMessage
+          })}>
             <input
               value={yourMessage}
               onChange={(e) => setYourMessage(e.target.value)}
@@ -158,19 +196,31 @@ export default function Chat({
               id="send"
               value="Send"
               className="ti ti-send"
-              onClick={() => userInfo.handleClick(yourName, yourMessage,
-                socketio_chat, setYourMessage
-              )}
+              onClick={() => userInfo.handleClick({
+                yourName: yourName, 
+                yourMessage: yourMessage,
+                color: color,
+                socketio: socketio_chat, 
+                setYourMessage: setYourMessage
+              })}
             />
           </form>
           <div id="log">
-            {messages.map((message) => (
-              <li key={i += 1}>{message.username}: {message.message}</li>
+            {messages.filter(username => blockInArray(username)).map((message, i) => (
+              <li key={i}>
+                <p className="chat-username" style={{color: message.color}}>{message.username}</p>
+                <p className="chat-message">: {message.message}</p>
+              </li>
             ))} 
           </div>
-          <form id="name" onSubmit={(e) => userInfo.handleSubmit(
-            e, yourName, yourMessage, socketio_chat, setYourMessage
-          )}>
+          <form id="name" onSubmit={(e) => userInfo.handleSubmit({
+            event: e, 
+            yourName: yourName, 
+            yourMessage: yourMessage, 
+            color: color,
+            socketio: socketio_chat, 
+            setYourMessage: setYourMessage
+          })}>
             <button
               id="backarrow" 
               className="ti ti-logout backarrow hoverButton"
@@ -178,7 +228,7 @@ export default function Chat({
             />
             <input
               value={yourName}
-              onChange={(e) => setYourName(e.target.value)} 
+              onChange={(e) => setCookieValue("name", e.target.value)} 
               type="text" 
               id="nme" 
               placeholder="Name" 
@@ -191,7 +241,7 @@ export default function Chat({
               style={{
                 color: color,
               }}
-              onClick={() => setColor(userInfo.getRandomColor())}
+              onClick={() => setCookieValue("color", userInfo.getRandomColor())}
             />
           </form>
         </div>

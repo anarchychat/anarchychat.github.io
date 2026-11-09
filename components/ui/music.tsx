@@ -1,17 +1,20 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import * as cookie from "@/components/logic/cookie"
 
 // Use sample music from here: https://samplelib.com/sample-mp3.html
 
 export default function Music({
-  music, blur
+  music, savedMusicInput, blur, setCookieValue
 }: {
   music: boolean,
-  blur: boolean
+  savedMusicInput: string,
+  blur: boolean,
+  setCookieValue: (name: string, value: string) => void,
 }) {
   const [volume, setVolume] = useState(false)
   const [volumeNum ,setVolumeNum] = useState(50)
   const [play, setPlay] = useState(false)
-  const [input, setInput] = useState("")
+  const [musicInput, setMusicInput] = useState("")
   const [spotifyInput, setSpotifyInput] = useState("")
   const [spotifyFrame, setSpotifyFrame] = useState(false)
   const [totalTime, setTotalTime] = useState(0)
@@ -22,29 +25,39 @@ export default function Music({
   const [currentTimeSec, setCurrentTimeSec] = useState("00")
   const [trackName, setTrackName] = useState("")
   const [isMusicChanged, setIsMusicChanged] = useState(false)
+  const musicRef = useRef<HTMLInputElement>(null)
   const musicPlayer = useRef<HTMLAudioElement>(null)
-  
-  function onMusicChange(e: string) {
-    var url = e
 
-    if (url.includes("https://")) {
-      console.log("https: ", e)
-      url = e.replace('https://', '')
+  useEffect(() => {
+    if (cookie.getCookie("music")) {
+      onMusicChange(cookie.getCookie("music") as string)
     }
-    if (url.includes("http://")) {
-      console.log("http: ", e)
-      url = e.replace('http://', '')
+  }, [])
+
+  function onMusicChange(url: string) {
+    console.log("MUSIC RUNNING CHANGE")
+    var newUrl = url
+
+    if (newUrl.includes("https://")) {
+      console.log("https: ", url)
+      newUrl = url.replace('https://', '')
+    }
+    if (newUrl.includes("http://")) {
+      console.log("http: ", url)
+      newUrl = url.replace('http://', '')
     }
 
-    if (url.includes("spotify.com")) {
-      if (!url.includes("embed")) {
+    if (newUrl.includes("spotify.com")) {
+      if (!newUrl.includes("embed")) {
         console.log("no embed")
-        const find = url.indexOf("/")
-        const res = url.substring(0, find) + "/embed" + url.substring(find)
+        const find = newUrl.indexOf("/")
+        const res = newUrl.substring(0, find) + "/embed" + 
+          newUrl.substring(find)
         console.log("res: ", res)
         setSpotifyInput(res)
       }
-      setInput("")
+      setCookieValue("music", newUrl)
+      setMusicInput("")
       setTrackName("")
       setTotalTimeMin("0")
       setCurrentTimeMin("0")
@@ -55,9 +68,11 @@ export default function Music({
     }
 
     setSpotifyInput("")
-    setInput(url)
+    setCookieValue("music", newUrl)
+    setMusicInput(newUrl)
 
-    const fileName = url.substring(url.lastIndexOf("/") + 1, url.length)
+    const fileName = newUrl.substring(newUrl.lastIndexOf("/") + 1, 
+      newUrl.length)
     console.log("fileName: ", fileName)
     setTrackName(fileName)
     setSpotifyFrame(false)
@@ -211,11 +226,11 @@ export default function Music({
             </div>
           </div>
 
-          {input && (
+          {musicInput && (
             <audio
               onLoadedMetadata={timeUpdateHandler}
               onTimeUpdate={timeUpdateHandler}
-              src={`https://${input}`}
+              src={`https://${musicInput}`}
               ref={musicPlayer}
             ></audio>
           )}
@@ -223,6 +238,8 @@ export default function Music({
           <input
             className="url-music music-ib"
             placeholder="Music URL" 
+            ref={musicRef}
+            value={savedMusicInput}
             onChange={(e) => onMusicChange(e.target.value)}
           />
         </div>
