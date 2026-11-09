@@ -211,15 +211,17 @@ export default function Draw({
 
   function addDraw(username: string, color: string, data: string) {
     console.log("Receiving message2: " + username + ": " + data)
-    setDrawings((current) => [...current, 
-      {username: username, color: color, data: data}
+    setDrawings((current) => [
+      {username: username, color: color, data: data},
+      ...current
     ])
   }
 
   function addDrawLog(data: any) {
     data.forEach((prop: any) => {
-      setDrawings((current) => [...current, 
-        {username: prop.username, color: prop.color, data: prop.data}
+      setDrawings((current) => [
+        {username: prop.username, color: prop.color, data: prop.data},
+        ...current
       ])
     })
   }
