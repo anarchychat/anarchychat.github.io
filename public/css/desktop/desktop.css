@@ -84,3 +84,7 @@ html, body {
   height: 100%;
   object-fit: cover;
 }
+
+input, textarea, select {
+  outline: none;
+}

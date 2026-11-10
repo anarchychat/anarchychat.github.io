@@ -189,7 +189,7 @@ export default function Dm({
             value={yourName}
             onChange={(e) => updateName(e.target.value)} 
             type="text" 
-            id="dm-nme" 
+            id="home-dm-nme" 
             placeholder="Name" 
             size={58}
             autoComplete="off"

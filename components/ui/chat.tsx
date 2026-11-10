@@ -150,25 +150,24 @@ export default function Chat({
             onClick={() => setCookieValue("color", userInfo.getRandomColor())}
           />
         </form>
-        <div className="header">Chatrooms</div>
-        <div id="chatroom-btns" className="chatroom-btns">
-          <li className="chatroom-btns">
-            {chatrooms.map((chatroom) => (
-              <button 
-                key={chatroom.name} 
-                className="hoverButton chatroom-btns" 
-                onClick={() => userInfo.clickChatBtn({
-                  roomname: chatroom.name, 
-                  setMessages: setMessages, 
-                  setRoomname: setRoomname, 
-                  socketio: socketio_chat, 
-                  setChatroomBtns: setChatroomBtns
-                })}
-              >
-                {chatroom.name}
-              </button>
-            ))}
+        <div className="chatroom-btns-list">
+          <li className="chat-header">Chatrooms</li>
+          {chatrooms.map((chatroom, i) => (
+          <li key={i}>
+            <button 
+              className="hoverButton chatroom-btns" 
+              onClick={() => userInfo.clickChatBtn({
+                roomname: chatroom.name, 
+                setMessages: setMessages, 
+                setRoomname: setRoomname, 
+                socketio: socketio_chat, 
+                setChatroomBtns: setChatroomBtns
+              })}
+            >
+              {chatroom.name}
+            </button>
           </li>
+          ))}
         </div>
       </div>
 

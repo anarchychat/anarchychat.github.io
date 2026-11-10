@@ -83,12 +83,14 @@
   padding: 0.5em 0em 0.5em 0em;
 }
 
-#dm-nme {
+#home-dm-nme,
+#dm-nme,
+#dm-msg {
   border: none;
   background-color: transparent;
   /* height: 10%; */
   padding: 0 0.5em;
-  width: 100%;
+  width: calc(100% - 96px);
   color: white;
   font-size: 16px;
   color:rgba(255,255,255,0.9);
@@ -97,18 +99,12 @@
   box-sizing:border-box;
 }
 
+#dm-nme {
+  width: calc(100% - 96px)
+}
+#home-dm-nme,
 #dm-msg {
-  border: none;
-  background-color: transparent;
-  /* height: 10%; */
-  padding: 0 0.5em;
-  width: 100%;
-  color: white;
-  font-size: 16px;
-  color:rgba(255,255,255,0.9);
-  font:inherit;
-  line-height:1em;
-  box-sizing:border-box;
+  width: calc(100% - 48px)
 }
 
 #dm-name {
@@ -153,7 +149,7 @@
   flex-direction: column-reverse;
   display: flex;
   flex-grow: 1;
-  height: calc(100vh - 148px);
+  height: calc(100vh - 180px);
   overflow-y: auto;
   gap: 10px;
   list-style: none;
@@ -178,32 +174,9 @@
   height: 48px;
 }
 
-#dm-colorpicker {
-  /* color: rgb(53, 84, 192); */
-  width: 50px;
-  /* height: 21px; */
-  /* background-color: rgb(53, 84, 192); */
-  display: inline-block;
-  /* vertical-align: bottom; */
-  color: rgb(151, 190, 136);
-  width: 53.33px;
-  font-Weight: 600;
-  padding: 0.5rem; 
-  font-size: 28px; 
-  font-style: normal; 
-  display: block;
-  background-color: transparent;
-  border-color: transparent;
-}
-
+#dm-colorpicker,
 #dm-colorpicker-home {
-  /* color: rgb(53, 84, 192); */
-  width: 50px;
-  /* height: 21px; */
-  /* background-color: rgb(53, 84, 192); */
   display: inline-block;
-  /* vertical-align: bottom; */
-  color: rgb(151, 190, 136);
   width: 53.33px;
   font-Weight: 600;
   font-size: 28px; 
@@ -213,20 +186,29 @@
   border-color: transparent;
 }
 
-#dm-send {
-  width: 50px;
+#dm-send,
+#dm-backarrow {
   background-color: transparent;
   color: white; 
-  width: 53.33px; 
-  font-weight: 600; 
   font-size: 28px; 
-  font-style: normal; 
   display: block;
   border-color: transparent;
 }
 
+#dm-colorpicker,
+#dm-colorpicker-home,
+#dm-send,
 #dm-backarrow {
-  font-size: 28px; 
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+}
+
+#dm-colorpicker:hover,
+#dm-colorpicker-home:hover,
+#dm-send:hover,
+#dm-backarrow:hover {
+  background-color: rgba(255, 255, 255, 0.5)
 }
 
 .header {

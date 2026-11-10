@@ -260,13 +260,13 @@ export default function Draw({
               value={yourName}
               onChange={(e) => setCookieValue("name", e.target.value)} 
               type="text" 
-              id="chat-nme" 
+              id="home-draw-nme" 
               placeholder="Name" 
               size={58}
               autoComplete="off"
             />
             <button
-              id="chat-colorpicker-home" 
+              id="home-draw-colorpicker" 
               className="ti ti-palette"
               style={{
                 color: color,
@@ -314,13 +314,13 @@ export default function Draw({
               value={yourName}
               onChange={(e) => setCookieValue("name", e.target.value)} 
               type="text" 
-              id="chat-nme" 
+              id="draw-nme" 
               placeholder="Name" 
               size={58}
               autoComplete="off"
             />
             <button
-              id="chat-colorpicker-home" 
+              id="draw-colorpicker" 
               className="ti ti-palette"
               style={{
                 color: color,

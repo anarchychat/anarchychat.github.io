@@ -250,17 +250,10 @@
 
 #draw-name-home {
   margin: 0;
-  top: 1em;
-  left: 0px;
   width: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: row;
-  height: 40px;
-  display: grid;
-  grid-template-areas: input button;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: 48px;
   height: 48px;
 }
 
@@ -366,3 +359,37 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+
+.wipe:hover, .neon:hover,
+.eraser:hover, .backarrow:hover,
+.checkmark:hover,
+#home-draw-colorpicker:hover,
+#draw-colorpicker:hover {
+  background-color: rgba(255,255,255,0.5);
+}
+
+#home-draw-nme,
+#draw-nme {
+  border: none;
+  background-color: transparent;
+  padding: 0 0.5em;
+  width: calc(100% - 48px);
+  color: rgba(255,255,255,0.9);
+  font: inherit;
+  line-height: 1em;
+  box-sizing: border-box;
+}
+
+#home-draw-colorpicker, 
+#draw-colorpicker {
+  font-weight: 600;
+  font-size: 28px;
+  font-style: normal;
+  display: block;
+  background-color: transparent;
+  border-color: transparent;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+}
+

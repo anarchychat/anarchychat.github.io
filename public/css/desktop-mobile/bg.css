@@ -30,13 +30,7 @@
 }
 
 .sidebars .header-bg {
-  /* color: #fc0; */
   font-size: 1.25rem;
-  font-weight: bold;
-  /* -webkit-background-clip: text; */
-  /* display: none; */
-  background-size: 200px 100%;
-  background-repeat: no-repeat;
   font-weight: bold;
 }
 

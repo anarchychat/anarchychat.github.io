@@ -15,79 +15,42 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+
         <link rel="stylesheet" 
-        media='screen and (max-width: 600px)' 
-        href="/css/mobile/layout/sidebar.css"/>
+        href="/css/desktop-mobile/layout/sidebar.css"/>
         <link rel="stylesheet" 
-        media='screen and (max-width: 600px)' 
-        href="/css/mobile/layout/topbar.css"/>
+        href="/css/desktop-mobile/bg.css"/>
         <link rel="stylesheet" 
-        media='screen and (max-width: 600px)' 
-        href="/css/mobile/bg.css"/>
+        href="/css/desktop-mobile/block.css"/>
         <link rel="stylesheet" 
-        media='screen and (max-width: 600px)' 
-        href="/css/mobile/block.css"/>
+        href="/css/desktop-mobile/chat.css"/>
         <link rel="stylesheet" 
-        media='screen and (max-width: 600px)' 
-        href="/css/mobile/chat.css"/>
+        href="/css/desktop-mobile/dm.css"/>
         <link rel="stylesheet" 
-        media='screen and (max-width: 600px)' 
-        href="/css/mobile/dm.css"/>
+        href="/css/desktop-mobile/draw.css"/>
         <link rel="stylesheet" 
-        media='screen and (max-width: 600px)' 
-        href="/css/mobile/draw.css"/>
+        href="/css/desktop-mobile/game.css"/>
         <link rel="stylesheet" 
-        media='screen and (max-width: 600px)' 
-        href="/css/mobile/game.css"/>
+        href="/css/desktop-mobile/music.css"/>
+        <link rel="stylesheet" 
+        href="/css/desktop-mobile/performancemode.css"/>
+        <link rel="stylesheet" 
+        href="/css/desktop-mobile/vc.css"/>
+
         <link rel="stylesheet" 
         media='screen and (max-width: 600px)' 
         href="/css/mobile/mobile.css"/>
         <link rel="stylesheet" 
         media='screen and (max-width: 600px)' 
-        href="/css/mobile/music.css"/>
-        <link rel="stylesheet" 
-        media='screen and (max-width: 600px)' 
-        href="/css/mobile/performancemode.css"/>
-        <link rel="stylesheet" 
-        media='screen and (max-width: 600px)' 
-        href="/css/mobile/vc.css"/>
+        href="/css/mobile/layout/topbar.css"/>
 
-        <link rel="stylesheet" 
-        media='screen and (min-width: 601px)' 
-        href="/css/desktop/layout/sidebar.css"/>
-        <link rel="stylesheet" 
-        media='screen and (min-width: 601px)' 
-        href="/css/desktop/layout/topbar.css"/>
-        <link rel="stylesheet" 
-        media='screen and (min-width: 601px)' 
-        href="/css/desktop/bg.css"/>
-        <link rel="stylesheet" 
-        media='screen and (min-width: 601px)' 
-        href="/css/desktop/block.css"/>
-        <link rel="stylesheet" 
-        media='screen and (min-width: 601px)' 
-        href="/css/desktop/chat.css"/>
-        <link rel="stylesheet" 
-        media='screen and (min-width: 601px)' 
-        href="/css/desktop/dm.css"/>
-        <link rel="stylesheet" 
-        media='screen and (min-width: 601px)' 
-        href="/css/desktop/draw.css"/>
-        <link rel="stylesheet" 
-        media='screen and (min-width: 601px)' 
-        href="/css/desktop/game.css"/>
         <link rel="stylesheet" 
         media='screen and (min-width: 601px)' 
         href="/css/desktop/desktop.css"/>
         <link rel="stylesheet" 
         media='screen and (min-width: 601px)' 
-        href="/css/desktop/music.css"/>
-        <link rel="stylesheet" 
-        media='screen and (min-width: 601px)' 
-        href="/css/desktop/performancemode.css"/>
-        <link rel="stylesheet" 
-        media='screen and (min-width: 601px)' 
-        href="/css/desktop/vc.css"/>
+        href="/css/desktop/layout/topbar.css"/>
+
       </head>
       <body>
         {children}
