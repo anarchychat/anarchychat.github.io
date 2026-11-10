@@ -21,13 +21,13 @@ export default function Bg({
       <div className="sidebars">
         <div className="backgroundstyles">
           <li className="header-bg">
-            Anarchy Chat
+            Backgrounds
           </li>
           <li>
             <div
               className="bg-div" 
             >
-              Background 1
+              Particle Rays
               <label className="switch">
                 <input 
                   type="checkbox"
@@ -44,7 +44,7 @@ export default function Bg({
             <div
               className="bg-div" 
             >
-              Background 2
+              Nebula Space
               <label className="switch">
                 <input 
                   type="checkbox"
@@ -61,7 +61,7 @@ export default function Bg({
             <div
               className="bg-div" 
             >
-              Background 3
+              Green Particles
               <label className="switch">
                 <input 
                   type="checkbox"
@@ -78,7 +78,7 @@ export default function Bg({
             <div
               className="bg-div" 
             >
-              Background 4
+              Sea Waves
               <label className="switch">
                 <input 
                   type="checkbox"
@@ -95,7 +95,7 @@ export default function Bg({
             <div
               className="bg-div" 
             >
-              Background 5
+              Lake Sunset
               <label className="switch">
                 <input 
                   type="checkbox"
@@ -112,7 +112,7 @@ export default function Bg({
             <div
               className="bg-div" 
             >
-              Background 6
+              Particle Plexus
               <label className="switch">
                 <input 
                   type="checkbox"
