@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV='development' DOCKER_ENV='false' tsx docker-entrypoint.ts",
+    "dev": "tsx launch-scripts/dev.ts",
     "build": "next build",
-    "start": "NODE_ENV='production' DOCKER_ENV='false' tsx docker-entrypoint.ts",
+    "start": "tsx launch-scripts/prod.ts",
     "lint": "eslint"
   },
   "dependencies": {

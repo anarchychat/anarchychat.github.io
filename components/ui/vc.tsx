@@ -103,6 +103,7 @@ export default function Vc({
 
     stream.then((stream: MediaStream) => {
       addVideoStream(0, stream)
+      audioRefs.current[0].muted = true
 
       myPeer.on('call', (call: any) => {
         call.answer(stream)
@@ -117,11 +118,18 @@ export default function Vc({
 
       socketio_vc.on('user-disconnected', (userId) => {
         if (peers[userId as keyof typeof peers]) peers[userId as keyof typeof peers].close()
+        const index = users.findLastIndex(
+            (current) => current.name === userId
+          )
+        let temp = users
+        temp.splice(index, 1)
+        console.log("USERS: ", temp)
+        setUsers(temp)
       })
 
       myPeer.on('open', id => {
-        console.log("Joining room: ", roomname, " ", id)
-        socketio_vc.emit('join-room', roomname, id, color)
+        console.log("Joining room: ", roomname, ", id:", id, ", yourName: ", yourName)
+        socketio_vc.emit('join-room', roomname, yourName, color)
       })
     })
   }
@@ -142,7 +150,7 @@ export default function Vc({
     stream.then((stream: MediaStream) => {
       stream.getAudioTracks()[0].enabled = false
     })
-  };
+  }
 
   function connectToNewUser(userId: string, color: string, stream: MediaStream) {
     const call = myPeer.call(userId, stream)
@@ -152,6 +160,9 @@ export default function Vc({
       ...current,
       {name: userId, color: color}
     ])
+    let temp = users
+    temp.push({name: userId, color: color})
+    console.log("USERS-connected: ", temp)
     call.on('stream', userVideoStream => {
       addVideoStream(i, userVideoStream)
     })
@@ -260,9 +271,15 @@ export default function Vc({
               onClick={() => microphone()}
             />
           </form>
+          <div className="yourself">
+            {yourName}
+          </div>
           <div id="voice-log">
             {users.filter(username => blockInArray(username)).map((user, i) => (
-              <li key={i} style={{color: user.color}}>
+              <li key={i} 
+                className={`name-plate ${i === 0 ? "yourself-hide" : ""}`} 
+                style={{color: user.color}}
+              >
                 {user.name}
                 <audio
                   ref={(node) => {

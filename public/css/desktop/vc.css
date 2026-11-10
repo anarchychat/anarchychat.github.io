@@ -133,13 +133,24 @@
   right: 0.5em;
   bottom: 3em;
   overflow: auto;
-  flex-direction: column-reverse;
+  flex-direction: row;
   display: flex;
   flex-grow: 1;
   height: calc(100vh - 148px);
   overflow-y: auto;
   gap: 10px;
   list-style: none;
+  place-content: center;
+  place-items: center;
+  place-self: center;
+}
+
+.name-plate {
+  background-color: rgba(29, 29, 29, 0.8);
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
+  border: 1px solid rgba(255,255,255,0.05);
 }
 
 #voice-message {
@@ -271,4 +282,16 @@
 
 .hoverButton:hover {
   background-color: rgba(255,255,255,0.5) !important;
+}
+
+.yourself {
+  place-self: center;
+  text-shadow: 0 0 1em blue;
+}
+
+.yourself-hide {
+  display: none;
+  visibility: hidden;
+  width: 0px;
+  height: 0px;
 }

@@ -32,11 +32,11 @@ export async function registerVc(io: Server) {
     socket.on('join-room', (roomId: string, userId: string, color: string) => {
       socket.join(roomId)
       console.log("VC - joining: ", roomId)
-      io.to(roomId).emit('user-connected', userId, color)
+      socket.to(roomId).emit('user-connected', userId, color)
       console.log("VC - user-connected: ", userId, " ", color)
 
       socket.on('disconnect', () => {
-        io.to(roomId).emit('user-disconnected', userId)
+        socket.to(roomId).emit('user-disconnected', userId)
         console.log("VC - disconnect: ", userId)
       })
     })
